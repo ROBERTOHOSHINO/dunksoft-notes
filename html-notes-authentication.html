@@ -426,6 +426,139 @@ footer p {
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════════════════════
+     COLOURFUL JAPAN 共通ヘッダー  v1 2026-06-18 Roberto Hoshino 
+     各 html-notes の <body> 直後に、この一式をそのまま貼り付け。
+     notes-index.json から自分のメタデータを自動取得します。
+     （ファイル名で照合するので、各notesに個別設定は不要）
+     ═══════════════════════════════════════════════════════════ -->
+<div id="cj-header"></div>
+
+<style>
+  #cj-header { font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif; }
+  .cjh-card {
+    background:#FAFAF8; border:0.5px solid rgba(0,0,0,0.1);
+    border-radius:12px; overflow:hidden; margin:0 auto 1.5rem;
+    max-width:860px; display:flex; flex-direction:column;
+  }
+  .cjh-pic {
+    width:100%; max-height:240px; object-fit:cover; display:block;
+    background:#e8e6e0;
+  }
+  .cjh-pic.cjh-empty { display:none; }
+  .cjh-body { padding:18px 22px 20px; }
+  .cjh-nav { display:flex; align-items:center; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+  .cjh-home {
+    font-size:12px; letter-spacing:.1em; color:#6b6b66;
+    text-decoration:none; margin-right:6px; white-space:nowrap;
+  }
+  .cjh-home:hover { color:#1a1a18; }
+  .cjh-dot {
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:500; text-decoration:none;
+    opacity:.35; transition:opacity .15s, transform .1s;
+  }
+  .cjh-dot:hover { transform:scale(1.1); opacity:.85; }
+  .cjh-dot.on { opacity:1; }
+  .cjh-dot.on:hover { opacity:1; }
+  .cjh-d-認 { background:#378ADD; color:#E6F1FB; }
+  .cjh-d-市 { background:#BA7517; color:#FAEEDA; }
+  .cjh-d-語 { background:#534AB7; color:#EEEDFE; }
+  .cjh-d-町 { background:#3B6D11; color:#EAF3DE; }
+  .cjh-title { font-size:21px; font-weight:500; line-height:1.5; margin-bottom:7px; color:#1a1a18; }
+  .cjh-meta { font-size:12px; color:#6b6b66; letter-spacing:.05em; }
+  .cjh-kw { font-size:12px; color:#6b6b66; margin-top:9px; letter-spacing:.1em; }
+  .cjh-coined {
+    display:inline-block; font-size:12px; margin-top:10px;
+    padding:4px 12px; border-radius:12px;
+    background:#EEEDFE; color:#3C3489; letter-spacing:.02em; line-height:1.6;
+  }
+  @media (min-width: 720px) {
+    .cjh-card { flex-direction:row; align-items:stretch; }
+    .cjh-pic { width:200px; max-height:none; flex-shrink:0; }
+    .cjh-body { flex:1; min-width:0; }
+  }
+</style>
+
+<script>
+(function(){
+  var NOTES_BASE = 'https://notes.dunksoft.jp/';
+  var PIC_BASE   = 'https://picture.dunksoft.jp/';
+  var CATS = ['認','市','語','町'];
+  var CAT_DESC = { '認':'認証・技術', '市':'Marketing・市づくり', '語':'コラム・物語', '町':'文化・コミュニティ' };
+
+  // 自分のファイル名を取得（パスの末尾）
+  var myFile = decodeURIComponent(location.pathname.split('/').pop() || '');
+  if (!myFile) myFile = 'index.html';
+
+  fetch(NOTES_BASE + 'notes-index.json')
+    .then(function(r){ return r.json(); })
+    .then(function(notes){
+      var me = notes.filter(function(n){ return n.file === myFile; })[0];
+      if (!me) { renderFallback(); return; }
+      render(me, notes);
+    })
+    .catch(function(){ renderFallback(); });
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function pickFallbackPicture(me, notes){
+    // 同カテゴリーの他notesが持つpictureから1枚（Bフォールバック）
+    var myCats = (me.category||'').split('');
+    var cands = notes.filter(function(n){
+      if (!n.picture) return false;
+      var nc = (n.category||'').split('');
+      return nc.some(function(c){ return myCats.indexOf(c) >= 0; });
+    }).map(function(n){ return n.picture; });
+    if (!cands.length) return '';
+    return cands[Math.floor(Math.random()*cands.length)];
+  }
+
+  function render(me, notes){
+    var pic = me.picture || pickFallbackPicture(me, notes);
+    var picTag = pic
+      ? '<img class="cjh-pic" src="' + PIC_BASE + encodeURIComponent(pic) + '" alt="' + esc(me.title) + '">'
+      : '<img class="cjh-pic cjh-empty" alt="">';
+
+    var myCats = (me.category||'').split('');
+    var dots = CATS.map(function(c){
+      var on = myCats.indexOf(c) >= 0 ? ' on' : '';
+      return '<a class="cjh-dot cjh-d-' + c + on + '" href="' + NOTES_BASE + '?cat=' + encodeURIComponent(c) +
+             '" title="' + CAT_DESC[c] + '">' + c + '</a>';
+    }).join('');
+
+    var date = me.updated || me.created || '';
+    var meta = [date, me.author, me.where].filter(Boolean).join(' ・ ');
+    var kw = me.keywords ? '<div class="cjh-kw">' + me.keywords.split('').join(' ') + '</div>' : '';
+    var coined = me.coined ? '<div class="cjh-coined">' + esc(me.coined) + '</div>' : '';
+
+    document.getElementById('cj-header').innerHTML =
+      '<div class="cjh-card">' + picTag +
+        '<div class="cjh-body">' +
+          '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' + dots + '</div>' +
+          '<div class="cjh-title">' + esc(me.title) + '</div>' +
+          '<div class="cjh-meta">' + esc(meta) + '</div>' +
+          kw + coined +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderFallback(){
+    // notes-index.json が読めない時は、最低限「notesへ戻る」だけ表示
+    document.getElementById('cj-header').innerHTML =
+      '<div class="cjh-card"><div class="cjh-body">' +
+      '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' +
+      '<a class="cjh-dot cjh-d-認 on" href="' + NOTES_BASE + '">認</a>' +
+      '<a class="cjh-dot cjh-d-市 on" href="' + NOTES_BASE + '">市</a>' +
+      '<a class="cjh-dot cjh-d-語 on" href="' + NOTES_BASE + '">語</a>' +
+      '<a class="cjh-dot cjh-d-町 on" href="' + NOTES_BASE + '">町</a></div>' +
+      '</div></div>';
+  }
+})();
+</script>
+<!-- ═══════════ /COLOURFUL JAPAN 共通ヘッダー ═══════════ -->
+
 <div class="stripe"></div>
 
 <header>
