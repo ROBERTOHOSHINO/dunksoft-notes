@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>html-notes | Why I'm Rebuilding Authentication — Roberto Hoshino</title>
-<meta name="description" content="30 years of a technology journey. One woman who mastered Excel at 50 — and was stopped by a password. A mission that begins here.">
+<title>html-notes | なぜ、いま認証を作り直そうとしているのか — 星野晃一郎</title>
+<meta name="description" content="30年の技術の旅。50代でExcelを覚え、自分で資産管理をしていた彼女が、パスワードで止まった。それは設計の失敗だ。 / 30 years of a technology journey. One woman who mastered Excel at 50 — and was stopped by a password.">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap');
 
 :root {
   --ink:     #18161a;
@@ -34,6 +34,10 @@ body {
   line-height: 1.85;
   overflow-x: hidden;
 }
+
+/* ── LANGUAGE TOGGLE ── */
+body.lang-ja .only-en { display: none; }
+body.lang-en .only-ja { display: none; }
 
 /* ── TOP STRIPE ── */
 .stripe {
@@ -65,7 +69,7 @@ header {
   letter-spacing: .14em; margin-top: 3px;
   font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
 }
-nav { display: flex; gap: 2rem; }
+nav { display: flex; gap: 1.5rem; align-items: center; }
 nav a {
   font-size: 11px; letter-spacing: .1em;
   color: var(--ink3); text-decoration: none;
@@ -73,6 +77,15 @@ nav a {
   transition: color .2s;
 }
 nav a:hover { color: var(--ink); }
+.lang-toggle {
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 400;
+  font-size: 11px; letter-spacing: .1em;
+  color: var(--ink); background: transparent;
+  border: 0.5px solid var(--ink3); border-radius: 14px;
+  padding: 4px 12px; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.lang-toggle:hover { background: var(--ink); color: var(--paper); }
 
 /* ── HERO ── */
 .hero {
@@ -116,12 +129,13 @@ nav a:hover { color: var(--ink); }
   color: var(--rose);
 }
 
-.hero-ja {
+.hero-ja, .hero-en {
   font-family: 'Noto Serif JP', serif;
   font-size: 13px; font-weight: 300;
   color: var(--ink3); letter-spacing: .1em;
   margin-bottom: 2rem;
 }
+.hero-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; }
 
 .hero-lead {
   font-family: 'Cormorant Garamond', serif;
@@ -377,12 +391,13 @@ nav a:hover { color: var(--ink); }
   margin-bottom: 1.5rem;
   color: var(--ink);
 }
-.closing-ja {
+.closing-ja, .closing-en {
   font-family: 'Noto Serif JP', serif;
   font-size: 13px; font-weight: 300;
   color: var(--ink3); margin-bottom: 2rem;
   letter-spacing: .06em; line-height: 2;
 }
+.closing-en { font-family: 'Cormorant Garamond', serif; font-style: italic; }
 .closing-sub {
   font-size: 11px; color: var(--ink3);
   letter-spacing: .08em; line-height: 2.2;
@@ -408,29 +423,57 @@ footer p {
   font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
 }
 
+/* ── JAPANESE TYPOGRAPHY OVERRIDES (applied only in JA mode) ── */
+body.lang-ja .hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 4.5vw, 44px);
+  font-weight: 500; line-height: 1.5; letter-spacing: .04em;
+}
+body.lang-ja .hero-title em {
+  font-style: normal; color: var(--rose);
+  border-bottom: 1px solid rgba(139,74,90,0.3);
+}
+body.lang-ja .hero-lead,
+body.lang-ja .dedication-text,
+body.lang-ja .body-text,
+body.lang-ja .scene-text,
+body.lang-ja .integrity-text,
+body.lang-ja .mission-text,
+body.lang-ja .tl-title,
+body.lang-ja .closing-main {
+  font-family: 'Noto Serif JP', serif;
+}
+body.lang-ja .pull {
+  font-family: 'Noto Serif JP', serif; font-style: normal;
+}
+body.lang-ja .dedication-text { font-style: normal; }
+
 /* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .hero-title { animation: fadeUp .8s ease both; }
-.hero-ja    { animation: fadeUp .8s .1s ease both; }
+.hero-ja, .hero-en { animation: fadeUp .8s .1s ease both; }
 .hero-lead  { animation: fadeUp .8s .2s ease both; }
 
 @media (max-width: 600px) {
-  nav { display: none; }
+  nav { gap: 1rem; }
+  nav a:not(.lang-toggle) { display: none; }
+  header { padding: 1rem 1.5rem; }
   .hero, .article, .dedication, .closing { padding-left: 1.5rem; padding-right: 1.5rem; }
   .hero { padding-top: 3.5rem; padding-bottom: 3rem; }
 }
 </style>
 </head>
-<body>
+<body class="lang-ja">
 
 <!-- ═══════════════════════════════════════════════════════════
-     COLOURFUL JAPAN 共通ヘッダー  v1 2026-06-18 Roberto Hoshino 
-     各 html-notes の <body> 直後に、この一式をそのまま貼り付け。
-     notes-index.json から自分のメタデータを自動取得します。
-     （ファイル名で照合するので、各notesに個別設定は不要）
+     COLOURFUL JAPAN 共通ヘッダー  v2 (QR対応)
+     ・各 html-notes の <body> 直後にこの一式を貼り付け
+     ・notes-index.json から自分のメタデータを自動取得
+     ・QR: MY_QR があればそれを表示（このページは静的QRを焼き込み）
+            無ければ各ページのURLから自動生成
      ═══════════════════════════════════════════════════════════ -->
 <div id="cj-header"></div>
 
@@ -447,7 +490,8 @@ footer p {
   }
   .cjh-pic.cjh-empty { display:none; }
   .cjh-body { padding:18px 22px 20px; }
-  .cjh-nav { display:flex; align-items:center; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+  .cjh-top { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:12px; }
+  .cjh-nav { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
   .cjh-home {
     font-size:12px; letter-spacing:.1em; color:#6b6b66;
     text-decoration:none; margin-right:6px; white-space:nowrap;
@@ -466,6 +510,12 @@ footer p {
   .cjh-d-市 { background:#BA7517; color:#FAEEDA; }
   .cjh-d-語 { background:#534AB7; color:#EEEDFE; }
   .cjh-d-町 { background:#3B6D11; color:#EAF3DE; }
+  .cjh-qr { flex-shrink:0; text-align:center; }
+  .cjh-qr img {
+    width:84px; height:84px; display:block; border-radius:5px;
+    background:#fff; padding:3px; border:0.5px solid rgba(0,0,0,0.08);
+  }
+  .cjh-qr-cap { font-size:10px; color:#6b6b66; margin-top:4px; letter-spacing:.06em; }
   .cjh-title { font-size:21px; font-weight:500; line-height:1.5; margin-bottom:7px; color:#1a1a18; }
   .cjh-meta { font-size:12px; color:#6b6b66; letter-spacing:.05em; }
   .cjh-kw { font-size:12px; color:#6b6b66; margin-top:9px; letter-spacing:.1em; }
@@ -488,7 +538,10 @@ footer p {
   var CATS = ['認','市','語','町'];
   var CAT_DESC = { '認':'認証・技術', '市':'Marketing・市づくり', '語':'コラム・物語', '町':'文化・コミュニティ' };
 
-  // 自分のファイル名を取得（パスの末尾）
+  // このページ専用の静的QR（外部サービスに依存しない）。
+  // 他のnotesでは空文字 '' にしておけば、ページURLから自動生成されます。
+  var MY_QR = 'data:image/png;base64,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';
+
   var myFile = decodeURIComponent(location.pathname.split('/').pop() || '');
   if (!myFile) myFile = 'index.html';
 
@@ -503,8 +556,16 @@ footer p {
 
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  function qrSrc(){
+    if (MY_QR) return MY_QR;
+    var url = location.origin + location.pathname;
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=168x168&margin=0&data=' + encodeURIComponent(url);
+  }
+  function qrTag(){
+    return '<div class="cjh-qr"><img src="' + qrSrc() + '" alt="QR"><div class="cjh-qr-cap">スマホで読む</div></div>';
+  }
+
   function pickFallbackPicture(me, notes){
-    // 同カテゴリーの他notesが持つpictureから1枚（Bフォールバック）
     var myCats = (me.category||'').split('');
     var cands = notes.filter(function(n){
       if (!n.picture) return false;
@@ -536,7 +597,10 @@ footer p {
     document.getElementById('cj-header').innerHTML =
       '<div class="cjh-card">' + picTag +
         '<div class="cjh-body">' +
-          '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' + dots + '</div>' +
+          '<div class="cjh-top">' +
+            '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' + dots + '</div>' +
+            qrTag() +
+          '</div>' +
           '<div class="cjh-title">' + esc(me.title) + '</div>' +
           '<div class="cjh-meta">' + esc(meta) + '</div>' +
           kw + coined +
@@ -545,15 +609,16 @@ footer p {
   }
 
   function renderFallback(){
-    // notes-index.json が読めない時は、最低限「notesへ戻る」だけ表示
     document.getElementById('cj-header').innerHTML =
       '<div class="cjh-card"><div class="cjh-body">' +
+      '<div class="cjh-top">' +
       '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' +
       '<a class="cjh-dot cjh-d-認 on" href="' + NOTES_BASE + '">認</a>' +
       '<a class="cjh-dot cjh-d-市 on" href="' + NOTES_BASE + '">市</a>' +
       '<a class="cjh-dot cjh-d-語 on" href="' + NOTES_BASE + '">語</a>' +
       '<a class="cjh-dot cjh-d-町 on" href="' + NOTES_BASE + '">町</a></div>' +
-      '</div></div>';
+      qrTag() +
+      '</div></div></div>';
   }
 })();
 </script>
@@ -568,228 +633,426 @@ footer p {
   </div>
   <nav>
     <a href="https://dunksoft.jp">dunksoft.jp</a>
-    <a href="https://note.com/roberto_hoshino" target="_blank">note</a>
-    <a href="https://www.linkedin.com/in/roberto-hoshino" target="_blank">LinkedIn</a>
+    <a href="https://note.com/roberto_hoshino" target="_blank" rel="noopener">note</a>
+    <a href="https://www.linkedin.com/in/roberto-hoshino" target="_blank" rel="noopener">LinkedIn</a>
+    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
   </nav>
 </header>
 
-<!-- HERO -->
+<!-- ════════════ HERO ════════════ -->
 <section class="hero">
-  <div class="eyebrow">html-notes — A 30-Year Technology Journey</div>
-  <h1 class="hero-title">
-    Why I'm Rebuilding<br>
-    <em>Authentication.</em>
-  </h1>
-  <div class="hero-ja">
-    なぜ、いま認証を作り直そうとしているのか。
+  <!-- 日本語 -->
+  <div class="only-ja">
+    <div class="eyebrow">html-notes — 30年の技術の旅</div>
+    <h1 class="hero-title">
+      なぜ、いま<br>
+      <em>認証を作り直そうとしているのか。</em>
+    </h1>
+    <div class="hero-en">Why I'm Rebuilding Authentication — A 30-Year Journey</div>
+    <p class="hero-lead">
+      彼女は50代でパソコンを覚え、自分でExcelの資産管理表を作った。スマートフォンにも早めに移行した。それでも、パスワードが彼女を止めた。これはユーザーの失敗ではない。設計の失敗だ。
+    </p>
+    <div class="hero-meta">
+      <span><span class="meta-dot"></span>星野晃一郎（Roberto Hoshino）— IT歴43年</span>
+      <span><span class="meta-dot"></span>株式会社ダンクソフト — 1983年創業</span>
+      <span><span class="meta-dot"></span>Smart Life Styles™️</span>
+    </div>
   </div>
-  <p class="hero-lead">
-    She mastered Excel at 50. She managed her own finances with precision. Then a password stopped her. That is not a user error. That is a design failure — and a mission.
-  </p>
-  <div class="hero-meta">
-    <span><span class="meta-dot"></span>Roberto Hoshino — 43 years in IT</span>
-    <span><span class="meta-dot"></span>Dunksoft Co., Ltd. — founded 1983</span>
-    <span><span class="meta-dot"></span>Smart Life Styles™️</span>
+  <!-- English -->
+  <div class="only-en">
+    <div class="eyebrow">html-notes — A 30-Year Technology Journey</div>
+    <h1 class="hero-title">
+      Why I'm Rebuilding<br>
+      <em>Authentication.</em>
+    </h1>
+    <div class="hero-ja">なぜ、いま認証を作り直そうとしているのか。</div>
+    <p class="hero-lead">
+      She mastered Excel at 50. She managed her own finances with precision. Then a password stopped her. That is not a user error. That is a design failure — and a mission.
+    </p>
+    <div class="hero-meta">
+      <span><span class="meta-dot"></span>Roberto Hoshino — 43 years in IT</span>
+      <span><span class="meta-dot"></span>Dunksoft Co., Ltd. — founded 1983</span>
+      <span><span class="meta-dot"></span>Smart Life Styles™️</span>
+    </div>
   </div>
 </section>
 
-<!-- DEDICATION -->
+<!-- ════════════ DEDICATION ════════════ -->
 <div class="dedication">
-  <div class="dedication-inner">
-    <p class="dedication-text">
-      "She was the one who showed me what optimization really means —
-      not in code, but in a life lived with precision and grace.
-      This work continues in her name."
-    </p>
-    <div class="dedication-attr">In memory of Michiko — 1940s–2026</div>
+  <!-- 日本語 -->
+  <div class="only-ja">
+    <div class="dedication-inner">
+      <p class="dedication-text">
+        400枚の振込用紙を、一枚ずつ手書きしていた人がいた。<br>
+        その仕事がデジタルに変わり、多くの人の生活が変わった。<br>
+        50代でパソコンを覚え、自分の資産を自分で管理した。<br>
+        そして最後は、パスワードという小さな壁の前で止まった。<br><br>
+        この仕事を、あなたの名前と共に続けます。
+      </p>
+      <div class="dedication-attr">義母 ゆきえ に捧ぐ — 1940年代〜2026年</div>
+    </div>
+  </div>
+  <!-- English -->
+  <div class="only-en">
+    <div class="dedication-inner">
+      <p class="dedication-text">
+        "She was the one who showed me what optimization really means —
+        not in code, but in a life lived with precision and grace.
+        This work continues in her name."
+      </p>
+      <div class="dedication-attr">In memory of Michiko — 1940s–2026</div>
+    </div>
   </div>
 </div>
 
-<!-- ARTICLE -->
+<!-- ════════════ ARTICLE ════════════ -->
 <div class="article">
 
-  <!-- SECTION 1 -->
-  <div class="section-break">
-    <div class="section-break-num">01</div>
-    <div class="section-break-line"></div>
-    <div class="section-break-label">The Problem She Solved</div>
-  </div>
-
-  <div class="body-text">
-    <p>In the late 1990s, my mother-in-law was the office director of a law firm specializing in debt restructuring. Her job: stand between hundreds of people crushed by multiple loans and the financial institutions that held their debt.</p>
-    <p>Every month, she handwrote approximately <strong>400 bank transfer slips</strong> — payment by payment, creditor by creditor, five days and ten days at a time. Then she carried them to the bank.</p>
-  </div>
-
-  <div class="scene">
-    <div class="scene-label">The System Before</div>
-    <div class="scene-text">
-      400 handwritten transfer slips per cycle →
-      physical trips to the bank →
-      error-prone, time-consuming, not scalable.<br><br>
-      One person. One pen. Hundreds of lives depending on each stroke.
+  <!-- ─────────── 日本語 本文 ─────────── -->
+  <div class="only-ja">
+    <!-- 01 -->
+    <div class="section-break">
+      <div class="section-break-num">01</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">彼女が解決した問題</div>
     </div>
-  </div>
-
-  <div class="body-text">
-    <p>At that time, I was programming the communications layer for Sumitomo Bank ATM terminals. I understood exactly how the data sat inside those systems. And I had been writing extensively in Microsoft ACCESS.</p>
-    <p>The solution was straightforward: build a database of each debtor's repayment plan, generate the per-creditor transfer data automatically, and export it in the format the bank could read directly.</p>
-    <p>The key insight came from <strong>Fuji Bank's Kudan branch</strong> (now part of Mizuho): if we embedded a debtor reference number in the memo field of each transfer record, creditors could reconcile payments automatically on their end.</p>
-  </div>
-
-  <div class="pull">"One field in a memo column changed everything."</div>
-
-  <div class="body-text">
-    <p>With that single specification addition, the entire process digitized. The law firm grew rapidly. The branch manager was promoted — significantly, I imagine. Transfer fees dropped as volume moved from tellers to data transmission. Processing time collapsed.</p>
-    <p>This is what optimization means when it reaches the right place. Not just efficiency — liberation. She could focus on the people, not the paper.</p>
-  </div>
-
-  <!-- SECTION 2 -->
-  <div class="section-break">
-    <div class="section-break-num">02</div>
-    <div class="section-break-line"></div>
-    <div class="section-break-label">The Problem That Stopped Her</div>
-  </div>
-
-  <div class="body-text">
-    <p>She was in her fifties when she learned to use a computer. Not reluctantly — enthusiastically. She built her own Excel spreadsheets for personal asset management. She moved from a feature phone to a smartphone ahead of most people her age.</p>
-    <p>Then authentication stopped her.</p>
-    <p>Not a sudden failure. A slow retreat. Passwords grew longer and more complex. IDs multiplied across services. The gap between what the systems demanded and what human memory could hold kept widening. Gradually, she could no longer get in.</p>
-  </div>
-
-  <div class="pull">"She didn't forget how to think. She forgot which string of characters she had invented last time."</div>
-
-  <div class="body-text">
-    <p>She is not alone. Kubo-san, who appears on our radio show as our elder commentator, faces the same wall. Millions of seniors who have decades of knowledge and wisdom to share are being quietly locked out of the systems that could help them share it.</p>
-  </div>
-
-  <!-- TIMELINE -->
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-year">1990s</div>
-      <div class="tl-title">400 slips → database</div>
-      <div class="tl-desc">Optimization reaches a law firm. One memo field changes everything.</div>
+    <div class="body-text">
+      <p>1990年代後半、義母は多重債務者支援を専門とする弁護士事務所の事務局長だった。債務者と債権者の間に立ち、毎月の支払いを管理する仕事。当時の現実はこうだった。</p>
     </div>
-    <div class="tl-item">
-      <div class="tl-year">2000s</div>
-      <div class="tl-title">Feature phone → smartphone</div>
-      <div class="tl-desc">She adapted. Early adopter, precise thinker.</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-year">2010s</div>
-      <div class="tl-title">Authentication walls rise</div>
-      <div class="tl-desc">Passwords multiply. Complexity increases. Memory fails not the person — the system design fails the person.</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-year">2026 →</div>
-      <div class="tl-title">The mission begins</div>
-      <div class="tl-desc">Authentication rebuilt on memory of life, not strings of characters. In her name.</div>
-    </div>
-  </div>
-
-  <!-- SECTION 3 -->
-  <div class="section-break">
-    <div class="section-break-num">03</div>
-    <div class="section-break-line"></div>
-    <div class="section-break-label">The Technical Root of the Problem</div>
-  </div>
-
-  <div class="body-text">
-    <p>I learned about Integrity early in my programming career — the principle that data must be consistent, valid, and trustworthy throughout a system. The moment I internalized it, I started noticing a quiet anomaly in Japanese digital infrastructure.</p>
-  </div>
-
-  <div class="integrity">
-    <div class="integrity-label">Technical Note — Integrity Failures in Japanese Authentication</div>
-    <div class="integrity-text">
-      Full-width alphanumerics inside Japanese text environments (<code>Ａ Ｂ Ｃ</code> vs <code>A B C</code>) are treated as different characters — but look identical to users. A password entered in one mode fails in another. The user is blamed.<br><br>
-      ASCII codes from <code>30h</code> onward include characters that appear numeric but are classified as text. Systems built without accounting for this create silent authentication failures that users cannot diagnose.<br><br>
-      Authentication — the most critical gateway in any system — is being built on top of these unresolved inconsistencies.
-    </div>
-  </div>
-
-  <div class="body-text">
-    <p>The current authentication paradigm asks people to remember something arbitrary: a string of characters invented under pressure, forgotten under time. This is not a memory problem. It is a design problem — and it systematically excludes the people who most need access: the elderly, children, non-native language users.</p>
-  </div>
-
-  <!-- SECTION 4 -->
-  <div class="section-break">
-    <div class="section-break-num">04</div>
-    <div class="section-break-line"></div>
-    <div class="section-break-label">The Mission Forward</div>
-  </div>
-
-  <div class="body-text">
-    <p>What if authentication was built on what you cannot forget — because it is woven into who you are?</p>
-    <p>The color of the indigo at the Kanda festival. The yellow of the roses at Yanagimori Shrine. The deep green of a Murano glass ring from Venice, bought after 3.11. These are not passwords. They are life itself.</p>
-    <p>The senior population holds irreplaceable knowledge. AI is now powerful enough to help them share it — but only if they can get through the door. Japan's government is deploying Claude and the next versions of GPT at scale. The question is not whether AI will be used. The question is whether the people who most need it can reach it.</p>
-  </div>
-
-  <div class="mission">
-    <div class="mission-header">天然色漢字INDEX™ / COLOURFUL JAPAN™ — Authentication as Life Memory</div>
-    <div class="mission-body">
-      <div class="mission-item">
-        <div class="mission-arrow">→</div>
-        <div class="mission-text"><strong>Authentication built on personal color memory</strong> — kanji name characters mapped to HEX colors from lived experience. Phishing-resistant because no one else shares your memories.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-arrow">→</div>
-        <div class="mission-text"><strong>Accessible to seniors, children, non-native speakers</strong> — because it requires no character strings, no arbitrary invention under pressure.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-arrow">→</div>
-        <div class="mission-text"><strong>Built on Integrity</strong> — resolving the full-width / half-width inconsistency at the foundation, not papering over it.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-arrow">→</div>
-        <div class="mission-text"><strong>Japan-native, globally applicable</strong> — works across all writing systems. The kanji index is the starting point, not the limit.</div>
+    <div class="scene">
+      <div class="scene-label">デジタル化以前の現実</div>
+      <div class="scene-text">
+        <strong>月に約400枚の振込用紙を手書き。</strong><br>
+        債権者ごと、5日・10日ごとに細かい金額を記入して銀行窓口へ。<br>
+        一人の人間が、一本のペンで、何百人もの生活を支えていた。
       </div>
     </div>
+    <div class="body-text">
+      <p>そのころ私は、住友銀行のATM端末の通信プログラムを書いていた。銀行のデータがどう動いているか、骨の髄まで知っていた。ちょうどMicrosoft ACCESSで色々と書いていた時期でもある。</p>
+      <p>解決策は明快だった。債務者ごとの返済計画をデータベース化し、債権者別の振込データを自動生成する。そのデータを銀行に送信する。</p>
+      <p>決定的な一手は<strong>富士銀行九段支店（現みずほ）</strong>が加えてくれた。振込データのメモ欄に債務者番号を入れることで、債権者側が自動的に照合できるという仕様追加。</p>
+    </div>
+    <div class="pull">「メモ欄の一項目が、すべてを変えた。」</div>
+    <div class="body-text">
+      <p>これにより全処理がデジタル化された。弁護士事務所は急成長した。担当支店長は栄転した——おそらく相当な出世をしたと思う。振込手数料は下がり、窓口処理はデータ送信に変わり、時間は劇的に短縮された。</p>
+      <p>これがOPTIMIZEの思想だと、AIから学んだ。効率化ではなく、解放。彼女は書類ではなく、人に向き合えるようになった。</p>
+    </div>
+
+    <!-- 02 -->
+    <div class="section-break">
+      <div class="section-break-num">02</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">彼女を止めた問題</div>
+    </div>
+    <div class="body-text">
+      <p>50代でパソコンを覚えた。渋々ではなく、積極的に。Excelで自分の資産管理表を作り、運用していた。ガラケーからスマートフォンへも、周りより早く移行した。</p>
+      <p>それでも、認証が彼女を止めた。</p>
+      <p>突然ではなかった。少しずつ後退していった。パスワードはより長く、より複雑になった。IDはサービスごとに増えた。システムが要求するものと、人間の記憶が保持できるものの差が、じわじわと広がっていった。そしてある日、入れなくなった。</p>
+    </div>
+    <div class="pull">「考える力を失ったのではない。前回どんな文字列を作ったか、忘れただけだ。」</div>
+    <div class="body-text">
+      <p>彼女だけではない。神田藍の会ラジオで長年ご意見番を務めてくださっている久保金司さんも同じ壁に直面している。何十年もの知識と知恵を持つシニアたちが、AIと対話してその知見を次世代に継承できる時間は限られている。にもかかわらず、認証という最初の扉が彼らを静かに締め出し続けている。</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1990s</div>
+        <div class="tl-title">400枚の振込用紙 → データベース</div>
+        <div class="tl-desc">最適化が一人の人間の仕事を変えた。メモ欄の一項目がすべてを動かした。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2000s</div>
+        <div class="tl-title">ガラケー → スマートフォン</div>
+        <div class="tl-desc">変化を恐れず、早めに動いた。几帳面で、精確な人だった。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2010s</div>
+        <div class="tl-title">認証の壁が高くなる</div>
+        <div class="tl-desc">パスワードが増え、複雑化した。記憶の問題ではなく、設計の問題。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2026 →</div>
+        <div class="tl-title">認証を作り直す</div>
+        <div class="tl-desc">文字列ではなく、人生の記憶を鍵にする。彼女の名前と共に。</div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section-break">
+      <div class="section-break-num">03</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">問題の技術的な根っこ</div>
+    </div>
+    <div class="body-text">
+      <p>プログラミングを始めた頃、Integrityという概念を学んだ。データはシステム全体を通じて一貫していなければならない、という原則。それを身につけた瞬間から、日本のデジタルインフラに静かな異常を感じ続けてきた。</p>
+    </div>
+    <div class="integrity">
+      <div class="integrity-label">技術的考察 — 日本の認証における Integrity の欠陥</div>
+      <div class="integrity-text">
+        日本語環境では全角の英数字（<code>Ａ Ｂ Ｃ</code>）と半角（<code>A B C</code>）が別の文字として扱われる。見た目は同じでも、システムには別物。あるモードで入力したパスワードが別のモードで失敗する。ユーザーのせいにされる。<br><br>
+        さらにASCIIコードの<code>30h</code>以降には、数値に見えて文字として分類されるコードが存在する。これらを考慮せずに作られたシステムは、ユーザーが診断できない認証失敗を静かに生み出す。<br><br>
+        認証——システム最重要の関門——が、この未解決の不整合の上に構築されている。
+      </div>
+    </div>
+    <div class="body-text">
+      <p>現在の認証の設計思想は、「プレッシャーの中で発明した文字列を覚えておけ」というものだ。これは記憶力の問題ではない。設計の問題だ。そしてこの設計は、最もアクセスを必要としている人たち——シニア、子ども、外国語学習者——を組織的に排除し続けている。</p>
+      <p>日本政府はClaudeに加えてOpenAIの次世代バージョンも採用すると言っている。AIのパワーはこれからさらに上がる。だとすれば、そのAIに誰がアクセスできるか——その問いは今すぐ答えなければならない。</p>
+    </div>
+
+    <!-- 04 -->
+    <div class="section-break">
+      <div class="section-break-num">04</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">これからの設計</div>
+    </div>
+    <div class="body-text">
+      <p>認証の鍵を、忘れられないものにする。なぜなら、それは自分自身に刻まれているから。</p>
+      <p>神田まつりの法被の深い藍色。柳森神社の薔薇の黄色。3.11の後、ヴェネツィアで買ったムラーノガラスの指輪の深緑。これはパスワードではない。人生そのものだ。</p>
+    </div>
+    <div class="mission">
+      <div class="mission-header">天然色漢字INDEX™ / COLOURFUL JAPAN™ — 認証を人生の記憶に</div>
+      <div class="mission-body">
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>姓名の漢字 × 人生の記憶の色（HEX）</strong>で認証トークンを生成。フィッシングに強い——あなたの記憶は他の誰も持っていないから。</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>シニア・子ども・外国語学習者にも使える</strong>——文字列を発明してプレッシャーの中で覚える必要がない。</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>Integrityを根から作り直す</strong>——全角・半角問題、ASCIIの不整合を基盤レベルで解決する。</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>日本発、世界対応</strong>——漢字インデックスが起点。すべての言語・文字体系に展開できる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="body-text">
+      <p>Financeのフェーズはまだ完結していない。しかしClaudeは日々成長し、システム全体の設計はどんどん明確になっている。佳きタイミングで、スタートする。</p>
+      <p>彼女が見せてくれたのは、最適化が正しい人に届いたとき何が起きるか、ということだった。400枚の振込用紙が消えた日、何百人もの生活が少し楽になった。この仕事も、そういう仕事にしたい。</p>
+    </div>
   </div>
 
-  <div class="body-text">
-    <p>The Finance phase is not yet complete. But Claude's capabilities grow daily, and the architecture becomes clearer with each conversation. The right moment is approaching.</p>
-    <p>She showed me what optimization looks like when it reaches the right person at the right moment. That is what this work is for.</p>
+  <!-- ─────────── English body ─────────── -->
+  <div class="only-en">
+    <!-- SECTION 1 -->
+    <div class="section-break">
+      <div class="section-break-num">01</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">The Problem She Solved</div>
+    </div>
+    <div class="body-text">
+      <p>In the late 1990s, my mother-in-law was the office director of a law firm specializing in debt restructuring. Her job: stand between hundreds of people crushed by multiple loans and the financial institutions that held their debt.</p>
+      <p>Every month, she handwrote approximately <strong>400 bank transfer slips</strong> — payment by payment, creditor by creditor, five days and ten days at a time. Then she carried them to the bank.</p>
+    </div>
+    <div class="scene">
+      <div class="scene-label">The System Before</div>
+      <div class="scene-text">
+        400 handwritten transfer slips per cycle →
+        physical trips to the bank →
+        error-prone, time-consuming, not scalable.<br><br>
+        One person. One pen. Hundreds of lives depending on each stroke.
+      </div>
+    </div>
+    <div class="body-text">
+      <p>At that time, I was programming the communications layer for Sumitomo Bank ATM terminals. I understood exactly how the data sat inside those systems. And I had been writing extensively in Microsoft ACCESS.</p>
+      <p>The solution was straightforward: build a database of each debtor's repayment plan, generate the per-creditor transfer data automatically, and export it in the format the bank could read directly.</p>
+      <p>The key insight came from <strong>Fuji Bank's Kudan branch</strong> (now part of Mizuho): if we embedded a debtor reference number in the memo field of each transfer record, creditors could reconcile payments automatically on their end.</p>
+    </div>
+    <div class="pull">"One field in a memo column changed everything."</div>
+    <div class="body-text">
+      <p>With that single specification addition, the entire process digitized. The law firm grew rapidly. The branch manager was promoted — significantly, I imagine. Transfer fees dropped as volume moved from tellers to data transmission. Processing time collapsed.</p>
+      <p>This is what optimization means when it reaches the right place. Not just efficiency — liberation. She could focus on the people, not the paper.</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-break">
+      <div class="section-break-num">02</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">The Problem That Stopped Her</div>
+    </div>
+    <div class="body-text">
+      <p>She was in her fifties when she learned to use a computer. Not reluctantly — enthusiastically. She built her own Excel spreadsheets for personal asset management. She moved from a feature phone to a smartphone ahead of most people her age.</p>
+      <p>Then authentication stopped her.</p>
+      <p>Not a sudden failure. A slow retreat. Passwords grew longer and more complex. IDs multiplied across services. The gap between what the systems demanded and what human memory could hold kept widening. Gradually, she could no longer get in.</p>
+    </div>
+    <div class="pull">"She didn't forget how to think. She forgot which string of characters she had invented last time."</div>
+    <div class="body-text">
+      <p>She is not alone. Kubo-san, who appears on our radio show as our elder commentator, faces the same wall. Millions of seniors who have decades of knowledge and wisdom to share are being quietly locked out of the systems that could help them share it.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1990s</div>
+        <div class="tl-title">400 slips → database</div>
+        <div class="tl-desc">Optimization reaches a law firm. One memo field changes everything.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2000s</div>
+        <div class="tl-title">Feature phone → smartphone</div>
+        <div class="tl-desc">She adapted. Early adopter, precise thinker.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2010s</div>
+        <div class="tl-title">Authentication walls rise</div>
+        <div class="tl-desc">Passwords multiply. Complexity increases. Memory fails not the person — the system design fails the person.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2026 →</div>
+        <div class="tl-title">The mission begins</div>
+        <div class="tl-desc">Authentication rebuilt on memory of life, not strings of characters. In her name.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section-break">
+      <div class="section-break-num">03</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">The Technical Root of the Problem</div>
+    </div>
+    <div class="body-text">
+      <p>I learned about Integrity early in my programming career — the principle that data must be consistent, valid, and trustworthy throughout a system. The moment I internalized it, I started noticing a quiet anomaly in Japanese digital infrastructure.</p>
+    </div>
+    <div class="integrity">
+      <div class="integrity-label">Technical Note — Integrity Failures in Japanese Authentication</div>
+      <div class="integrity-text">
+        Full-width alphanumerics inside Japanese text environments (<code>Ａ Ｂ Ｃ</code> vs <code>A B C</code>) are treated as different characters — but look identical to users. A password entered in one mode fails in another. The user is blamed.<br><br>
+        ASCII codes from <code>30h</code> onward include characters that appear numeric but are classified as text. Systems built without accounting for this create silent authentication failures that users cannot diagnose.<br><br>
+        Authentication — the most critical gateway in any system — is being built on top of these unresolved inconsistencies.
+      </div>
+    </div>
+    <div class="body-text">
+      <p>The current authentication paradigm asks people to remember something arbitrary: a string of characters invented under pressure, forgotten under time. This is not a memory problem. It is a design problem — and it systematically excludes the people who most need access: the elderly, children, non-native language users.</p>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section-break">
+      <div class="section-break-num">04</div>
+      <div class="section-break-line"></div>
+      <div class="section-break-label">The Mission Forward</div>
+    </div>
+    <div class="body-text">
+      <p>What if authentication was built on what you cannot forget — because it is woven into who you are?</p>
+      <p>The color of the indigo at the Kanda festival. The yellow of the roses at Yanagimori Shrine. The deep green of a Murano glass ring from Venice, bought after 3.11. These are not passwords. They are life itself.</p>
+      <p>The senior population holds irreplaceable knowledge. AI is now powerful enough to help them share it — but only if they can get through the door. Japan's government is deploying Claude and the next versions of GPT at scale. The question is not whether AI will be used. The question is whether the people who most need it can reach it.</p>
+    </div>
+    <div class="mission">
+      <div class="mission-header">天然色漢字INDEX™ / COLOURFUL JAPAN™ — Authentication as Life Memory</div>
+      <div class="mission-body">
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>Authentication built on personal color memory</strong> — kanji name characters mapped to HEX colors from lived experience. Phishing-resistant because no one else shares your memories.</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>Accessible to seniors, children, non-native speakers</strong> — because it requires no character strings, no arbitrary invention under pressure.</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>Built on Integrity</strong> — resolving the full-width / half-width inconsistency at the foundation, not papering over it.</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-arrow">→</div>
+          <div class="mission-text"><strong>Japan-native, globally applicable</strong> — works across all writing systems. The kanji index is the starting point, not the limit.</div>
+        </div>
+      </div>
+    </div>
+    <div class="body-text">
+      <p>The Finance phase is not yet complete. But Claude's capabilities grow daily, and the architecture becomes clearer with each conversation. The right moment is approaching.</p>
+      <p>She showed me what optimization looks like when it reaches the right person at the right moment. That is what this work is for.</p>
+    </div>
   </div>
 
 </div>
 
-<!-- CLOSING -->
+<!-- ════════════ CLOSING ════════════ -->
 <div class="closing">
-  <div class="rose-line"></div>
-  <div class="closing-main">
-    "Authentication should be the memory of a life well lived.<br>
-    Not a string of characters invented under pressure<br>
-    and forgotten with time."
+  <!-- 日本語 -->
+  <div class="only-ja">
+    <div class="rose-line"></div>
+    <div class="closing-main">
+      「認証が、その人の人生の記憶になる。<br>
+      公開されていても、再現不能。」
+    </div>
+    <div class="closing-en">
+      Authentication should be the memory of a life well lived.<br>
+      Not a string of characters invented under pressure and forgotten with time.
+    </div>
+    <div class="closing-sub">
+      html-notes — coined by Roberto Hoshino × Claude.ai<br>
+      Smart Life Styles™️ — Love your life, love your time®️<br>
+      天然色漢字INDEX™ / COLOURFUL JAPAN™
+    </div>
+    <div class="rose-line"></div>
   </div>
-  <div class="closing-ja">
-    認証が、その人の人生の記憶になる。公開されていても、再現不能。
+  <!-- English -->
+  <div class="only-en">
+    <div class="rose-line"></div>
+    <div class="closing-main">
+      "Authentication should be the memory of a life well lived.<br>
+      Not a string of characters invented under pressure<br>
+      and forgotten with time."
+    </div>
+    <div class="closing-ja">
+      認証が、その人の人生の記憶になる。公開されていても、再現不能。
+    </div>
+    <div class="closing-sub">
+      html-notes — coined by Roberto Hoshino × Claude.ai<br>
+      Smart Life Styles™️ — Love your life, love your time®️<br>
+      天然色漢字INDEX™ / COLOURFUL JAPAN™
+    </div>
+    <div class="rose-line"></div>
   </div>
-  <div class="closing-sub">
-    html-notes — coined by Roberto Hoshino × Claude.ai<br>
-    Smart Life Styles™️ — Love your life, love your time®️<br>
-    天然色漢字INDEX™ / COLOURFUL JAPAN™
-  </div>
-  <div class="rose-line"></div>
 </div>
 
-  <!-- 献花 2026-06-18 Roberto Hoshino -->
+<!-- ════════════ 献花 (両言語共通・1回) ════════════ -->
 <div style="max-width:860px; margin:1rem auto 3rem; padding:0 1.5rem;">
   <img src="https://picture.dunksoft.jp/roses%2020260529.png"
-       alt="献花"
+       alt="献花 — roses for YUKIE-SAN"
        style="width:100%; border-radius:10px; display:block;">
   <div style="text-align:center; font-size:13px; color:#8a8680;
-              margin-top:14px; letter-spacing:.15em;
+              margin-top:16px; letter-spacing:.1em; line-height:1.9;
               font-family:'Noto Serif JP',serif;">
-    YUKIE-SAN へ
+    世界を旅して、シニアからデジタルにチャレンジして、<br>
+    才能をフルに生かして逝った ゆきえさん（Mother in law）への手向けの言葉。<br>
+    <span style="display:inline-block; margin-top:10px; letter-spacing:.15em;">YUKIE-SAN へ</span>
   </div>
 </div>
+
+<!-- ════════════ FOOTER ════════════ -->
 <footer>
-  <p>
+  <p class="only-ja">
+    html-notes / なぜ、いま認証を作り直そうとしているのか<br>
+    星野晃一郎（Roberto Hoshino）× Claude.ai<br>
+    株式会社ダンクソフト — 1983年創業 / NPO 神田藍の会<br>
+    © 2026 Roberto Hoshino. Smart Life Styles™️
+  </p>
+  <p class="only-en">
     html-notes / Why I'm Rebuilding Authentication<br>
     Roberto Hoshino (星野晃一郎) × Claude.ai<br>
     Dunksoft Co., Ltd. — founded 1983 / NPO Kanda Ai no Kai<br>
     © 2026 Roberto Hoshino. Smart Life Styles™️
   </p>
 </footer>
+
+<script>
+function toggleLang(){
+  var b = document.body, btn = document.getElementById('langBtn');
+  var isJa = b.classList.contains('lang-ja');
+  if (isJa) {
+    b.classList.remove('lang-ja'); b.classList.add('lang-en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '日本語';
+    document.title = "html-notes | Why I'm Rebuilding Authentication — Roberto Hoshino";
+  } else {
+    b.classList.remove('lang-en'); b.classList.add('lang-ja');
+    document.documentElement.lang = 'ja';
+    btn.textContent = 'EN';
+    document.title = 'html-notes | なぜ、いま認証を作り直そうとしているのか — 星野晃一郎';
+  }
+}
+</script>
 
 </body>
 </html>
