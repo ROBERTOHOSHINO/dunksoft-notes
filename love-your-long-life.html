@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -33,246 +34,407 @@ body{
 
 /* ── LANGUAGE NAV ── */
 .langnav{
-  position:sticky;top:0;z-index:10;
-  display:flex;justify-content:center;gap:2.5rem;
-  padding:1rem 2rem;
-  background:rgba(247,243,238,.92);
-  backdrop-filter:blur(6px);
-  border-bottom:1px solid rgba(20,18,26,.08);
+position:sticky;top:0;z-index:10;
+display:flex;justify-content:center;gap:2.5rem;
+padding:1rem 2rem;
+background:rgba(247,243,238,.92);
+backdrop-filter:blur(6px);
+border-bottom:1px solid rgba(20,18,26,.08);
 }
 .langnav a{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.68rem;letter-spacing:.3em;
-  color:var(--muted);text-decoration:none;
-  transition:color .3s ease;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.68rem;letter-spacing:.3em;
+color:var(–muted);text-decoration:none;
+transition:color .3s ease;
 }
-.langnav a:hover,.langnav a:focus-visible{color:var(--noda)}
-.langnav a:focus-visible{outline:2px solid var(--noda);outline-offset:4px}
+.langnav a:hover,.langnav a:focus-visible{color:var(–noda)}
+.langnav a:focus-visible{outline:2px solid var(–noda);outline-offset:4px}
 
 /* ── HERO ── */
 .hero{
-  min-height:88vh;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  text-align:center;
-  padding:5rem 2rem 4rem;
-  position:relative;
+min-height:88vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+text-align:center;
+padding:5rem 2rem 4rem;
+position:relative;
 }
 .hero-eyebrow{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.62rem;letter-spacing:.45em;
-  color:var(--muted);text-transform:uppercase;
-  margin-bottom:2.5rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.62rem;letter-spacing:.45em;
+color:var(–muted);text-transform:uppercase;
+margin-bottom:2.5rem;
 }
 .tagline-old{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(.95rem,2.4vw,1.2rem);
-  font-style:italic;font-weight:300;
-  color:var(--muted);
-  text-decoration:line-through;
-  text-decoration-color:rgba(154,147,163,.45);
-  text-decoration-thickness:1px;
-  margin-bottom:1.4rem;
+font-family:‘Cormorant Garamond’,serif;
+font-size:clamp(.95rem,2.4vw,1.2rem);
+font-style:italic;font-weight:300;
+color:var(–muted);
+text-decoration:line-through;
+text-decoration-color:rgba(154,147,163,.45);
+text-decoration-thickness:1px;
+margin-bottom:1.4rem;
 }
 .tagline-new{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.9rem,6.5vw,3.8rem);
-  font-weight:300;line-height:1.25;
-  color:var(--ink);
+font-family:‘Cormorant Garamond’,serif;
+font-size:clamp(1.9rem,6.5vw,3.8rem);
+font-weight:300;line-height:1.25;
+color:var(–ink);
 }
 .tagline-new .long{
-  font-style:italic;
-  color:var(--noda);
+font-style:italic;
+color:var(–noda);
 }
 .hero-sub{
-  margin-top:3rem;
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.66rem;letter-spacing:.32em;
-  color:var(--muted);
+margin-top:3rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.66rem;letter-spacing:.32em;
+color:var(–muted);
 }
 .hero-note{
-  margin-top:.9rem;
-  font-family:'Cormorant Garamond',serif;
-  font-size:.9rem;font-style:italic;
-  color:var(--gold);
+margin-top:.9rem;
+font-family:‘Cormorant Garamond’,serif;
+font-size:.9rem;font-style:italic;
+color:var(–gold);
 }
 
 /* ── CHAPTERS ── */
 .chapter{
-  max-width:680px;
-  margin:0 auto;
-  padding:4.5rem 2rem;
+max-width:680px;
+margin:0 auto;
+padding:4.5rem 2rem;
 }
 .eyebrow{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.6rem;letter-spacing:.4em;
-  color:var(--muted);text-transform:uppercase;
-  margin-bottom:1.2rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.6rem;letter-spacing:.4em;
+color:var(–muted);text-transform:uppercase;
+margin-bottom:1.2rem;
 }
 h2{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(1.35rem,4vw,1.9rem);
-  font-weight:400;line-height:1.6;
-  margin-bottom:1.8rem;
+font-family:‘Noto Serif JP’,serif;
+font-size:clamp(1.35rem,4vw,1.9rem);
+font-weight:400;line-height:1.6;
+margin-bottom:1.8rem;
 }
-.en h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.5rem,4.5vw,2.2rem)}
+.en h2{font-family:‘Cormorant Garamond’,serif;font-weight:300;font-size:clamp(1.5rem,4.5vw,2.2rem)}
 .body{
-  font-size:clamp(.84rem,1.9vw,.95rem);
-  font-weight:300;line-height:2.4;
-  color:rgba(20,18,26,.76);
+font-size:clamp(.84rem,1.9vw,.95rem);
+font-weight:300;line-height:2.4;
+color:rgba(20,18,26,.76);
 }
 .body p+p{margin-top:1.6rem}
-.body strong{font-weight:400;color:var(--ink)}
+.body strong{font-weight:400;color:var(–ink)}
 rt{
-  font-size:.52em;color:var(--muted);
-  font-family:'Noto Sans JP',sans-serif;font-weight:300;
+font-size:.52em;color:var(–muted);
+font-family:‘Noto Sans JP’,sans-serif;font-weight:300;
 }
-.accent-noda{color:var(--noda)}
-.accent-indigo{color:var(--indigo)}
+.accent-noda{color:var(–noda)}
+.accent-indigo{color:var(–indigo)}
 
 /* ── PULL QUOTE ── */
 .pquote{
-  margin:2.6rem 0;
-  padding:1.8rem 2.2rem;
-  border-left:3px solid var(--noda);
-  background:var(--noda-pale);
+margin:2.6rem 0;
+padding:1.8rem 2.2rem;
+border-left:3px solid var(–noda);
+background:var(–noda-pale);
 }
 .pquote p{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.05rem,2.8vw,1.4rem);
-  font-style:italic;font-weight:300;
-  line-height:1.75;
+font-family:‘Cormorant Garamond’,serif;
+font-size:clamp(1.05rem,2.8vw,1.4rem);
+font-style:italic;font-weight:300;
+line-height:1.75;
 }
-.pquote.jp p{font-family:'Noto Serif JP',serif;font-style:normal;font-weight:300}
+.pquote.jp p{font-family:‘Noto Serif JP’,serif;font-style:normal;font-weight:300}
 .pquote cite{
-  display:block;margin-top:.7rem;
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.6rem;letter-spacing:.2em;
-  color:var(--muted);font-style:normal;
+display:block;margin-top:.7rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.6rem;letter-spacing:.2em;
+color:var(–muted);font-style:normal;
 }
 
 /* ── KUBO GREENS (signature) ── */
 .greens{
-  margin:2.8rem 0;
-  text-align:center;
+margin:2.8rem 0;
+text-align:center;
 }
 .greens-row{
-  display:flex;justify-content:center;gap:.6rem;
-  flex-wrap:wrap;
+display:flex;justify-content:center;gap:.6rem;
+flex-wrap:wrap;
 }
 .greens-row span{
-  width:52px;height:52px;border-radius:50%;
-  display:inline-block;
+width:52px;height:52px;border-radius:50%;
+display:inline-block;
 }
-.g1{background:var(--kubo-a)} .g2{background:var(--kubo-b)}
-.g3{background:var(--kubo-c)} .g4{background:var(--kubo-d)}
-.g5{background:var(--kubo-e)}
+.g1{background:var(–kubo-a)} .g2{background:var(–kubo-b)}
+.g3{background:var(–kubo-c)} .g4{background:var(–kubo-d)}
+.g5{background:var(–kubo-e)}
 .greens-caption{
-  margin-top:1.1rem;
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.62rem;letter-spacing:.25em;
-  color:var(--muted);
+margin-top:1.1rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.62rem;letter-spacing:.25em;
+color:var(–muted);
 }
 
 /* ── ORDINANCE ── */
 .ordinance{
-  margin:2.8rem 0;
-  background:var(--sumi);
-  color:var(--paper);
-  padding:2.4rem 2.2rem;
+margin:2.8rem 0;
+background:var(–sumi);
+color:var(–paper);
+padding:2.4rem 2.2rem;
 }
 .ordinance .o-label{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.58rem;letter-spacing:.35em;
-  color:var(--noda);text-transform:uppercase;
-  margin-bottom:1.4rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.58rem;letter-spacing:.35em;
+color:var(–noda);text-transform:uppercase;
+margin-bottom:1.4rem;
 }
 .ordinance ol{
-  list-style:none;counter-reset:law;
+list-style:none;counter-reset:law;
 }
 .ordinance li{
-  counter-increment:law;
-  font-size:.85rem;font-weight:300;line-height:2.2;
-  color:rgba(247,243,238,.82);
-  padding-left:2.6rem;position:relative;
+counter-increment:law;
+font-size:.85rem;font-weight:300;line-height:2.2;
+color:rgba(247,243,238,.82);
+padding-left:2.6rem;position:relative;
 }
 .ordinance li+li{margin-top:1.1rem}
 .ordinance li::before{
-  content:"第" counter(law,cjk-ideographic) "条";
-  position:absolute;left:0;top:0;
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.62rem;letter-spacing:.08em;
-  color:var(--gold);line-height:2.9;
+content:“第” counter(law,cjk-ideographic) “条”;
+position:absolute;left:0;top:0;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.62rem;letter-spacing:.08em;
+color:var(–gold);line-height:2.9;
 }
 .en .ordinance li::before{
-  content:"Art. " counter(law);
-  letter-spacing:.05em;
+content:“Art. “ counter(law);
+letter-spacing:.05em;
 }
 
 /* ── DIVIDER ── */
 .sep{
-  width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(156,123,200,.3),transparent);
+width:100%;height:1px;
+background:linear-gradient(90deg,transparent,rgba(156,123,200,.3),transparent);
 }
 .sep-lang{
-  width:100%;height:1px;margin:2rem 0 0;
-  background:linear-gradient(90deg,transparent,rgba(20,18,26,.18),transparent);
+width:100%;height:1px;margin:2rem 0 0;
+background:linear-gradient(90deg,transparent,rgba(20,18,26,.18),transparent);
 }
 
 /* ── COLOPHON ── */
 .colophon{
-  background:var(--sumi);
-  text-align:center;
-  padding:5rem 2rem;
+background:var(–sumi);
+text-align:center;
+padding:5rem 2rem;
 }
 .colophon .fable{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1rem,2.6vw,1.25rem);
-  font-style:italic;font-weight:300;
-  color:rgba(247,243,238,.85);
-  max-width:560px;margin:0 auto;line-height:1.9;
+font-family:‘Cormorant Garamond’,serif;
+font-size:clamp(1rem,2.6vw,1.25rem);
+font-style:italic;font-weight:300;
+color:rgba(247,243,238,.85);
+max-width:560px;margin:0 auto;line-height:1.9;
 }
-.colophon .fable .first{color:var(--noda)}
+.colophon .fable .first{color:var(–noda)}
 .colophon .coined{
-  margin-top:2.2rem;
-  font-family:'Cormorant Garamond',serif;
-  font-size:.85rem;font-style:italic;
-  color:var(--muted);line-height:1.9;
+margin-top:2.2rem;
+font-family:‘Cormorant Garamond’,serif;
+font-size:.85rem;font-style:italic;
+color:var(–muted);line-height:1.9;
 }
 footer{
-  padding:2.6rem 2rem;text-align:center;
-  background:var(--paper);
-  border-top:1px solid rgba(20,18,26,.08);
+padding:2.6rem 2rem;text-align:center;
+background:var(–paper);
+border-top:1px solid rgba(20,18,26,.08);
 }
 .flogo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-style:italic;
-  color:var(--muted);margin-bottom:.4rem;
+font-family:‘Cormorant Garamond’,serif;
+font-size:1.05rem;font-style:italic;
+color:var(–muted);margin-bottom:.4rem;
 }
 .fmeta{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:.56rem;letter-spacing:.2em;
-  color:rgba(154,147,163,.7);margin-top:.3rem;
+font-family:‘Noto Sans JP’,sans-serif;
+font-size:.56rem;letter-spacing:.2em;
+color:rgba(154,147,163,.7);margin-top:.3rem;
 }
 
 @media (prefers-reduced-motion:no-preference){
-  .hero-eyebrow,.tagline-old,.tagline-new,.hero-sub,.hero-note{
-    animation:fu 1s ease both;
-  }
-  .tagline-old{animation-delay:.25s}
-  .tagline-new{animation-delay:.5s}
-  .hero-sub{animation-delay:.85s}
-  .hero-note{animation-delay:1.05s}
-  @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow,.tagline-old,.tagline-new,.hero-sub,.hero-note{
+animation:fu 1s ease both;
+}
+.tagline-old{animation-delay:.25s}
+.tagline-new{animation-delay:.5s}
+.hero-sub{animation-delay:.85s}
+.hero-note{animation-delay:1.05s}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 }
 @media (max-width:480px){
-  .langnav{gap:1.6rem}
-  .pquote{padding:1.4rem 1.4rem}
-  .ordinance{padding:2rem 1.4rem}
+.langnav{gap:1.6rem}
+.pquote{padding:1.4rem 1.4rem}
+.ordinance{padding:2rem 1.4rem}
 }
 </style>
+
 </head>
 <body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COLOURFUL JAPAN 共通ヘッダー  v2 (QR対応)
+     ・各 html-notes の <body> 直後にこの一式を貼り付け
+     ・notes-index.json から自分のメタデータを自動取得
+     ・QR: MY_QR があればそれを表示（このページは静的QRを焼き込み）
+            無ければ各ページのURLから自動生成
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="cj-header"></div>
+
+<style>
+  #cj-header { font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif; }
+  .cjh-card {
+    background:#FAFAF8; border:0.5px solid rgba(0,0,0,0.1);
+    border-radius:12px; overflow:hidden; margin:1.4rem auto 0;
+    max-width:860px; display:flex; flex-direction:column;
+  }
+  .cjh-pic {
+    width:100%; max-height:240px; object-fit:cover; display:block;
+    background:#e8e6e0;
+  }
+  .cjh-pic.cjh-empty { display:none; }
+  .cjh-body { padding:18px 22px 20px; }
+  .cjh-top { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:12px; }
+  .cjh-nav { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .cjh-home {
+    font-size:12px; letter-spacing:.1em; color:#6b6b66;
+    text-decoration:none; margin-right:6px; white-space:nowrap;
+  }
+  .cjh-home:hover { color:#1a1a18; }
+  .cjh-dot {
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:500; text-decoration:none;
+    opacity:.35; transition:opacity .15s, transform .1s;
+  }
+  .cjh-dot:hover { transform:scale(1.1); opacity:.85; }
+  .cjh-dot.on { opacity:1; }
+  .cjh-dot.on:hover { opacity:1; }
+  .cjh-d-認 { background:#378ADD; color:#E6F1FB; }
+  .cjh-d-市 { background:#BA7517; color:#FAEEDA; }
+  .cjh-d-語 { background:#534AB7; color:#EEEDFE; }
+  .cjh-d-町 { background:#3B6D11; color:#EAF3DE; }
+  .cjh-qr { flex-shrink:0; text-align:center; }
+  .cjh-qr img {
+    width:84px; height:84px; display:block; border-radius:5px;
+    background:#fff; padding:3px; border:0.5px solid rgba(0,0,0,0.08);
+  }
+  .cjh-qr-cap { font-size:10px; color:#6b6b66; margin-top:4px; letter-spacing:.06em; }
+  .cjh-title { font-size:21px; font-weight:500; line-height:1.5; margin-bottom:7px; color:#1a1a18; }
+  .cjh-meta { font-size:12px; color:#6b6b66; letter-spacing:.05em; }
+  .cjh-kw { font-size:12px; color:#6b6b66; margin-top:9px; letter-spacing:.1em; }
+  .cjh-coined {
+    display:inline-block; font-size:12px; margin-top:10px;
+    padding:4px 12px; border-radius:12px;
+    background:#EEEDFE; color:#3C3489; letter-spacing:.02em; line-height:1.6;
+  }
+  @media (min-width: 720px) {
+    .cjh-card { flex-direction:row; align-items:stretch; }
+    .cjh-pic { width:200px; max-height:none; flex-shrink:0; }
+    .cjh-body { flex:1; min-width:0; }
+  }
+</style>
+
+<script>
+(function(){
+  var NOTES_BASE = 'https://notes.dunksoft.jp/';
+  var PIC_BASE   = 'https://picture.dunksoft.jp/';
+  var CATS = ['認','市','語','町'];
+  var CAT_DESC = { '認':'認証・技術', '市':'Marketing・市づくり', '語':'コラム・物語', '町':'文化・コミュニティ' };
+
+  // このページ専用の静的QR。空文字にしておけば、ページURLから自動生成されます。
+  var MY_QR = '';
+
+  var myFile = decodeURIComponent(location.pathname.split('/').pop() || '');
+  if (!myFile) myFile = 'index.html';
+
+  fetch(NOTES_BASE + 'notes-index.json')
+    .then(function(r){ return r.json(); })
+    .then(function(notes){
+      var me = notes.filter(function(n){
+        var base = n.file.replace(/\.html$/, '');
+        return n.file === myFile || base === myFile;
+      })[0];
+      if (!me) { renderFallback(); return; }
+      render(me, notes);
+    })
+    .catch(function(){ renderFallback(); });
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function qrSrc(){
+    if (MY_QR) return MY_QR;
+    var url = location.origin + location.pathname;
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=168x168&margin=0&data=' + encodeURIComponent(url);
+  }
+  function qrTag(){
+    return '<div class="cjh-qr"><img src="' + qrSrc() + '" alt="QR"><div class="cjh-qr-cap">スマホで読む</div></div>';
+  }
+
+  function pickFallbackPicture(me, notes){
+    var myCats = (me.category||'').split('');
+    var cands = notes.filter(function(n){
+      if (!n.picture) return false;
+      var nc = (n.category||'').split('');
+      return nc.some(function(c){ return myCats.indexOf(c) >= 0; });
+    }).map(function(n){ return n.picture; });
+    if (!cands.length) return '';
+    return cands[Math.floor(Math.random()*cands.length)];
+  }
+
+  function render(me, notes){
+    var pic = me.picture || pickFallbackPicture(me, notes);
+    var picTag = pic
+      ? '<img class="cjh-pic" src="' + PIC_BASE + encodeURIComponent(pic) + '" alt="' + esc(me.title) + '">'
+      : '<img class="cjh-pic cjh-empty" alt="">';
+
+    var myCats = (me.category||'').split('');
+    var dots = CATS.map(function(c){
+      var on = myCats.indexOf(c) >= 0 ? ' on' : '';
+      return '<a class="cjh-dot cjh-d-' + c + on + '" href="' + NOTES_BASE + '?cat=' + encodeURIComponent(c) +
+             '" title="' + CAT_DESC[c] + '">' + c + '</a>';
+    }).join('');
+
+    var date = me.updated || me.created || '';
+    var meta = [date, me.author, me.where].filter(Boolean).join(' ・ ');
+    var kw = me.keywords ? '<div class="cjh-kw">' + me.keywords.split('').join(' ') + '</div>' : '';
+    var coined = me.coined ? '<div class="cjh-coined">' + esc(me.coined) + '</div>' : '';
+
+    document.getElementById('cj-header').innerHTML =
+      '<div class="cjh-card">' + picTag +
+        '<div class="cjh-body">' +
+          '<div class="cjh-top">' +
+            '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' + dots + '</div>' +
+            qrTag() +
+          '</div>' +
+          '<div class="cjh-title">' + esc(me.title) + '</div>' +
+          '<div class="cjh-meta">' + esc(meta) + '</div>' +
+          kw + coined +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderFallback(){
+    document.getElementById('cj-header').innerHTML =
+      '<div class="cjh-card"><div class="cjh-body">' +
+      '<div class="cjh-top">' +
+      '<div class="cjh-nav"><a class="cjh-home" href="' + NOTES_BASE + '">notes ←</a>' +
+      '<a class="cjh-dot cjh-d-認 on" href="' + NOTES_BASE + '">認</a>' +
+      '<a class="cjh-dot cjh-d-市 on" href="' + NOTES_BASE + '">市</a>' +
+      '<a class="cjh-dot cjh-d-語 on" href="' + NOTES_BASE + '">語</a>' +
+      '<a class="cjh-dot cjh-d-町 on" href="' + NOTES_BASE + '">町</a></div>' +
+      qrTag() +
+      '</div></div></div>';
+  }
+})();
+</script>
+
+<!-- ═══════════ /COLOURFUL JAPAN 共通ヘッダー ═══════════ -->
 
 <nav class="langnav" aria-label="Language">
   <a href="#ja">日本語</a>
@@ -280,6 +442,7 @@ footer{
 </nav>
 
 <!-- HERO -->
+
 <header class="hero">
   <p class="hero-eyebrow">html-notes&ensp;|&ensp;COLOURFUL JAPAN™</p>
   <p class="tagline-old">Love your life, love your time®</p>
@@ -291,6 +454,7 @@ footer{
 <div class="sep"></div>
 
 <!-- ═══════════ 日本語 ═══════════ -->
+
 <article id="ja" lang="ja">
 
 <section class="chapter">
@@ -376,6 +540,7 @@ footer{
 <div class="sep-lang"></div>
 
 <!-- ═══════════ English ═══════════ -->
+
 <article id="en" lang="en" class="en">
 
 <section class="chapter">
@@ -459,6 +624,7 @@ footer{
 </article>
 
 <!-- COLOPHON -->
+
 <section class="colophon">
   <p class="fable">
     This is the <span class="first">first column</span> written together with <span class="first">Claude Fable 5</span>.<br>
