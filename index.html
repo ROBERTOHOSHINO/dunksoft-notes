@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>picture.dunksoft.jp</title>
+<title>notes.dunksoft.jp</title>
 <style>
   :root {
     --認: #378ADD;
@@ -14,6 +14,7 @@
     --text: #1a1a18;
     --muted: #6b6b66;
     --border: rgba(0,0,0,0.08);
+    --card-bg: #ffffff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +23,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-    font-size: 19px;
+    font-size: 15px;
     line-height: 1.7;
     min-height: 100vh;
   }
@@ -37,11 +38,19 @@
     gap: 1rem;
   }
 
-  .site-title { font-size: 16px; letter-spacing: 0.12em; color: var(--muted); }
-  .site-name { font-size: 30px; font-weight: 500; letter-spacing: -0.01em; }
-  .site-sub { font-size: 14px; color: var(--muted); letter-spacing: 0.08em; margin-top: 4px; }
+  .site-title {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-weight: 400;
+  }
 
-  .legend { font-size: 15px; color: var(--muted); text-align: right; line-height: 2; }
+  .site-name {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
 
   .filter-bar {
     padding: 1.2rem 2rem;
@@ -56,14 +65,29 @@
     z-index: 10;
   }
 
-  .filter-label { font-size: 14px; color: var(--muted); letter-spacing: 0.08em; margin-right: 6px; }
+  .filter-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-right: 4px;
+  }
 
   .cat-btn {
-    width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
-    font-size: 19px; font-weight: 500; font-family: inherit;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0.35; transition: opacity 0.15s, transform 0.1s;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.35;
+    transition: opacity 0.15s, transform 0.1s;
   }
+
   .cat-btn.active { opacity: 1; }
   .cat-btn:hover { transform: scale(1.1); opacity: 0.85; }
   .cat-btn.active:hover { opacity: 1; }
@@ -74,97 +98,124 @@
   .btn-町 { background: var(--町); color: #EAF3DE; }
 
   .btn-all {
-    padding: 0 20px; height: 44px; border-radius: 22px; border: none;
-    background: var(--text); color: var(--bg); cursor: pointer;
-    font-size: 14px; font-family: inherit; letter-spacing: 0.06em; transition: opacity 0.15s;
+    padding: 0 14px;
+    height: 32px;
+    border-radius: 16px;
+    border: 0.5px solid var(--border);
+    background: var(--text);
+    color: var(--bg);
+    cursor: pointer;
+    font-size: 11px;
+    font-family: inherit;
+    letter-spacing: 0.06em;
+    transition: opacity 0.15s;
   }
   .btn-all:hover { opacity: 0.75; }
 
-  .count { font-size: 14px; color: var(--muted); margin-left: auto; }
-
-  .gallery {
-    padding: 1.5rem 2rem 2rem;
-    columns: 3 420px;
-    column-gap: 18px;
+  .count {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
   }
 
-  .pic {
-    break-inside: avoid;
-    margin-bottom: 18px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-    border: 0.5px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.12s, box-shadow 0.12s;
-    display: block;
-  }
-  .pic:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-
-  .pic img { width: 100%; display: block; background: #eee; }
-
-  .pic img.lazy-img {
-    min-height: 140px;
-    background: linear-gradient(110deg, #ececec 30%, #f5f5f5 50%, #ececec 70%);
-    background-size: 200% 100%;
-    animation: shimmer 1.4s linear infinite;
-    opacity: 1;
-  }
-  .pic img.lazy-img.loaded {
-    min-height: 0;
-    animation: none;
-    background: #eee;
-    opacity: 1;
-    transition: opacity 0.4s ease;
-  }
-  @keyframes shimmer {
-    to { background-position: -200% 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
   }
 
-  .pic-body { padding: 14px 16px 16px; }
+  .card {
+    background: var(--card-bg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.1s;
+    position: relative;
+  }
 
-  .pic-cats { display: flex; gap: 6px; margin-bottom: 8px; }
+  .card:hover { background: #F5F5F2; }
+
+  .card-cats {
+    display: flex;
+    gap: 5px;
+  }
+
   .cat-dot {
-    width: 28px; height: 28px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 500;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
   }
+
   .dot-認 { background: var(--認); color: #E6F1FB; }
   .dot-市 { background: var(--市); color: #FAEEDA; }
   .dot-語 { background: var(--語); color: #EEEDFE; }
   .dot-町 { background: var(--町); color: #EAF3DE; }
 
-  .pic-title { font-size: 17px; font-weight: 500; line-height: 1.5; }
-  .pic-meta {
-    display: flex; gap: 10px; font-size: 14px; color: var(--muted); margin-top: 7px; flex-wrap: wrap;
+  .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text);
   }
-  .pic-where { font-size: 16px; }
-  .pic-kw { font-size: 14px; color: var(--muted); letter-spacing: 0.05em; margin-top: 6px; }
 
-  .pic.hidden { display: none; }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
 
-  /* lightbox */
-  .lightbox {
-    position: fixed; inset: 0; background: rgba(20,20,18,0.92);
-    display: none; align-items: center; justify-content: center;
-    z-index: 100; padding: 2rem; cursor: zoom-out;
+  .card-where {
+    font-size: 13px;
   }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
-  .lightbox-cap {
-    position: absolute; bottom: 1.5rem; left: 0; right: 0; text-align: center;
-    color: #fff; font-size: 17px; padding: 0 2rem;
+
+  .card-keywords {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
   }
+
+  .coined-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #EEEDFE;
+    color: #3C3489;
+    letter-spacing: 0.03em;
+    margin-top: 2px;
+    line-height: 1.6;
+  }
+
+  .card.hidden { display: none; }
 
   footer {
-    padding: 2rem; text-align: center; font-size: 14px; color: var(--muted);
+    padding: 2rem;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
     border-top: 0.5px solid var(--border);
+    margin-top: 1px;
   }
 
   @media (max-width: 600px) {
     header { padding: 1.5rem 1rem 1rem; }
     .filter-bar { padding: 1rem; }
-    .gallery { padding: 1rem; columns: 1 280px; column-gap: 12px; }
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 1rem; }
   }
 </style>
 </head>
@@ -173,10 +224,9 @@
 <header>
   <div>
     <div class="site-title">DUNKSOFT</div>
-    <div class="site-name">picture</div>
-    <div class="site-sub">COLOURFUL AUTH KEY VISUAL</div>
+    <div class="site-name">notes</div>
   </div>
-  <div class="legend">
+  <div style="font-size:11px; color:var(--muted); text-align:right; line-height:1.8;">
     認 <span style="color:var(--認);">●</span> 技術・認証<br>
     市 <span style="color:var(--市);">●</span> Marketing・市づくり<br>
     語 <span style="color:var(--語);">●</span> コラム・物語<br>
@@ -194,86 +244,71 @@
   <span class="count" id="count"></span>
 </div>
 
-<div class="gallery" id="gallery"></div>
+<div class="grid" id="grid"></div>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="">
-  <div class="lightbox-cap" id="lightbox-cap"></div>
-</div>
-
-<footer>picture.dunksoft.jp &nbsp;·&nbsp; COLOURFUL JAPAN</footer>
+<footer>
+  notes.dunksoft.jp &nbsp;·&nbsp; COLOURFUL JAPAN
+</footer>
 
 <script>
 const CAT_COLORS = { '認':'dot-認', '市':'dot-市', '語':'dot-語', '町':'dot-町' };
-let allPics = [];
+let allNotes = [];
 let activeFilters = new Set(['認','市','語','町']);
 
 async function init() {
   try {
-    const res = await fetch('./picture-index.json');
-    allPics = await res.json();
-    allPics.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const res = await fetch('./notes-index.json');
+    allNotes = await res.json();
+    allNotes.sort((a, b) => (b.updated || b.created).localeCompare(a.updated || a.created));
+    applyUrlFilter();
     render();
   } catch(e) {
-    document.getElementById('gallery').innerHTML = '<div style="padding:2rem;color:#999;">画像リストを読み込めませんでした。</div>';
+    document.getElementById('grid').innerHTML = '<div style="padding:2rem;color:#999;">読み込み中...</div>';
+  }
+}
+
+function applyUrlFilter() {
+  const params = new URLSearchParams(location.search);
+  const cat = params.get('cat');
+  const valid = ['認','市','語','町'];
+  if (cat && valid.indexOf(cat) >= 0) {
+    activeFilters = new Set([cat]);
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.cat === cat);
+    });
   }
 }
 
 function render() {
-  const gallery = document.getElementById('gallery');
-  const filtered = allPics.filter(p => {
-    const cats = (p.category || '').split('');
+  const grid = document.getElementById('grid');
+  const filtered = allNotes.filter(n => {
+    const cats = n.category.split('');
     return cats.some(c => activeFilters.has(c));
   });
 
-  document.getElementById('count').textContent = filtered.length + ' 枚';
+  document.getElementById('count').textContent = filtered.length + ' 件';
 
-  gallery.innerHTML = filtered.map(p => {
-    const cats = (p.category || '').split('');
+  grid.innerHTML = filtered.map(n => {
+    const cats = n.category.split('');
     const dots = cats.map(c => `<div class="cat-dot ${CAT_COLORS[c] || ''}" title="${c}">${c}</div>`).join('');
-    const where = p.where ? `<span class="pic-where">${p.where}</span>` : '';
-    const kw = p.keywords ? `<div class="pic-kw">${p.keywords.split('').join(' ')}</div>` : '';
-    const encFile = encodeURIComponent(p.file);
-    return `<div class="pic" onclick="openLightbox('${encFile}','${(p.title||'').replace(/'/g,"\\'")}')">
-      <img data-src="./${encFile}" alt="${p.title||''}" class="lazy-img">
-      <div class="pic-body">
-        <div class="pic-cats">${dots}</div>
-        <div class="pic-title">${p.title || ''}</div>
-        <div class="pic-meta">${where}<span>${p.date || ''}</span></div>
-        ${kw}
+    const where = n.where ? `<span class="card-where">${n.where}</span>` : '';
+    const date = (n.updated || n.created) || '';
+    const dateShort = date.length > 7 ? date.slice(0,7) : date;
+    const coined = n.coined ? `<div class="coined-badge">${n.coined}</div>` : '';
+    const keywords = n.keywords ? `<div class="card-keywords">${n.keywords.split('').join(' ')}</div>` : '';
+
+    return `<a class="card" href="./${n.file}">
+      <div class="card-cats">${dots}</div>
+      <div class="card-title">${n.title}</div>
+      <div class="card-meta">
+        ${where}
+        <span>${dateShort}</span>
+        <span>${n.author || ''}</span>
       </div>
-    </div>`;
+      ${keywords}
+      ${coined}
+    </a>`;
   }).join('');
-
-  observeImages();
-}
-
-let imgObserver = null;
-function observeImages() {
-  if (imgObserver) imgObserver.disconnect();
-  imgObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.onload = () => img.classList.add('loaded');
-          img.removeAttribute('data-src');
-        }
-        obs.unobserve(img);
-      }
-    });
-  }, { rootMargin: '300px 0px' });
-  document.querySelectorAll('img.lazy-img[data-src]').forEach(img => imgObserver.observe(img));
-}
-
-function openLightbox(encFile, title) {
-  document.getElementById('lightbox-img').src = './' + encFile;
-  document.getElementById('lightbox-cap').textContent = title;
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
 }
 
 function toggleFilter(cat) {
