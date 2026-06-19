@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -549,7 +548,10 @@ body.lang-ja .dedication-text { font-style: normal; }
   fetch(NOTES_BASE + 'notes-index.json')
     .then(function(r){ return r.json(); })
     .then(function(notes){
-      var me = notes.filter(function(n){ return n.file === myFile; })[0];
+      var me = notes.filter(function(n){
+        var base = n.file.replace(/\.html$/, '');
+        return n.file === myFile || base === myFile;
+      })[0];
       if (!me) { renderFallback(); return; }
       render(me, notes);
     })
@@ -752,7 +754,7 @@ body.lang-ja .dedication-text { font-style: normal; }
     </div>
     <div class="pull">「考える力を失ったのではない。前回どんな文字列を作ったか、忘れただけだ。」</div>
     <div class="body-text">
-      <p>彼女だけではない。神田藍の会ラジオで長年ご意見番を務めてくださっている久保金司さんも同じ壁に直面している。何十年もの知識と知恵を持つシニアたちが、AIと対話してその知見を次世代に継承できる時間は限られている。にもかかわらず、認証という最初の扉が彼らを静かに締め出し続けている。</p>
+      <p>彼女だけではない。K&A-AI で長年ご意見番を務めてくださっているKUBOさんも同じ壁に直面している。何十年もの知識と知恵を持つシニアたちが、AIと対話してその知見を次世代に継承できる時間は限られている。にもかかわらず、認証という最初の扉が彼らを静かに締め出し続けている。</p>
     </div>
     <div class="timeline">
       <div class="tl-item">
