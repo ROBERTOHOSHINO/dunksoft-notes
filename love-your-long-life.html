@@ -189,25 +189,20 @@ color:var(–noda);text-transform:uppercase;
 margin-bottom:1.4rem;
 }
 .ordinance ol{
-list-style:none;counter-reset:law;
+list-style:none;margin:0;padding:0;
 }
 .ordinance li{
-counter-increment:law;
 font-size:.85rem;font-weight:300;line-height:2.2;
 color:rgba(247,243,238,.82);
 padding-left:2.6rem;position:relative;
 }
 .ordinance li+li{margin-top:1.1rem}
-.ordinance li::before{
-content:“第” counter(law,cjk-ideographic) “条”;
+.ordinance li .art-num{
 position:absolute;left:0;top:0;
 font-family:‘Noto Sans JP’,sans-serif;
 font-size:.62rem;letter-spacing:.08em;
 color:var(–gold);line-height:2.9;
-}
-.en .ordinance li::before{
-content:“Art. “ counter(law);
-letter-spacing:.05em;
+white-space:nowrap;
 }
 
 /* ── DIVIDER ── */
@@ -513,9 +508,9 @@ animation:fu 1s ease both;
   <div class="ordinance">
     <p class="o-label">暗号都市条例 · Cipher City Ordinance</p>
     <ol>
-      <li>他者の色は<ruby>市<rt>いち</rt></ruby>の共有財である。本人の<ruby>承認<rt>しょうにん</rt></ruby>なくして鍵にしてはならない。</li>
-      <li>記憶の揺らぎは失格ではない。<ruby>閾値内<rt>いきちない</rt></ruby>の変化として受け止める。</li>
-      <li>色を生み続けるかぎり、年齢に関わらず市民である。</li>
+      <li><span class="art-num">第一条</span>他者の色は<ruby>市<rt>いち</rt></ruby>の共有財である。本人の<ruby>承認<rt>しょうにん</rt></ruby>なくして鍵にしてはならない。</li>
+      <li><span class="art-num">第二条</span>記憶の揺らぎは失格ではない。<ruby>閾値内<rt>いきちない</rt></ruby>の変化として受け止める。</li>
+      <li><span class="art-num">第三条</span>色を生み続けるかぎり、年齢に関わらず市民である。</li>
     </ol>
   </div>
   <div class="body">
@@ -599,9 +594,9 @@ animation:fu 1s ease both;
   <div class="ordinance">
     <p class="o-label">Cipher City Ordinance</p>
     <ol>
-      <li>Another person's color is a commons of the market. It shall not become a key without their consent.</li>
-      <li>A wavering memory is not a failure. It is change within a threshold, and shall be received as such.</li>
-      <li>Whoever keeps generating color is a citizen, regardless of age.</li>
+      <li><span class="art-num">Art. 1</span>Another person's color is a commons of the market. It shall not become a key without their consent.</li>
+      <li><span class="art-num">Art. 2</span>A wavering memory is not a failure. It is change within a threshold, and shall be received as such.</li>
+      <li><span class="art-num">Art. 3</span>Whoever keeps generating color is a citizen, regardless of age.</li>
     </ol>
   </div>
   <div class="body">
