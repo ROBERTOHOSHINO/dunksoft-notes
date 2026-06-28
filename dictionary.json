@@ -138,7 +138,7 @@
       "word": "動的平衡WEBサイト",
       "meaning": "陳腐化せず成長し続けるWEBサイト。GitとJSON管理により自動更新・自動アーカイブ。",
       "by": "星C",
-      "note": "notes.dunksoft.jpの設計思想。RDB不要、フラットファイル+INDEX、疎結合。COLOURFUL JAPANのキラーデモになる。"
+      "note": "notes.digiterior.netの設計思想。RDB不要、フラットファイル+INDEX、疎結合。COLOURFUL JAPANのキラーデモになる。"
     }
   ],
   "delete_candidates": [

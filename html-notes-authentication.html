@@ -517,8 +517,8 @@ body.lang-ja .dedication-text { font-style: normal; }
 
 <script>
 (function(){
-  var PIC_BASE   = 'https://picture.dunksoft.jp/';
-  var NOTES_HOME = 'https://notes.dunksoft.jp/';
+  var PIC_BASE   = (window.PIC_BASE = 'https://picture.dunksoft.jp/');
+  var NOTES_HOME = '/';
   var CATS = ['認','市','語','町'];
   var CAT_DESC = { '認':'認証・技術', '市':'Marketing・市づくり', '語':'コラム・物語', '町':'文化・コミュニティ' };
   var COL  = { '認':'#378ADD','市':'#BA7517','語':'#534AB7','町':'#3B6D11' };
@@ -608,7 +608,7 @@ body.lang-ja .dedication-text { font-style: normal; }
     <div class="logo-sub">by Roberto Hoshino × Claude.ai</div>
   </div>
   <nav>
-    <a href="https://dunksoft.jp">dunksoft.jp</a>
+    <a href="https://digiterior.net">digiterior.net</a>
     <a href="https://note.com/roberto_hoshino" target="_blank" rel="noopener">note</a>
     <a href="https://www.linkedin.com/in/roberto-hoshino" target="_blank" rel="noopener">LinkedIn</a>
     <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
@@ -984,9 +984,10 @@ body.lang-ja .dedication-text { font-style: normal; }
 
 <!-- ════════════ 献花 (両言語共通・1回) ════════════ -->
 <div style="max-width:860px; margin:1rem auto 3rem; padding:0 1.5rem;">
-  <img src="https://picture.dunksoft.jp/roses%2020260529.png"
+  <img id="cjh-offering"
        alt="献花 — roses for YUKIE-SAN"
        style="width:100%; border-radius:10px; display:block;">
+  <script>(function(){var el=document.getElementById('cjh-offering');var b=window.PIC_BASE||'https://picture.dunksoft.jp/';if(el)el.src=b+encodeURIComponent('roses 20260529.png');})();</script>
   <div style="text-align:center; font-size:13px; color:#8a8680;
               margin-top:16px; letter-spacing:.1em; line-height:1.9;
               font-family:'Noto Serif JP',serif;">
