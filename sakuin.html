@@ -31,6 +31,7 @@ h1 .r{color:var(--accent)}
 .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--ink3);margin-top:1rem}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:clamp(1.5rem,4vw,2.5rem) 0}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card:target{outline:2px solid var(--accent);outline-offset:3px}
 .card{background:#fff;border:.5px solid var(--line);border-radius:8px;padding:1.15rem 1.25rem;display:flex;flex-direction:column;gap:.55rem}
 .khead{display:flex;gap:1rem;align-items:center}
 .k{font-family:"Noto Serif JP",serif;font-weight:700;font-size:52px;line-height:1}
@@ -82,7 +83,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
 </div>
 
 <div class="grid">
-<div class="card">
+<div class="card" id="k-相">
   <div class="khead"><span class="k" style="color:#2E6FC7">相</span>
     <div class="kmeta"><div class="yomi">あい · PARTNER</div>
     <div class="stat">728回 · 37 pages</div></div></div>
@@ -92,7 +93,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、ビッキーPROJECT | DUNKSOFT</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · vickey-project.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-認">
   <div class="khead"><span class="k" style="color:#378ADD">認</span>
     <div class="kmeta"><div class="yomi">にん · AUTH</div>
     <div class="stat">576回 · 29 pages</div></div></div>
@@ -102,7 +103,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：COLORFUL KANJI AUTH™ —、COLORFUL KANJI AUTH™ —</div>
   <div class="ktop only-en">appears in: colorful-kanji-auth-pitch-GATED.html · colorful-kanji-auth-pitch20260514.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-字">
   <div class="khead"><span class="k" style="color:#4FC3F7">字</span>
     <div class="kmeta"><div class="yomi">じ · CHARACTER</div>
     <div class="stat">543回 · 41 pages</div></div></div>
@@ -112,7 +113,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：COLORFUL KANJI AUTH™ —、Smart Life Styles® | D</div>
   <div class="ktop only-en">appears in: colorful-kanji-auth-pitch-GATED.html · home.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-色">
   <div class="khead"><span class="k" style="color:#EC407A">色</span>
     <div class="kmeta"><div class="yomi">いろ · COLOUR</div>
     <div class="stat">425回 · 37 pages</div></div></div>
@@ -122,7 +123,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：Smart Life Styles® | D、COLORFUL KANJI AUTH™ —</div>
   <div class="ktop only-en">appears in: home.html · colorful-kanji-auth-pitch-GATED.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-憶">
   <div class="khead"><span class="k" style="color:#8E24AA">憶</span>
     <div class="kmeta"><div class="yomi">おく · MEMORY</div>
     <div class="stat">338回 · 26 pages</div></div></div>
@@ -132,7 +133,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：COLORFUL KANJI AUTH™ —、COLORFUL KANJI AUTH™ —</div>
   <div class="ktop only-en">appears in: colorful-kanji-auth-pitch-v2.html · colorful-kanji-auth-pitch20260514.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-星">
   <div class="khead"><span class="k" style="color:#1A237E">星</span>
     <div class="kmeta"><div class="yomi">ほし · IDENTITY</div>
     <div class="stat">314回 · 33 pages</div></div></div>
@@ -142,7 +143,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：パスワードの壁を越えて——義母と叡智の継承、パエリア×防災×市づくり——薪で炊く理由</div>
   <div class="ktop only-en">appears in: html-notes-authentication.html · html-notes-paella-draft.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-理">
   <div class="khead"><span class="k" style="color:#1B6B5A">理</span>
     <div class="kmeta"><div class="yomi">り · KANRI</div>
     <div class="stat">280回 · 21 pages</div></div></div>
@@ -152,7 +153,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、TAKTシステム特許 1996</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · takt_patent_1996.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-索">
   <div class="khead"><span class="k" style="color:#9A7A2A">索</span>
     <div class="kmeta"><div class="yomi">さく · INDEX</div>
     <div class="stat">276回 · 34 pages</div></div></div>
@@ -162,7 +163,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、インデックスソート——RDB不要時代に蘇る4</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · html-notes-indexsort.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-時">
   <div class="khead"><span class="k" style="color:#C0550A">時</span>
     <div class="kmeta"><div class="yomi">とき · TIME</div>
     <div class="stat">271回 · 34 pages</div></div></div>
@@ -172,7 +173,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、Love your long life, l</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · love-your-long-life.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-工">
   <div class="khead"><span class="k" style="color:#B5401A">工</span>
     <div class="kmeta"><div class="yomi">こう · CRAFT</div>
     <div class="stat">238回 · 10 pages</div></div></div>
@@ -182,7 +183,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：Vision Layer #0 — 建築業界、TAKTシステム特許 1996</div>
   <div class="ktop only-en">appears in: takt_patent_1996.html · takt_patent_1996.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-邸">
   <div class="khead"><span class="k" style="color:#3A44A0">邸</span>
     <div class="kmeta"><div class="yomi">てい · DIGITERIOR</div>
     <div class="stat">182回 · 29 pages</div></div></div>
@@ -192,7 +193,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：パートナーシップ提案——安全な場で、この研究、Smart Life Styles® | D</div>
   <div class="ktop only-en">appears in: partnership.html · home.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-語">
   <div class="khead"><span class="k" style="color:#534AB7">語</span>
     <div class="kmeta"><div class="yomi">かたり · STORY</div>
     <div class="stat">163回 · 34 pages</div></div></div>
@@ -202,7 +203,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：パエリア×防災×市づくり——薪で炊く理由、パスワードの壁を越えて——義母と叡智の継承</div>
   <div class="ktop only-en">appears in: html-notes-paella-draft.html · html-notes-authentication.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-視">
   <div class="khead"><span class="k" style="color:#E53935">視</span>
     <div class="kmeta"><div class="yomi">し · VISION</div>
     <div class="stat">143回 · 19 pages</div></div></div>
@@ -212,7 +213,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：TAKTシステム特許 1996、Vision Layer #0 — 建築業界</div>
   <div class="ktop only-en">appears in: takt_patent_1996.html · takt_patent_1996.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-町">
   <div class="khead"><span class="k" style="color:#3B6D11">町</span>
     <div class="kmeta"><div class="yomi">まち · COMMUNITY</div>
     <div class="stat">131回 · 25 pages</div></div></div>
@@ -222,7 +223,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：VICKEYファミリーの生前贈与ガイド × 、digiterior.net VISION </div>
   <div class="ktop only-en">appears in: vickey-zoyo-chiiki.html · vision.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-継">
   <div class="khead"><span class="k" style="color:#AB47BC">継</span>
     <div class="kmeta"><div class="yomi">けい · INHERIT</div>
     <div class="stat">128回 · 18 pages</div></div></div>
@@ -232,7 +233,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：VICKEYファミリーの生前贈与ガイド × 、digiterior.net VISION </div>
   <div class="ktop only-en">appears in: vickey-zoyo-chiiki.html · vision.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-市">
   <div class="khead"><span class="k" style="color:#BA7517">市</span>
     <div class="kmeta"><div class="yomi">いち · BAZAAR</div>
     <div class="stat">128回 · 22 pages</div></div></div>
@@ -242,7 +243,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：MARKETINGは市づくり——物理の場・知、MARKETING is Making a </div>
   <div class="ktop only-en">appears in: html-notes-marketing.html · html-notes-marketing-en.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-花">
   <div class="khead"><span class="k" style="color:#C2185B">花</span>
     <div class="kmeta"><div class="yomi">はな · FLORIST</div>
     <div class="stat">123回 · 15 pages</div></div></div>
@@ -252,7 +253,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：Vision Layer #0 — 建築業界、TAKTシステム特許 1996</div>
   <div class="ktop only-en">appears in: takt_patent_1996.html · takt_patent_1996.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-図">
   <div class="khead"><span class="k" style="color:#1A3A5C">図</span>
     <div class="kmeta"><div class="yomi">ず · BLUEPRINT</div>
     <div class="stat">118回 · 29 pages</div></div></div>
@@ -262,7 +263,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、COLORFUL KANJI AUTH™ —</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · colorful-kanji-auth-pitch-v2.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-網">
   <div class="khead"><span class="k" style="color:#4C7A1E">網</span>
     <div class="kmeta"><div class="yomi">あみ · COVERAGE</div>
     <div class="stat">83回 · 23 pages</div></div></div>
@@ -272,7 +273,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、TAKTシステム特許 1996</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · takt_patent_1996.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-究">
   <div class="khead"><span class="k" style="color:#5A3FB0">究</span>
     <div class="kmeta"><div class="yomi">きわめ · MASTERY</div>
     <div class="stat">81回 · 20 pages</div></div></div>
@@ -282,7 +283,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：ROBERTO HOSHINO — Smar、2026WC開幕——遊べない日本人と遊びすぎ</div>
   <div class="ktop only-en">appears in: roberto_profile.html · play-worldcup-june13.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-金">
   <div class="khead"><span class="k" style="color:#B8960C">金</span>
     <div class="kmeta"><div class="yomi">かね · VALUE</div>
     <div class="stat">81回 · 18 pages</div></div></div>
@@ -292,7 +293,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、ビッキーPROJECT | DUNKSOFT</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · vickey-project.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-誠">
   <div class="khead"><span class="k" style="color:#0F6E56">誠</span>
     <div class="kmeta"><div class="yomi">まこと · INTEGRITY</div>
     <div class="stat">43回 · 3 pages</div></div></div>
@@ -302,7 +303,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、パスワードの壁を越えて——義母と叡智の継承</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · html-notes-authentication.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-学">
   <div class="khead"><span class="k" style="color:#66BB6A">学</span>
     <div class="kmeta"><div class="yomi">まなび · LEARNING</div>
     <div class="stat">38回 · 11 pages</div></div></div>
@@ -312,7 +313,7 @@ footer p{font-size:11px;color:var(--ink3);line-height:2}
   <div class="ktop only-ja">主な登場：KANRI白書——10年前の設計図が、いま実、ビッキーPROJECT | DUNKSOFT</div>
   <div class="ktop only-en">appears in: KANRI_WhitePaper_v11.html · vickey-project.html</div>
 </div>
-<div class="card">
+<div class="card" id="k-緩">
   <div class="khead"><span class="k" style="color:#8D6E63">緩</span>
     <div class="kmeta"><div class="yomi">ゆるみ · LOOSE</div>
     <div class="stat">14回 · 6 pages</div></div></div>
