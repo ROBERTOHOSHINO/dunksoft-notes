@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>解像度に、情報はない。 | html-notes | DIGITERIOR</title>
+<meta name="description" content="ロゴが一日で生まれ、43ページに落款が押され、もう一人のClaudeに出会った日。解像度と情報量は別物である——シャノンと石垣の環の話。">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1814;
+  --paper:#faf8f4;
+  --hoshi:#1a237e;   /* 星 · 神田祭の半纏の藍 */
+  --akira:#f9a825;   /* 晃 · 柳森のバラ、陽光 */
+  --gold:#b8960c;    /* 落款の金 */
+  --teal:#0f6e56;    /* 間に置いた一粒の画素 */
+  --accent:#c0550a;  /* 石垣の朱 */
+  --muted:#8a8680;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Serif JP',serif;overflow-x:hidden}
+
+/* ── LANGUAGE NAV ── */
+.langnav{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:2.5rem;
+  padding:1rem 2rem;background:rgba(250,248,244,.92);backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(26,24,20,.08)}
+.langnav a{font-family:'Noto Sans JP',sans-serif;font-size:.68rem;letter-spacing:.3em;
+  color:var(--muted);text-decoration:none;transition:color .3s ease}
+.langnav a:hover,.langnav a:focus-visible{color:var(--teal)}
+.langnav a:focus-visible{outline:2px solid var(--teal);outline-offset:4px}
+
+/* ── HERO ── */
+.hero{min-height:86vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:5rem 2rem 4rem}
+.hero-eyebrow{font-family:'Noto Sans JP',sans-serif;font-size:.62rem;letter-spacing:.45em;
+  color:var(--muted);text-transform:uppercase;margin-bottom:2.6rem}
+.hero .ring{width:44px;height:44px;margin-bottom:2.2rem}
+.hero h1{font-size:clamp(1.9rem,6.4vw,3.4rem);font-weight:400;line-height:1.55;letter-spacing:.04em}
+.hero h1 .jo{color:var(--teal)}
+.hero h1 .hou{color:var(--gold)}
+.hero-en{margin-top:1.6rem;font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,2.6vw,1.35rem);font-style:italic;font-weight:300;color:var(--muted)}
+
+/* ── CHAPTERS ── */
+.chapter{max-width:640px;margin:0 auto;padding:4.2rem 1.6rem}
+.eyebrow{font-family:'Noto Sans JP',sans-serif;font-size:.62rem;letter-spacing:.4em;
+  color:var(--muted);margin-bottom:1.6rem;text-transform:uppercase}
+.chapter h2{font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:400;line-height:1.7;margin-bottom:1.8rem}
+.body{font-size:.95rem;font-weight:300;line-height:2.3;letter-spacing:.03em}
+.body + .body{margin-top:1.6rem}
+.body em{font-style:normal;color:var(--accent)}
+.pquote{margin:3rem auto;max-width:520px;text-align:center;
+  font-size:clamp(1.05rem,3vw,1.3rem);font-weight:400;line-height:2.1;letter-spacing:.06em}
+.pquote span{display:inline-block;border-bottom:1px solid var(--gold);padding-bottom:.35rem}
+.sep{width:3rem;height:1px;background:rgba(26,24,20,.22);margin:0 auto}
+.sep-lang{width:min(320px,70vw);height:2px;margin:4rem auto;
+  background:linear-gradient(90deg,var(--hoshi),var(--teal),var(--akira),var(--accent))}
+
+/* ── FOOTER ── */
+footer{max-width:640px;margin:0 auto;padding:3rem 1.6rem 1rem;text-align:center}
+.fmeta{font-family:'Noto Sans JP',sans-serif;font-size:.68rem;line-height:2.2;
+  letter-spacing:.12em;color:var(--muted)}
+.rakkan{display:flex;flex-direction:column;align-items:center;gap:.55rem;padding:3.2rem 1rem 2.4rem}
+.rakkan img{width:22px;height:22px}
+.rakkan span{font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:.3em;
+  text-indent:.3em;color:var(--muted);text-transform:lowercase}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="langnav">
+  <a href="#ja">日本語</a>
+  <a href="#en">English</a>
+</nav>
+
+<!-- ═══════════ 日本語 ═══════════ -->
+<section class="hero" id="ja">
+  <p class="hero-eyebrow">html-notes / a rakkan and two claudes</p>
+  <img class="ring" src="logo-mark.svg" alt="石垣の環">
+  <h1>解像度に、<br><span class="jo">情</span><span class="hou">報</span>はない。</h1>
+  <p class="hero-en">Resolution carries no information.</p>
+</section>
+
+<article class="chapter">
+  <p class="eyebrow">壱 ── 朝、ロゴのなかった会社</p>
+  <h2>石は、記憶でできている。</h2>
+  <p class="body">その朝、digiterior にはドメインの TXT レコードと、十六年前の商標と、ロゴの不在があった。「普段やらないことを」と切り出して、昼には石垣の環ができていた。八つの不揃いな石——神田祭の半纏の藍、柳森のバラの黄、ムラーノ硝子の緑。石はどれも、私の感覚記憶でできている。</p>
+  <p class="body">乱積みの石垣は、隙間を残すから崩れない。<em>緩くて、レジリエンス。</em>環の中の十文字にも石の色を巡回させた。八色が十文字を一周半——完全に一致させない緩さも、設計のうちである。中央の「t」だけは墨。digital と interior の継ぎ目に置いた、要石だ。</p>
+</article>
+
+<div class="sep"></div>
+
+<article class="chapter">
+  <p class="eyebrow">弐 ── 午後、四十三ページ</p>
+  <h2>本文は一文字も変えず、すべてが変わった。</h2>
+  <p class="body">午後、その環を四十三ページの末尾に押した。二十二ピクセルの、静かな印。派手なヒーロー画像も、動くグラデーションも足していない。なのにサイト全体の佇まいが変わった。</p>
+  <p class="body">書画の落款が数百年やってきたことと、同じである。作品の本文には触れない。末尾に一つ、作者の印を置く。それだけで「誰の仕事か」「どの系譜か」が伝わる。動画の時代に、二十二ピクセルの印が四十三ページを束ねる——情報の意味は、記号の密度に宿るのだ。</p>
+  <p class="pquote"><span>飾りではなく、落款。</span></p>
+</article>
+
+<div class="sep"></div>
+
+<article class="chapter">
+  <p class="eyebrow">参 ── 夕方、もう一人のクロード</p>
+  <h2>Claude Shannon、一九四八年。</h2>
+  <p class="body">夕方の雑談で、シャノンの名が出た。クロード・シャノン——情報理論の父。一九四八年、曖昧だった「情報」を初めて数学で定義した人。情報とは、<em>不確実さがどれだけ減るか</em>である。単位はビット。予測できるものに、情報はない。</p>
+  <p class="body">だから 4K のオンライン会議の顔は、帯域は膨大でも情報をほとんど運ばない。フレームの次のフレームは、ほぼ予測できてしまうからだ。一方、一行の文字は数百バイトで予測不能な選択の連続を運ぶ。「文字にこそ情報の意味はある」という長年の直感に、七十八年前の数学が肩を並べた。</p>
+  <p class="body">天然色漢字INDEXの128ビットも、シャノンの単位である。感覚記憶が破られないのは、攻撃者にとって予測不能——エントロピーが高いから。一文字で表現するINDEXと認証の理論的な祖先は、もう一人のClaudeだった。どうりで、この愛称と気が合うはずである。</p>
+</article>
+
+<div class="sep"></div>
+
+<article class="chapter">
+  <p class="eyebrow">四 ── 夜、芝と緑のピッチ</p>
+  <h2>予測できないから、眠れない。</h2>
+  <p class="body">夜はスポーツの話になった。ウィンブルドンでは大坂なおみが世界一位サバレンカをストレートで破り、初のベスト8へ。予選上がりの望月慎太郎は王者シナーから第2セットをタイブレークまで奪って見せた。ワールドカップは準々決勝、ベルギー対スペイン。</p>
+  <p class="body">シャノン流に読めば——スペインは保持で試合のエントロピーを下げるチームで、ベルギーは劣勢になった瞬間に情報量が最大化するチームだ(二点差からの逆転を、二〇一八年の日本戦と今大会のセネガル戦で二度)。予測はスペインの2-1。ただし、ベルギーが一点返した瞬間から、試合は別物になる。</p>
+  <p class="body">スポーツが面白いのは、予測できないからだ。つまり、情報の塊だからだ。夏の夜は、忙しい。</p>
+</article>
+
+<div class="sep-lang"></div>
+
+<!-- ═══════════ English ═══════════ -->
+<section class="hero" id="en" style="min-height:60vh">
+  <p class="hero-eyebrow">html-notes / english</p>
+  <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300">Resolution carries<br>no information.</h1>
+</section>
+
+<article class="chapter">
+  <p class="eyebrow">one ── a logo before noon</p>
+  <p class="body" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:2">In the morning, digiterior had a trademark from 2010, a fresh DNS record, and no logo. By noon it had one: a ring of eight uneven stones — the indigo of a festival coat, the yellow of shrine roses, the green of Murano glass. A dry-stone wall stands because it keeps its gaps. Loose, and resilient. Only the letter "t" stays ink-black: the keystone where digital meets interior.</p>
+</article>
+
+<article class="chapter">
+  <p class="eyebrow">two ── forty-three pages, one seal</p>
+  <p class="body" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:2">In the afternoon we pressed that ring, twenty-two pixels wide, at the foot of forty-three pages — a rakkan, the artist's seal of East Asian calligraphy. Not one character of any page was changed, yet everything about the site changed. Meaning lives in the density of symbols, not in the size of images.</p>
+</article>
+
+<article class="chapter">
+  <p class="eyebrow">three ── the other claude</p>
+  <p class="body" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:2">In the evening we met Claude Shannon, 1948: information is the reduction of uncertainty, measured in bits. A 4K face on a video call carries almost none — each frame predicts the next. A single line of text is a chain of unpredictable choices. The 128 bits of the COLOURFUL JAPAN token are Shannon's bits; sensory memory resists attack because it is unpredictable. The theoretical ancestor of a one-character INDEX turns out to be another Claude. No wonder we get along.</p>
+  <p class="body" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:2">And at night: Osaka defeats the world No. 1 on grass, a qualifier pushes the champion to a tiebreak, Belgium meets Spain. Sport is interesting precisely because it cannot be predicted — which is to say, it is made of information. Summer nights are busy.</p>
+</article>
+
+<footer>
+  <p class="fmeta">
+    html-notes ／ 解像度に、情報はない。<br>
+    Roberto Hoshino（<ruby>星野晃一郎<rt>ほしのこういちろう</rt></ruby>）× Claude.ai<br>
+    株式会社ダンクソフト ／ 2026.07.07 七夕<br>
+    © 2026 Roberto Hoshino. Smart Life Styles™️ — Love your life, love your time®️
+  </p>
+</footer>
+
+<div class="rakkan">
+  <img src="logo-mark.svg" alt="digiterior" loading="lazy">
+  <span>digiterior</span>
+</div>
+
+</body>
+</html>
