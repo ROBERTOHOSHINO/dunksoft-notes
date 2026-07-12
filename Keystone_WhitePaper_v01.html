@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>要の色 — 分散色認証白書 Draft v0.1 | html-notes</title>
+<meta name="description" content="公開の面に毎日ともる一色で本人性を保つ、分散色認証のインターフェースと運用規律。機構は封印のまま。">
+<style>
+
+:root{
+  --ink:#1a1814; --ink2:#4a4640; --ink3:#8a8680;
+  --paper:#faf8f4; --paper2:#f2efe8;
+  --gold:#b8960c; --indigo:#1a3a5c; --teal:#0f6e56; --accent:#c0550a;
+  --line:rgba(0,0,0,.12); --line-soft:rgba(0,0,0,.07);
+  --code-bg:#211f1a; --code-ink:#e6e1d6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Sans JP",sans-serif;font-weight:300;line-height:1.95;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+body.lang-ja .only-en{display:none !important}
+body.lang-en .only-ja{display:none !important}
+body.lang-ja span.only-ja,body.lang-en span.only-en{display:inline}
+body.lang-ja div.only-ja,body.lang-en div.only-en{display:block}
+body.lang-ja p.only-ja,body.lang-en p.only-en{display:block}
+body.lang-ja ol.only-ja,body.lang-en ol.only-en{display:grid}
+.toc .tt{flex:1;display:inline-block}
+body.lang-ja h1.only-ja,body.lang-en h1.only-en{display:block}
+body.lang-ja h2.only-ja,body.lang-en h2.only-en{display:block}
+
+header{border-bottom:.5px solid var(--line);padding:1.15rem 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);z-index:100}
+.logo-block .logo{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;letter-spacing:.04em}
+.logo-block .logo-sub{font-size:9.5px;color:var(--ink3);letter-spacing:.06em;margin-top:1px}
+nav{display:flex;gap:1.4rem;align-items:center}
+nav a{font-size:12px;letter-spacing:.06em;color:var(--ink2);text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--accent)}
+.lang-toggle{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;border:.5px solid var(--ink);background:transparent;color:var(--ink);padding:.28rem .7rem;border-radius:3px;cursor:pointer;transition:all .2s}
+.lang-toggle:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:560px){nav a:not(.lang-toggle){display:none}}
+
+.eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:400}
+.hero{padding:clamp(3rem,8vw,5rem) 0 clamp(2rem,5vw,3rem)}
+.hero .eyebrow{margin-bottom:1.8rem}
+.hero-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(26px,5.2vw,44px);line-height:1.42;letter-spacing:.02em;margin-bottom:1.4rem}
+.hero-title .em{color:var(--accent)}
+.hero-lead{font-size:14.5px;color:var(--ink2);max-width:56ch;line-height:2}
+.hero-lead strong{color:var(--ink);font-weight:500}
+
+.origin{border:.5px solid rgba(184,150,12,.45);border-radius:6px;padding:clamp(1.4rem,4vw,2rem);margin:clamp(1.5rem,4vw,2.5rem) 0;background:linear-gradient(160deg,#f6f1e3,var(--paper2))}
+.origin .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem}
+.origin .t{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(16px,2.6vw,20px);line-height:1.6;margin-bottom:.7rem}
+.origin p{font-size:13px;color:var(--ink2);line-height:1.95}
+.origin .credit{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--ink3);margin-top:.9rem;text-transform:uppercase}
+
+.diagram{margin:0 0 clamp(2rem,5vw,3rem)}
+.diagram svg{width:100%;height:auto;display:block;border:.5px solid var(--line);border-radius:6px;background:#fff}
+.diagram-cap{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--ink3);text-transform:uppercase;text-align:center;margin-top:.8rem}
+
+.toc{border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);padding:1.5rem 0;margin-bottom:clamp(1.5rem,4vw,2.5rem)}
+.toc .sec-label{margin-bottom:.9rem}
+.toc ol{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:.35rem 1.8rem}
+.toc li{font-size:12.5px;color:var(--ink2);display:flex;gap:.65rem;padding:.22rem 0;border-bottom:.5px solid var(--line-soft)}
+.toc a{color:inherit;text-decoration:none;transition:color .2s;flex:1;display:block}
+.toc a:hover{color:var(--accent)}
+.toc .n{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:11.5px;min-width:1.7em}
+@media(max-width:560px){.toc ol{grid-template-columns:1fr}}
+
+section.ch{padding:clamp(2rem,5vw,3rem) 0;border-top:.5px solid var(--line)}
+.sec-label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.2rem}
+.ch-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.3rem}
+.ch-head .num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500}
+.ch h2{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(18px,3vw,24px);line-height:1.5;letter-spacing:.02em}
+.ch p{font-size:14px;color:var(--ink2);line-height:2;max-width:62ch;margin-bottom:1rem}
+.ch p strong{color:var(--ink);font-weight:500}
+.ch p:last-child{margin-bottom:0}
+.lead{font-size:15.5px !important;color:var(--ink) !important;font-weight:400}
+.from2016{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;display:inline-block;margin-bottom:.9rem}
+
+.integ{display:inline-flex;align-items:center;gap:.4rem;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--teal);border:1px solid rgba(15,110,86,.45);padding:.15rem .55rem;border-radius:2px;vertical-align:middle;margin-right:.5rem;text-transform:uppercase}
+.integ::before{content:"\25C6";font-size:7px}
+.coin{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;color:var(--ink3)}
+.dig{border-left:2px solid rgba(184,150,12,.55);background:var(--paper2);padding:.8rem 1.1rem;margin:1.3rem 0;max-width:62ch;border-radius:0 4px 4px 0}
+.dig .yr{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.35rem}
+.dig .yr::before{content:"\2299";margin-right:.45rem;font-size:9px}
+.dig p{font-size:12.5px;color:var(--ink2);line-height:1.9;margin:0}
+
+pre{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:1rem 1.2rem;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.75;margin:1rem 0}
+pre .c{color:#9a917f}
+pre .k{color:#c9a86a}
+pre .a{color:#7fbf9e}
+
+.res{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:1rem}
+.res-item{background:var(--paper2);padding:1rem 1.1rem;border-radius:4px}
+.res-item h4{font-family:"Noto Serif JP",serif;font-weight:600;font-size:14px;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+.res-item h4 .dot{width:9px;height:9px;border-radius:50%}
+.res-item p{font-size:11.5px !important;margin:0 !important;line-height:1.7 !important}
+@media(max-width:560px){.res{grid-template-columns:1fr}}
+
+.states{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:1rem 0}
+.state{font-family:"IBM Plex Mono",monospace;font-size:10.5px;padding:.35rem .7rem;border:.5px solid var(--line);border-radius:3px;background:#fff}
+.state.head{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.arrow{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px}
+
+.loop{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink);background:var(--paper2);border-radius:5px;padding:.95rem 1.15rem;margin:1rem 0;line-height:2}
+.loop b{color:var(--accent)}
+
+.pull{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(17px,2.8vw,22px);line-height:1.65;border-left:3px solid var(--gold);padding-left:1.2rem;margin:1rem 0;color:var(--ink)}
+.pull em{font-style:normal;color:var(--accent)}
+
+.sealed{display:inline-flex;align-items:center;gap:.55rem;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--indigo);border:.5px solid var(--indigo);padding:.42rem .8rem;border-radius:3px;margin-top:.5rem}
+.sealed::before{content:"\25C6";font-size:8px}
+
+.stack{margin-top:1rem;display:flex;flex-direction:column;gap:2px}
+.stack-row{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline;padding:.75rem 1rem;background:var(--paper2);border-radius:4px}
+.stack-row.base{background:transparent;border:1px dashed var(--gold)}
+.stack-tag{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;white-space:nowrap}
+.stack-name{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13.5px}
+.stack-name span{font-weight:300;color:var(--ink2);font-size:12px}
+.stack-row.base .stack-name{color:var(--accent)}
+
+.cta-block{padding:clamp(2.5rem,6vw,4rem) 0;border-top:.5px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+@media(max-width:560px){.cta-block{grid-template-columns:1fr}}
+.cta-line{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(17px,3vw,22px);line-height:1.6;margin-bottom:1rem;max-width:26ch}
+.cta-links{display:flex;flex-direction:column;gap:.5rem;font-size:13px}
+.cta-links a{color:var(--accent);text-decoration:none;border-bottom:.5px solid transparent;transition:border-color .2s;width:fit-content}
+.cta-links a:hover{border-color:var(--accent)}
+.qr-box{text-align:center}
+.qr-box svg{width:128px;height:128px;display:block;background:#fff;padding:8px;border:.5px solid var(--line);border-radius:6px}
+.qr-cap{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;color:var(--ink3);margin-top:.6rem;text-transform:uppercase}
+
+footer{border-top:.5px solid var(--line);padding:1.8rem 0 3rem;text-align:center}
+footer p{font-size:11px;color:var(--ink3);letter-spacing:.05em;line-height:2}
+
+</style>
+</head>
+<body class="lang-ja">
+
+<script>window.CJ_ME = {"file": "Keystone_WhitePaper_v01.html", "title": "要の色——分散色認証白書", "created": "2026-07", "updated": "2026-07", "category": "認", "author": "星R", "where": "東", "keywords": "色膜垣螺封楽", "coined": "更新され続けることが、生きている証明", "picture": ""};</script>
+
+<div class="wrap">
+
+<header>
+  <div class="logo-block">
+    <div class="logo">html-notes</div>
+    <div class="logo-sub">by Roberto Hoshino &#215; Claude.ai</div>
+  </div>
+  <nav>
+    <a href="https://digiterior.net">digiterior.net</a>
+    <a href="/">notes</a>
+    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow only-ja">要の色 2026 &#8212; 分散色認証 仕様書 Draft v0.1</div>
+  <div class="eyebrow only-en">The Color of the Keystone 2026 &#8212; Distributed Color Authentication, Draft v0.1</div>
+  <h1 class="hero-title only-ja">パスワードは、死んだ記憶。<br><span class="em">色は、生きている証明。</span></h1>
+  <h1 class="hero-title only-en">A password is dead memory.<br><span class="em">A color is living proof.</span></h1>
+  <p class="hero-lead only-ja">固定された秘密は、盗まれた瞬間に本人になりすます。本書が記す認証は逆を行く——公開の面に、毎日ともる一色。誰にでも見え、今日の色はコピーさえできる。だが<strong>明日の色は、鍵を持つ者にしか出せない。</strong>本書はそのインターフェースと運用の規律だけを記す。色を生む機構は、封印のまま。</p>
+  <p class="hero-lead only-en">A fixed secret impersonates its owner the moment it leaks. The authentication described here runs the other way: a single color, lit daily on public surfaces. Anyone can see it; today&#8217;s color can even be copied. But <strong>tomorrow&#8217;s color cannot be produced without the key.</strong> This paper specifies only the interface and the operating discipline. The mechanism that produces the color remains sealed.</p>
+</section>
+
+<div class="origin">
+  <div class="tag">Origin &#183; 2026-07</div>
+  <div class="t only-ja">試合の合間に、最初の膜が張られた。</div>
+  <div class="t only-en">The first membrane was raised between halves of a football match.</div>
+  <p class="only-ja">KANRI白書 第11章が「封印された層」とだけ記した機構の、最初の実物——扇の要にともる「楽」の一色——は、ワールドカップの試合のハイドレーションブレイクとハーフタイムの数時間で試作された。生成、公開面、検証面の三点が揃い、<strong>石垣と障子は、比喩から実装になった。</strong>本書は、その日の対話の記録でもある。</p>
+  <p class="only-en">Chapter 11 of the KANRI White Paper named this layer only as &#8220;sealed.&#8221; Its first working artifact &#8212; the character 楽 lit in a single color at the pivot of a fan &#8212; was prototyped in the hours around a World Cup hydration break and halftime. Generator, public surface, and verifier came together, and <strong>the stone wall and the paper screen went from metaphor to implementation.</strong> This paper is also the record of that day&#8217;s dialogue.</p>
+  <div class="credit">first working prototype &#183; one afternoon &#183; 2026-07</div>
+</div>
+
+<div class="diagram">
+  <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="distributed color authentication">
+    <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#8a8680"/></marker></defs>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10" fill="#8a8680" letter-spacing="1">
+      <text x="16" y="40">SURFACES</text>
+      <text x="16" y="240">VERIFY</text>
+      <text x="16" y="330">TIME</text>
+    </g>
+    <g font-family="'IBM Plex Mono',monospace" font-size="11.5">
+      <rect x="90" y="55" width="180" height="110" rx="6" fill="#fff" stroke="#1a3a5c"/>
+      <circle cx="180" cy="98" r="22" fill="#8a3a3a"/><text x="180" y="103" text-anchor="middle" fill="#fff" font-size="14">楽</text>
+      <text x="180" y="148" text-anchor="middle" fill="#1a1814">面 A &#183; static site</text>
+      <rect x="340" y="55" width="180" height="110" rx="6" fill="#fff" stroke="#1a3a5c"/>
+      <circle cx="430" cy="98" r="22" fill="#8a3a3a"/><text x="430" y="103" text-anchor="middle" fill="#fff" font-size="14">楽</text>
+      <text x="430" y="148" text-anchor="middle" fill="#1a1814">面 B &#183; service</text>
+      <rect x="590" y="55" width="180" height="110" rx="6" fill="#fff" stroke="#b8960c" stroke-dasharray="4 3"/>
+      <circle cx="680" cy="98" r="22" fill="#f2efe8" stroke="#8a8680"/><text x="680" y="103" text-anchor="middle" fill="#8a8680" font-size="14">楽</text>
+      <text x="680" y="148" text-anchor="middle" fill="#8a8680">面 C &#183; unavailable</text>
+    </g>
+    <line x1="180" y1="165" x2="360" y2="222" stroke="#8a8680" marker-end="url(#ah)"/>
+    <line x1="430" y1="165" x2="420" y2="222" stroke="#8a8680" marker-end="url(#ah)"/>
+    <line x1="680" y1="165" x2="480" y2="222" stroke="#8a8680" stroke-dasharray="3 4"/>
+    <g font-family="'IBM Plex Mono',monospace" font-size="12">
+      <rect x="300" y="225" width="260" height="44" rx="6" fill="#1a3a5c"/>
+      <text x="430" y="252" text-anchor="middle" fill="#fff">k-of-n &#8212; 2/3 &#10003; 石垣は立つ</text>
+    </g>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10.5">
+      <text x="90" y="316" fill="#4a4640">day&#8722;3</text><circle cx="180" cy="340" r="12" fill="#3a6e8a"/>
+      <text x="250" y="316" fill="#4a4640">day&#8722;2</text><circle cx="340" cy="340" r="12" fill="#6e8a3a"/>
+      <text x="410" y="316" fill="#4a4640">day&#8722;1</text><circle cx="500" cy="340" r="12" fill="#8a6e3a"/>
+      <text x="570" y="316" fill="#4a4640">today</text><circle cx="650" cy="340" r="12" fill="#8a3a3a"/>
+      <text x="700" y="345" fill="#1a1814">&#8592; 系列 = 署名</text>
+      <line x1="196" y1="340" x2="324" y2="340" stroke="#8a8680" marker-end="url(#ah)"/>
+      <line x1="356" y1="340" x2="484" y2="340" stroke="#8a8680" marker-end="url(#ah)"/>
+      <line x1="516" y1="340" x2="634" y2="340" stroke="#8a8680" marker-end="url(#ah)"/>
+    </g>
+  </svg>
+  <div class="diagram-cap">surfaces &#183; threshold &#183; sequence &#8212; the three axes of the membrane</div>
+</div>
+
+<div class="toc">
+  <div class="sec-label">目次 <span class="only-en" style="display:none">Contents</span></div>
+  <ol class="only-ja">
+    <li><span class="n">00</span><a href="#k0" class="tt">膜 — 生きている証明</a></li>
+    <li><span class="n">01</span><a href="#k1" class="tt">石垣 — 一面は薄い。だから積む</a></li>
+    <li><span class="n">02</span><a href="#k2" class="tt">螺旋 — 色の系列は署名</a></li>
+    <li><span class="n">03</span><a href="#k3" class="tt">検証者の義務</a></li>
+    <li><span class="n">04</span><a href="#k4" class="tt">失効と再発行</a></li>
+    <li><span class="n">05</span><a href="#k5" class="tt">面 — 多様性と非対称性</a></li>
+    <li><span class="n">06</span><a href="#k6" class="tt">空間の面 — 色の魔術師のアトリエ</a></li>
+    <li><span class="n">07</span><a href="#k7" class="tt">封印 — 本書が記さないもの</a></li>
+  </ol>
+  <ol class="only-en">
+    <li><span class="n">00</span><a href="#k0" class="tt">The membrane — living proof</a></li>
+    <li><span class="n">01</span><a href="#k1" class="tt">The stone wall — one face is thin</a></li>
+    <li><span class="n">02</span><a href="#k2" class="tt">The spiral — sequence as signature</a></li>
+    <li><span class="n">03</span><a href="#k3" class="tt">The verifier&#8217;s duties</a></li>
+    <li><span class="n">04</span><a href="#k4" class="tt">Revocation &amp; reissue</a></li>
+    <li><span class="n">05</span><a href="#k5" class="tt">Surfaces — diversity &amp; asymmetry</a></li>
+    <li><span class="n">06</span><a href="#k6" class="tt">The spatial surface — the colorist&#8217;s atelier</a></li>
+    <li><span class="n">07</span><a href="#k7" class="tt">Sealed — what this paper does not say</a></li>
+  </ol>
+</div>
+
+<!-- 00 -->
+<section class="ch" id="k0">
+  <div class="ch-head"><span class="num">00</span><h2 class="only-ja">膜 — 生きている証明</h2><h2 class="only-en">The membrane — living proof</h2></div>
+  <p class="lead only-ja">認証のしるしは、隠されない。<strong>掲げられる。</strong></p>
+  <p class="lead only-en">The mark of authentication is not hidden. <strong>It is displayed.</strong></p>
+  <p class="only-ja">パスワードは金庫の中の死んだ記憶で、漏れた瞬間に価値が反転する。膜は逆を行く——毎日書き換えられる、公開の一色。価値は色そのものにはない。<strong>書き換えが続いているという事実</strong>にある。止まった膜は「未更新」と判定され、続く膜だけが本人性を通す。海馬が眠りの中で記憶を書き換えながら自己の一貫性を保つように、膜は毎日色を書き換えながら本人性を保つ。</p>
+  <p class="only-en">A password is dead memory in a vault; the moment it leaks, its value inverts. The membrane runs the other way &#8212; one public color, rewritten every day. The value is not in the color itself but in <strong>the fact that the rewriting continues.</strong> A stalled membrane reads as &#8220;not renewed&#8221;; only a living one carries identity. As the hippocampus preserves the coherence of a self by rewriting memory in sleep, the membrane preserves identity by rewriting its color each day.</p>
+  <div class="pull only-ja">更新され続けることが、<em>生きている証明。</em></div>
+  <div class="pull only-en">To keep renewing <em>is the proof of being alive.</em></div>
+  <p class="coin">&#8212; Roberto Hoshino &#215; Claude.ai &#183; 2026-07</p>
+</section>
+
+<!-- 01 -->
+<section class="ch" id="k1">
+  <div class="ch-head"><span class="num">01</span><h2 class="only-ja">石垣 — 一面は薄い。だから、積む</h2><h2 class="only-en">The stone wall — one face is thin, so we stack</h2></div>
+  <p class="only-ja">一つの面の、一日の色は、偶然にも一致しうる。単日の一面は、なりすまし防止としては<strong>意図的に薄い</strong>。強度は積み方から生まれる：n面のうちk面が一致すれば認証は成立する（閾値認証）。一面が崩れても——取得できなくても、未更新でも——石垣は立つ。二面が欠ければ、崩れる。</p>
+  <p class="only-en">On any single surface, on any single day, a color can match by chance. One face on one day is <strong>deliberately thin</strong> as proof. Strength comes from the stacking: authentication holds when k of n surfaces agree (threshold verification). One face may crumble &#8212; unreachable, or not renewed &#8212; and the wall still stands. Lose two, and it falls.</p>
+  <p class="only-ja">乱積みの緩さは、弱さではない。<strong>壊れ方の設計</strong>である。整った石垣は一撃で割れるが、乱積みは崩れながら立ち続ける。疎結合が全体のIntegrityを保つ——KANRI第3章の原理が、門でも同じ形をしている。</p>
+  <p class="only-en">The looseness of dry-stone masonry is not weakness. It is <strong>the design of how things are allowed to fail.</strong> A dressed wall cracks at one blow; rubble masonry keeps standing as it crumbles. Loose coupling preserves the integrity of the whole &#8212; the principle of KANRI chapter 03, in the same shape, at the gate.</p>
+  <div class="pull only-ja">一面が崩れても、<em>石垣は立つ。</em></div>
+  <div class="pull only-en">One face crumbles &#8212; <em>the wall stands.</em></div>
+</section>
+
+<!-- 02 -->
+<section class="ch" id="k2">
+  <div class="ch-head"><span class="num">02</span><h2 class="only-ja">螺旋 — 色の系列は、時間軸上の署名</h2><h2 class="only-en">The spiral — the sequence of colors is a signature in time</h2></div>
+  <p class="lead only-ja">今日の色はコピーできる。<strong>昨日までの一年は、コピーできない。</strong></p>
+  <p class="lead only-en">Today&#8217;s color can be copied. <strong>The year behind it cannot.</strong></p>
+  <p class="only-ja">攻撃者は、今日の公開色を写して偽の面を立てられる。だから検証は一回の照合では終わらない。色は毎日、螺旋のように回り、その<strong>系列そのものが時間軸上の署名</strong>になる。そして書き換えの一回一回が、時刻印つきの公開の版管理履歴に積まれるなら、追記専用の台帳が無償で手に入る：過去は編集できず、捏造できるのは未来だけ——その未来の色は、鍵なしには出せない。</p>
+  <p class="only-en">An attacker can copy today&#8217;s public color onto a fake surface. So verification is never a single comparison. The color turns daily, like a spiral, and <strong>the sequence itself becomes a signature along the time axis.</strong> And if each rewriting lands in a timestamped public version history, an append-only ledger comes free: the past cannot be edited, and the only thing forgeable is the future &#8212; whose colors cannot be produced without the key.</p>
+  <p class="only-ja"><span class="integ">Integrity</span>記録は曲がらない。完了したサイクルが、前のサイクルを監査する——螺旋は、Integrityが時間を生きる形である。</p>
+  <p class="only-en"><span class="integ">Integrity</span>The record does not bend. Every completed cycle audits the one before &#8212; the spiral is integrity, alive in time.</p>
+  <div class="dig"><span class="yr">発掘 &#8212; excavated &#183; 2000</span><p class="only-ja">インターネットが世界を変え始めた年、VeriSignの認定資格を5日間で3つ修めた。PKI——公開鍵でEコマースを守る技術。「公開されているのに、偽造できない」という設計は、<strong>四半世紀の認証の系譜</strong>の上に立っている。</p><p class="only-en">In the year the internet began changing everything: three VeriSign certifications in five days &#8212; PKI, securing e-commerce with public keys. &#8220;Public, yet unforgeable&#8221; stands on <strong>a quarter-century lineage of authentication.</strong></p></div>
+</section>
+
+<!-- 03 -->
+<section class="ch" id="k3">
+  <div class="ch-head"><span class="num">03</span><h2 class="only-ja">検証者の義務</h2><h2 class="only-en">The verifier&#8217;s duties</h2></div>
+  <p class="lead only-ja">膜は語る。だが、<strong>聞き方には規律が要る。</strong></p>
+  <p class="lead only-en">The membrane speaks. But <strong>listening has its discipline.</strong></p>
+  <p class="only-ja">検証は三つを確かめる。第一に<strong>面の素性</strong>——読むのは本物の面であり、かつ管理者だけが書き換えられる要素であること。利用者が投稿できる領域を読めば、誰でも色を「置けて」しまう。第二に<strong>今日の一致</strong>——鍵を共有する検証者だけが、今日あるべき色を知る。第三に<strong>連続性</strong>——用途に応じた窓（直近n日）と閾値（k面）を確かめる。</p>
+  <p class="only-en">Verification checks three things. First, <strong>the surface&#8217;s provenance</strong> &#8212; that what is read is the genuine surface, and an element only its administrator can rewrite; read a user-postable area, and anyone can &#8220;place&#8221; a color. Second, <strong>today&#8217;s match</strong> &#8212; only a verifier holding the key knows what today&#8217;s color should be. Third, <strong>continuity</strong> &#8212; a window (the last n days) and a threshold (k surfaces), chosen for the occasion.</p>
+  <p class="only-ja">窓と閾値は固定値ではなく、<strong>強度のダイヤル</strong>である。軽い確認は浅い窓で速く、重い操作は深い窓で厳しく。そして照合は、正規の検証面でのみ行う——合言葉を入力させる偽の検証ページこそ、この方式に対する最も安い攻撃だからだ。</p>
+  <p class="only-en">Window and threshold are not constants; they are <strong>dials of strength.</strong> A light check runs fast on a shallow window; a heavy operation demands a deep one. And verification happens only at the genuine verifying surface &#8212; a counterfeit verify page that asks for the passphrase is the cheapest possible attack on this scheme.</p>
+  <div class="pull only-ja">窓と閾値は、<em>強度のダイヤル。</em></div>
+  <div class="pull only-en">Window and threshold are <em>the dials of strength.</em></div>
+</section>
+
+<!-- 04 -->
+<section class="ch" id="k4">
+  <div class="ch-head"><span class="num">04</span><h2 class="only-ja">失効と再発行</h2><h2 class="only-en">Revocation &amp; reissue</h2></div>
+  <p class="lead only-ja">鍵は変えられる。<strong>面は、そのまま。</strong></p>
+  <p class="lead only-en">The key can change. <strong>The surfaces stay.</strong></p>
+  <p class="only-ja">合言葉を一つ変えれば、全面の色が明日から一斉に別の螺旋へ移る。失効に、面の作り直しは要らない。紛失や漏えいが疑われたら、回すだけ。固定パスワードの「漏れたら終わり」と違い、膜は<strong>回復可能性を最初から持っている</strong>。委任も同型で、期間限定の合言葉を切り、期限で回せばよい。</p>
+  <p class="only-en">Change one passphrase, and from tomorrow every surface turns onto a different spiral together. Revocation requires no rebuilding of surfaces. Suspect a loss or a leak &#8212; just rotate. Unlike the fixed password&#8217;s &#8220;leaked means finished,&#8221; the membrane <strong>carries recoverability from the start.</strong> Delegation takes the same shape: cut a time-boxed passphrase, and rotate it out at expiry.</p>
+  <p class="only-ja">KANRI白書 第11章は、失効をどうするかを書かなかった。答えは、機構の側に最初からあった。</p>
+  <p class="only-en">Chapter 11 of the KANRI White Paper never said how revocation works. The mechanism had the answer all along.</p>
+</section>
+
+<!-- 05 -->
+<section class="ch" id="k5">
+  <div class="ch-head"><span class="num">05</span><h2 class="only-ja">面 — 多様性と非対称性</h2><h2 class="only-en">Surfaces — diversity &amp; asymmetry</h2></div>
+  <p class="lead only-ja">石垣は、<strong>石の種類が違うほど</strong>崩れにくい。</p>
+  <p class="lead only-en">A stone wall stands longer <strong>when its stones differ.</strong></p>
+  <p class="only-ja">面は多様であるほど良い——別ドメイン、別インフラ、別の運営主体。静的サイト、自社サービス、外部SNS、そして空間ツアー。全面が同じ基盤に載れば、そこが単一障害点になる。一つの侵害で複数の面を同時に偽装できてはならない。</p>
+  <p class="only-en">The more diverse the surfaces, the better &#8212; different domains, different infrastructure, different operators: a static site, an in-house service, an external social platform, a spatial tour. Put every face on one foundation and that foundation becomes the single point of failure; no one breach may forge several faces at once.</p>
+  <p class="only-ja">そして各面で読む要素は、<strong>管理者だけが書き換えられる場所</strong>に固定する。表示面は公開でも、書き込み経路は一本。マスターは管理者だけが更新し、利用者は閲覧する——<span class="integ">Integrity</span>Master Data Firstの非対称性が、ここでは検証の前提条件としてそのまま働く。</p>
+  <p class="only-en">And on every surface, the element that is read is pinned to <strong>a place only the administrator can rewrite.</strong> The display is public; the write path is single. Masters are updated by administrators alone, and read by everyone else &#8212; <span class="integ">Integrity</span>the asymmetry of Master Data First operates here, unchanged, as a precondition of verification.</p>
+</section>
+
+<!-- 06 -->
+<section class="ch" id="k6">
+  <div class="ch-head"><span class="num">06</span><h2 class="only-ja">空間の面 — 色の魔術師のアトリエ</h2><h2 class="only-en">The spatial surface — the colorist&#8217;s atelier</h2></div>
+  <p class="only-ja">平面の面は「どこを読むか」が自明だ。扇の要、画像の隅。だが360度の仮想空間では、今日の色が<strong>どこに宿るか</strong>——緑の花瓶か、パレットか、窓辺か——という位置の次元が加わる。色数×場所数で、一面の語彙は跳ね上がる。観光客には展示の彩り、鍵を持つ者には署名。</p>
+  <p class="only-en">On a flat surface, where to read is obvious: the pivot of the fan, the corner of an image. In a 360&#176; virtual space, a new dimension appears &#8212; <strong>where today&#8217;s color resides</strong>: the green vase, the palette, the windowsill. Colors times places, and the vocabulary of a single surface multiplies. To a tourist, decor; to the keyholder, a signature.</p>
+  <p class="only-ja">静物画は「どこに何を置くか」の芸術だった。置き場所そのものが署名になるのは、主題的にも正しい。具体の読み方を、本書は記さない。</p>
+  <p class="only-en">The still life was always the art of what goes where. That placement itself becomes signature is thematically exact. How it is read, this paper does not say.</p>
+  <div class="dig"><span class="yr">発掘 &#8212; excavated &#183; 2020&#8211;2022</span><p class="only-ja">コロナ禍、日本人観光客が消えたエクス＝アン＝プロヴァンスの観光局に、フランス人のインターンシップ生が「作らせてほしい」と自ら願い出て、<strong>一日で</strong>セザンヌのアトリエの仮想ツアーを立ち上げた。色の魔術師のアトリエが、色認証の最初の空間面の候補になったのは、四年後の偶然である。</p><p class="only-en">During the pandemic, with Japanese tourists gone from Aix-en-Provence, a French intern asked the tourism office to let her build &#8212; and raised a virtual tour of C&#233;zanne&#8217;s studio <strong>in a single day.</strong> That the colorist&#8217;s atelier became the first candidate for a spatial surface of color authentication is a coincidence four years in the making.</p></div>
+</section>
+
+<!-- 07 -->
+<section class="ch" id="k7">
+  <div class="ch-head"><span class="num">07</span><h2 class="only-ja">封印 — 本書が記さないもの</h2><h2 class="only-en">Sealed — what this paper does not say</h2></div>
+  <p class="only-ja">本書が記したのは、インターフェースと運用の規律だけである：膜、石垣、螺旋、検証者の義務、失効、面の規則。記していないもの——色を導く式、劣化に耐える読み取りの内部、空間の面の読み方——は<strong>特許出願中</strong>であり、trade secret として封印される。</p>
+  <p class="only-en">This paper has specified only the interface and the operating discipline: the membrane, the wall, the spiral, the verifier&#8217;s duties, revocation, the rules of surfaces. What it has not written &#8212; the derivation of the color, the internals of degradation-tolerant reading, the reading of the spatial surface &#8212; is the subject of a <strong>pending patent application</strong>, held as trade secret.</p>
+  <p class="only-ja">封印は「隠すことによる安全」ではない。機構がいずれ特許公報で開示されても、安全は開示されない鍵にのみ依存するよう設計されている。<strong>障子は破れても、石垣は立つ。</strong></p>
+  <p class="only-en">The seal is not security by obscurity. Even when the mechanism is one day disclosed in a patent gazette, safety is designed to rest solely on the key, which is never disclosed. <strong>The paper screen may tear; the stone wall stands.</strong></p>
+  <div class="pull only-ja">見せられるのは、<em>再現できないからだ。</em></div>
+  <div class="pull only-en">It can be shown openly <em>because it cannot be reproduced.</em></div>
+  <p class="coin">&#8212; KANRI White Paper, ch. 11 &#183; 2026-07</p>
+  <div class="sealed">Interface &amp; operations specified &#183; mechanism sealed &#183; patent pending, held individually</div>
+</section>
+
+<!-- position -->
+<section class="ch" id="k8">
+  <div class="ch-head"><span class="num">&#8212;</span><h2 class="only-ja">要の色の位置</h2><h2 class="only-en">Where the keystone sits</h2></div>
+  <div class="stack">
+    <div class="stack-row base"><span class="stack-tag">Base &#183; patent-pending</span><span class="stack-name">COLOURFUL JAPAN&#8482; / 天然色漢字INDEX&#8482; <span>&#8212; 要の色はその認証面 / the keystone is its authenticating face</span></span></div>
+    <div class="stack-row"><span class="stack-tag">Application &#183; B2B</span><span class="stack-name">KANRI <span>&#8212; enterprise knowledge &amp; resource intelligence</span></span></div>
+    <div class="stack-row"><span class="stack-tag">Application &#183; B2C</span><span class="stack-name">Smart Life Styles&#174; <span>&#8212; time &amp; life, for individuals</span></span></div>
+    <div class="stack-row"><span class="stack-tag">Proving ground</span><span class="stack-name">BazaarBazaar <span>&#8212; 認証の試験台 / the authentication test bed</span></span></div>
+  </div>
+</section>
+
+<section class="cta-block">
+  <div>
+    <div class="cta-line only-ja">膜は、今日も回っている。</div>
+    <div class="cta-line only-en">The membrane turns, today as well.</div>
+    <div class="cta-links">
+      <a href="https://digiterior.net">digiterior.net &#8212; 基盤と応用を見る &#8594;</a>
+      <a href="/">notes.digiterior.net &#8212; html-notes &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>要の色 &#183; White Paper &#183; Draft v0.1 &#183; 2026<br>天然色漢字 INDEX&#8482; &#160;|&#160; Smart Life Styles&#174; &#160;|&#160; love your long life, love your long time&#8482;<br>&#169; Koichiro Hoshino &#183; digiterior.net</p>
+</footer>
+
+</div>
+
+<script>
+var NOTES_HOME = "/";
+function toggleLang(){
+  var b = document.body, btn = document.getElementById("langBtn");
+  if (b.classList.contains("lang-ja")){
+    b.classList.remove("lang-ja"); b.classList.add("lang-en");
+    document.documentElement.lang = "en"; btn.textContent = "日本語";
+    document.title = "The Color of the Keystone — Distributed Color Authentication, Draft v0.1";
+  } else {
+    b.classList.remove("lang-en"); b.classList.add("lang-ja");
+    document.documentElement.lang = "ja"; btn.textContent = "EN";
+    document.title = "要の色 — 分散色認証白書 Draft v0.1 | html-notes";
+  }
+}
+</script>
+
+</body>
+</html>
