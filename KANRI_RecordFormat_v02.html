@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KANRI 記録様式 — 紙一枚 Draft v0.2 | html-notes</title>
+<meta name="description" content="一行一件・追記専用・漢字タグ。KANRIのレコード物理フォーマット、タグ漢字と予約色の台帳、追記ルールを一枚に定める。">
+<style>
+
+:root{
+  --ink:#1a1814; --ink2:#4a4640; --ink3:#8a8680;
+  --paper:#faf8f4; --paper2:#f2efe8;
+  --gold:#b8960c; --indigo:#1a3a5c; --teal:#0f6e56; --accent:#c0550a;
+  --line:rgba(0,0,0,.12); --line-soft:rgba(0,0,0,.07);
+  --code-bg:#211f1a; --code-ink:#e6e1d6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Sans JP",sans-serif;font-weight:300;line-height:1.95;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+body.lang-ja .only-en{display:none !important}
+body.lang-en .only-ja{display:none !important}
+body.lang-ja span.only-ja,body.lang-en span.only-en{display:inline}
+body.lang-ja div.only-ja,body.lang-en div.only-en{display:block}
+body.lang-ja p.only-ja,body.lang-en p.only-en{display:block}
+body.lang-ja ol.only-ja,body.lang-en ol.only-en{display:grid}
+.toc .tt{flex:1;display:inline-block}
+body.lang-ja h1.only-ja,body.lang-en h1.only-en{display:block}
+body.lang-ja h2.only-ja,body.lang-en h2.only-en{display:block}
+
+header{border-bottom:.5px solid var(--line);padding:1.15rem 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);z-index:100}
+.logo-block .logo{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;letter-spacing:.04em}
+.logo-block .logo-sub{font-size:9.5px;color:var(--ink3);letter-spacing:.06em;margin-top:1px}
+nav{display:flex;gap:1.4rem;align-items:center}
+nav a{font-size:12px;letter-spacing:.06em;color:var(--ink2);text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--accent)}
+.lang-toggle{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;border:.5px solid var(--ink);background:transparent;color:var(--ink);padding:.28rem .7rem;border-radius:3px;cursor:pointer;transition:all .2s}
+.lang-toggle:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:560px){nav a:not(.lang-toggle){display:none}}
+
+.eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:400}
+.hero{padding:clamp(3rem,8vw,5rem) 0 clamp(2rem,5vw,3rem)}
+.hero .eyebrow{margin-bottom:1.8rem}
+.hero-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(26px,5.2vw,44px);line-height:1.42;letter-spacing:.02em;margin-bottom:1.4rem}
+.hero-title .em{color:var(--accent)}
+.hero-lead{font-size:14.5px;color:var(--ink2);max-width:56ch;line-height:2}
+.hero-lead strong{color:var(--ink);font-weight:500}
+
+.origin{border:.5px solid rgba(184,150,12,.45);border-radius:6px;padding:clamp(1.4rem,4vw,2rem);margin:clamp(1.5rem,4vw,2.5rem) 0;background:linear-gradient(160deg,#f6f1e3,var(--paper2))}
+.origin .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem}
+.origin .t{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(16px,2.6vw,20px);line-height:1.6;margin-bottom:.7rem}
+.origin p{font-size:13px;color:var(--ink2);line-height:1.95}
+.origin .credit{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--ink3);margin-top:.9rem;text-transform:uppercase}
+
+.diagram{margin:0 0 clamp(2rem,5vw,3rem)}
+.diagram svg{width:100%;height:auto;display:block;border:.5px solid var(--line);border-radius:6px;background:#fff}
+.diagram-cap{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--ink3);text-transform:uppercase;text-align:center;margin-top:.8rem}
+
+.toc{border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);padding:1.5rem 0;margin-bottom:clamp(1.5rem,4vw,2.5rem)}
+.toc .sec-label{margin-bottom:.9rem}
+.toc ol{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:.35rem 1.8rem}
+.toc li{font-size:12.5px;color:var(--ink2);display:flex;gap:.65rem;padding:.22rem 0;border-bottom:.5px solid var(--line-soft)}
+.toc a{color:inherit;text-decoration:none;transition:color .2s;flex:1;display:block}
+.toc a:hover{color:var(--accent)}
+.toc .n{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:11.5px;min-width:1.7em}
+@media(max-width:560px){.toc ol{grid-template-columns:1fr}}
+
+section.ch{padding:clamp(2rem,5vw,3rem) 0;border-top:.5px solid var(--line)}
+.sec-label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.2rem}
+.ch-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.3rem}
+.ch-head .num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500}
+.ch h2{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(18px,3vw,24px);line-height:1.5;letter-spacing:.02em}
+.ch p{font-size:14px;color:var(--ink2);line-height:2;max-width:62ch;margin-bottom:1rem}
+.ch p strong{color:var(--ink);font-weight:500}
+.ch p:last-child{margin-bottom:0}
+.lead{font-size:15.5px !important;color:var(--ink) !important;font-weight:400}
+.from2016{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;display:inline-block;margin-bottom:.9rem}
+
+.integ{display:inline-flex;align-items:center;gap:.4rem;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--teal);border:1px solid rgba(15,110,86,.45);padding:.15rem .55rem;border-radius:2px;vertical-align:middle;margin-right:.5rem;text-transform:uppercase}
+.integ::before{content:"\25C6";font-size:7px}
+.coin{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;color:var(--ink3)}
+.dig{border-left:2px solid rgba(184,150,12,.55);background:var(--paper2);padding:.8rem 1.1rem;margin:1.3rem 0;max-width:62ch;border-radius:0 4px 4px 0}
+.dig .yr{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.35rem}
+.dig .yr::before{content:"\2299";margin-right:.45rem;font-size:9px}
+.dig p{font-size:12.5px;color:var(--ink2);line-height:1.9;margin:0}
+
+pre{background:var(--code-bg);color:var(--code-ink);border-radius:6px;padding:1rem 1.2rem;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.75;margin:1rem 0}
+pre .c{color:#9a917f}
+pre .k{color:#c9a86a}
+pre .a{color:#7fbf9e}
+
+.res{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:1rem}
+.res-item{background:var(--paper2);padding:1rem 1.1rem;border-radius:4px}
+.res-item h4{font-family:"Noto Serif JP",serif;font-weight:600;font-size:14px;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+.res-item h4 .dot{width:9px;height:9px;border-radius:50%}
+.res-item p{font-size:11.5px !important;margin:0 !important;line-height:1.7 !important}
+@media(max-width:560px){.res{grid-template-columns:1fr}}
+
+.states{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:1rem 0}
+.state{font-family:"IBM Plex Mono",monospace;font-size:10.5px;padding:.35rem .7rem;border:.5px solid var(--line);border-radius:3px;background:#fff}
+.state.head{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.arrow{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px}
+
+.loop{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink);background:var(--paper2);border-radius:5px;padding:.95rem 1.15rem;margin:1rem 0;line-height:2}
+.loop b{color:var(--accent)}
+
+.pull{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(17px,2.8vw,22px);line-height:1.65;border-left:3px solid var(--gold);padding-left:1.2rem;margin:1rem 0;color:var(--ink)}
+.pull em{font-style:normal;color:var(--accent)}
+
+.sealed{display:inline-flex;align-items:center;gap:.55rem;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--indigo);border:.5px solid var(--indigo);padding:.42rem .8rem;border-radius:3px;margin-top:.5rem}
+.sealed::before{content:"\25C6";font-size:8px}
+
+.stack{margin-top:1rem;display:flex;flex-direction:column;gap:2px}
+.stack-row{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline;padding:.75rem 1rem;background:var(--paper2);border-radius:4px}
+.stack-row.base{background:transparent;border:1px dashed var(--gold)}
+.stack-tag{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;white-space:nowrap}
+.stack-name{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13.5px}
+.stack-name span{font-weight:300;color:var(--ink2);font-size:12px}
+.stack-row.base .stack-name{color:var(--accent)}
+
+.cta-block{padding:clamp(2.5rem,6vw,4rem) 0;border-top:.5px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+@media(max-width:560px){.cta-block{grid-template-columns:1fr}}
+.cta-line{font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(17px,3vw,22px);line-height:1.6;margin-bottom:1rem;max-width:26ch}
+.cta-links{display:flex;flex-direction:column;gap:.5rem;font-size:13px}
+.cta-links a{color:var(--accent);text-decoration:none;border-bottom:.5px solid transparent;transition:border-color .2s;width:fit-content}
+.cta-links a:hover{border-color:var(--accent)}
+.qr-box{text-align:center}
+.qr-box svg{width:128px;height:128px;display:block;background:#fff;padding:8px;border:.5px solid var(--line);border-radius:6px}
+.qr-cap{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;color:var(--ink3);margin-top:.6rem;text-transform:uppercase}
+
+footer{border-top:.5px solid var(--line);padding:1.8rem 0 3rem;text-align:center}
+footer p{font-size:11px;color:var(--ink3);letter-spacing:.05em;line-height:2}
+
+</style>
+</head>
+<body class="lang-ja">
+
+<script>window.CJ_ME = {"file": "KANRI_RecordFormat_v02.html", "title": "KANRI 記録様式——紙一枚", "created": "2026-07-13", "updated": "2026-07-13", "category": "認", "author": "星R", "where": "東", "keywords": "紙種主日色朱索註", "coined": "規約は紙一枚、寿命は四十年", "picture": ""};</script>
+
+<div class="wrap">
+
+<header>
+  <div class="logo-block">
+    <div class="logo">html-notes</div>
+    <div class="logo-sub">by Roberto Hoshino &#215; Claude.ai</div>
+  </div>
+  <nav>
+    <a href="https://digiterior.net">digiterior.net</a>
+    <a href="/">notes</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">KANRI 2026 &#8212; 記録様式 仕様書 Draft v0.2 &#183; Appendix A 候補</div>
+  <h1 class="hero-title">規約は紙一枚。<br><span class="em">寿命は、四十年。</span></h1>
+  <p class="hero-lead">KANRI のレコードは、素のテキストファイルに一行ずつ追記される。スキーマ定義もマイグレーションも要らない。要るのは、この一枚に書かれた規約——<strong>タグ漢字の台帳、予約色、追記のルール</strong>——を、動かさないことだけである。本書は KANRI 白書(第3・5・6・7章)の原理を、実装可能な物理フォーマットに落とす。</p>
+</section>
+
+<div class="toc">
+  <div class="sec-label">目次</div>
+  <ol>
+    <li><span class="n">00</span><a href="#r0" class="tt">原則 — 五つ</a></li>
+    <li><span class="n">01</span><a href="#r1" class="tt">レコード — 一行一件</a></li>
+    <li><span class="n">02</span><a href="#r2" class="tt">台帳 — タグ漢字と予約色</a></li>
+    <li><span class="n">03</span><a href="#r3" class="tt">追記 — いつ行を起こすか</a></li>
+    <li><span class="n">04</span><a href="#r4" class="tt">索引 — 漢字INDEXと再構築</a></li>
+    <li><span class="n">05</span><a href="#r5" class="tt">実演 — クリエイティブ業務の一件</a></li>
+    <li><span class="n">06</span><a href="#r6" class="tt">未決 — これから決めること</a></li>
+  </ol>
+</div>
+
+<!-- 00 -->
+<section class="ch" id="r0">
+  <div class="ch-head"><span class="num">00</span><h2>原則 — 五つ</h2></div>
+  <p class="lead">フォーマットの強度は、機能の多さではなく<strong>禁止の少なさと明快さ</strong>から生まれる。</p>
+  <p><strong>一、追記のみ。</strong>行は編集されず、削除されない。訂正は訂正の行を足すことで行う。UPDATE は存在しない。</p>
+  <p><strong>二、一行一件。</strong>1レコードは1行。ファイルは UTF-8 の素のテキスト。どんなエディタでも開け、目視でデバッグできる。</p>
+  <p><strong>三、自己記述。</strong>各フィールドは漢字1文字のタグで始まり、タグは意味を語る。行だけ読めば、表が無くても内容が分かる。</p>
+  <p><strong>四、索引は従。</strong>INDEXファイルはデータ本体から導かれる。壊れても消しても、本体を舐め直せば再構築できる。正はつねに本体。</p>
+  <p><strong>五、マスターは非対称。</strong>マスターの行を書けるのは管理者だけ。利用者は「願」の行(変更依頼)を足せるのみ。依頼は、管理者が新しいマスター行を足すまで、何も変えない。</p>
+  <div class="pull">禁止が少なく、明快であること。<em>それが四十年の条件。</em></div>
+</section>
+
+<!-- 01 -->
+<section class="ch" id="r1">
+  <div class="ch-head"><span class="num">01</span><h2>レコード — 一行一件</h2></div>
+  <p>1行は、空白で区切られたトークンの列である。各トークンは<strong>先頭の漢字1文字がタグ、残りが値</strong>。タグとして意味を持つのはトークンの先頭のみで、値の中に同じ漢字が現れても、それはただの文字である(位置規則)。エスケープは存在しない。</p>
+<pre><span class="c"># 構造:  タグ値 タグ値 タグ値 ... 註自由文</span>
+種主 主S0104 日2026-07-13 社青山工房 人青山一郎 質A 色緑 註手描きに強い</pre>
+  <p><strong>定尺 1024。</strong>1レコードは物理的に1024バイト固定(UTF-8、末尾1バイトは改行、不足は空白で詰める)。レコード番号 n の位置は n×1024——掛け算一発で、<strong>索引が無くてもランダムアクセスできる</strong>。末尾が改行なので、同じファイルをそのままエディタで開けばシーケンシャルにも読める。4096÷1024=4、ページ境界の算数もきれいである。1023バイトに収まらない自由文は、直後のレコードに<strong>続</strong>を先頭に置いて送る。文字の途中で切ることは、永久に禁止。</p>
+  <p>必須タグは三つ:<strong>種</strong>(行の種類)、<strong>主</strong>(誰・何についての行か=キー)、<strong>日</strong>(いつの時点の記録か)。同じ「主」について「日」が新しい行が、より新しい真実である。ただし古い行も消えない——それが時点スナップショットである。</p>
+  <p>例外は一つだけ:<strong>註</strong>(自由文)は必ず行の最後に置き、行末までのすべて(空白を含む)を値とする。自由文の中に空白や漢字が何度現れても構造は壊れない。</p>
+  <div class="pull">キーの設計は厳格に、値の中身は自由に、<em>書式規約は一枚に固定。</em></div>
+</section>
+
+<!-- 02 -->
+<section class="ch" id="r2">
+  <div class="ch-head"><span class="num">02</span><h2>台帳 — タグ漢字と予約色</h2></div>
+  <p>タグに使える漢字は、この台帳に載っているものだけである。台帳への追加は許されるが、<strong>既存の字の意味変更と削除は永久に禁止</strong>。これが「マスターの揺れが無い」の実装である。</p>
+<pre><span class="c"># タグ台帳 初版 — 構造</span>
+<span class="k">種</span>  行の種類     <span class="c">(値は下の種台帳から)</span>
+<span class="k">主</span>  キー         <span class="c">(S=仕入先 J=案件 R=社内リソース + 連番)</span>
+<span class="k">日</span>  記録日       <span class="c">(YYYY-MM-DD 必須)</span>
+<span class="c"># — 内容</span>
+<span class="k">社</span>  組織名        <span class="k">人</span>  人名         <span class="k">所</span>  場所・住所
+<span class="k">題</span>  件名          <span class="k">時</span>  期限・工数    <span class="k">質</span>  品質等級
+<span class="k">売</span>  売価          <span class="k">原</span>  原価         <span class="k">値</span>  金額(汎用)
+<span class="k">色</span>  色コード      <span class="k">対</span>  参照先の日    <span class="k">註</span>  自由文(行末まで)
+<span class="k">続</span>  継続レコード  <span class="c">(前レコードの続き。物理層のみで使用)</span>
+
+<span class="c"># 定数 — 変更は台帳の改版を要する</span>
+定尺 = 1024 バイト   文字コード = UTF-8   終端 = 改行
+
+<span class="c"># 種台帳 初版 — 行の種類</span>
+<span class="k">主</span>=マスター(管理者のみ)  <span class="k">願</span>=変更依頼(利用者可)  <span class="k">正</span>=訂正
+<span class="k">案</span>=案件案内   <span class="k">札</span>=入札   <span class="k">決</span>=発注   <span class="k">納</span>=納品   <span class="k">評</span>=評価   <span class="k">価</span>=損益</pre>
+  <p>色コードは天然色漢字INDEXの色台帳に従う。ここで一色だけを<strong>予約</strong>する:<span style="color:#c0550a;font-weight:500">朱</span>。損益の行(種価)で原価が売価を上回るとき、<strong>色朱 の記載を義務とする</strong>。赤字は赤で記され、日々ドキッとさせる——1980年代の花管理から続く朱記の規律を、ここで正式な仕様とする。朱を他の用途に使ってはならない。</p>
+  <div class="pull">台帳に足すのは自由。<em>変える・消すは、永久に禁止。</em></div>
+</section>
+
+<!-- 03 -->
+<section class="ch" id="r3">
+  <div class="ch-head"><span class="num">03</span><h2>追記 — いつ行を起こすか</h2></div>
+  <p><strong>状態が変わったら、行を足す。</strong>それだけである。案件が動くたび(案内、入札、発注、納品、評価、締め)に一行。マスターの現実が変わったら(移転、改名、等級の見直し)、新しい日付のマスター行を一行。白書第6章の「状態は日付つきの旗」が、そのまま追記の単位になる。</p>
+  <p><strong>誤りは、正の行で直す。</strong>間違った行はそのまま残し、種正 の行に 対(訂正対象の行の日付)を書いて、正しい値を載せる。読み手は「同じ主・同じ対象について、より新しい行」を採る。過去は編集されず、訂正の事実そのものも記録に残る——監査可能性は構造から出る。</p>
+<pre><span class="c"># 7/31の損益行に原価の誤りがあった場合:</span>
+種価 主J0027 日2026-07-31 売100000 原95000 色朱 註締め
+種正 主J0027 日2026-08-01 対2026-07-31 原85000 註原価集計もれ修正 → 黒字化</pre>
+  <p><strong>利用者は願の行だけ。</strong>「住所が変わりました」は 種願 として利用者が追記できる。マスターはまだ変わらない。管理者が確認し、新しい 種主 の行を足した瞬間に、世界が更新される。依頼と決定が両方記録に残るので、「誰がいつ頼み、誰がいつ認めたか」も遡れる。</p>
+</section>
+
+<!-- 04 -->
+<section class="ch" id="r4">
+  <div class="ch-head"><span class="num">04</span><h2>索引 — 漢字INDEXと再構築</h2></div>
+  <p>検索の入口は漢字1文字である。社で引く、人で引く、質で引く、色で引く。INDEXファイルは「タグ漢字 → 値 → レコード番号」の写像である。位置は番号×1024で出るから、索引の仕事は<strong>番号を思い出すことだけ</strong>——40年前の固定長ランダムファイルの設計が、UTF-8の時代にそのまま生きる。</p>
+  <p>INDEXは従であり、いつ消しても良い。再構築は本体を一度舐めるだけ:</p>
+<pre><span class="c"># 再構築 — INDEXが壊れたら、これ一発</span>
+kanri rebuild 案件.kanri  <span class="a">→ 索_主.idx 索_社.idx 索_質.idx ... を再生成</span></pre>
+  <p>「最新の行だけ」を要する参照(現在のマスター)は、主キーごとの最終行位置を持つ 索_主 が答える。「あの日時点」を要する参照(時点参照)は、日を遡って最初に出会う行が答える。どちらも本体は同じ——<strong>ビューが違うだけで、記録は曲がらない。</strong></p>
+</section>
+
+<!-- 05 -->
+<section class="ch" id="r5">
+  <div class="ch-head"><span class="num">05</span><h2>実演 — クリエイティブ業務の一件</h2></div>
+  <p>ロゴ改版の案件 J0027。三社に案内し、二社が入札。単価は揺れ、モノではなく<strong>時間と質</strong>が判断軸になる——クリエイティブ業務の現実を、そのまま行にする。</p>
+<pre>種主 主S0104 日2026-06-01 社青山工房     質A 色緑 註手描き・小回り
+種主 主S0105 日2026-06-01 社北窓デザイン 質S 色藍 註CI実績多数
+種案 主J0027 日2026-07-14 題ロゴ改版 時納2026-08-05 値予算80000 註S0104 S0105 S0108へ案内
+種札 主J0027 日2026-07-15 社青山工房     値75000 時14日
+種札 主J0027 日2026-07-15 社北窓デザイン 値90000 時10日
+種決 主J0027 日2026-07-16 社北窓デザイン 値90000 註予算超過を承認——質と納期を優先
+種納 主J0027 日2026-07-26 質S 註検収OK 二稿で確定
+種評 主S0105 日2026-07-27 質S 註対応速度も含め次回も第一候補
+種価 主J0027 日2026-07-31 売100000 原90000 註締め</pre>
+  <p>読みどころは三つ。<strong>入札が履歴になる</strong>——選ばれなかった青山工房の75,000円も消えずに残り、次回の相場観になる。<strong>評価が仕入先マスターに積もる</strong>——種評 は案件ではなく S0105 に紐づき、時点つきの品質履歴が育つ。そして予算80,000に対し決定90,000、売100,000——粗利10,000の薄さが行から直接読める。もし原価が売価を超えれば、そこには必ず 色朱 が立つ。</p>
+  <p>社内リソースも同じ形で書ける。R番号の主キーでデザイナーの時間をマスター化し、案件への割当を日付つきで追記する——<strong>外注も社内も、同じ一つの文法。</strong>リソースマネジメントができない業態は、この形を持っていないだけである。</p>
+</section>
+
+<!-- 06 -->
+<section class="ch" id="r6">
+  <div class="ch-head"><span class="num">06</span><h2>未決 — これから決めること</h2></div>
+  <p>本書 Draft v0.1 が意図的に決めていないこと:<strong>採番規約</strong>(S/J/R の桁数と払い出し方)。<strong>ファイル分割</strong>(領域ごとか、年ごとか、一本か)。<strong>時タグの書式</strong>(納期と工数の書き分け)。<strong>色台帳の全色</strong>(朱以外の割り当て)。いずれも運用を一巡してから決めるのが、乱積みの流儀である。</p>
+  <div class="sealed">Format specified &#183; ledger versioned &#183; append-only forever</div>
+</section>
+
+<section class="cta-block">
+  <div>
+    <div class="cta-line">紙一枚が、四十年の背骨になる。</div>
+    <div class="cta-links">
+      <a href="/KANRI_WhitePaper_v16">KANRI白書 v16 &#8212; 思想篇 &#8594;</a>
+      <a href="/">notes.digiterior.net &#8212; html-notes &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>KANRI 記録様式 &#183; 紙一枚 &#183; Draft v0.2 &#183; 2026<br>天然色漢字 INDEX&#8482; &#160;|&#160; Smart Life Styles&#174;<br>&#169; Koichiro Hoshino &#183; digiterior.net</p>
+</footer>
+
+</div>
+</body>
+</html>
