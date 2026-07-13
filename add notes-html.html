@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>add — html-notes uploader</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --ink:#1a1814; --ink2:#4a4640; --ink3:#8a8680;
+  --paper:#faf8f4; --paper2:#f2efe8;
+  --gold:#b8960c; --indigo:#1a3a5c; --teal:#0f6e56; --accent:#c0550a;
+  --line:rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Sans JP",sans-serif;font-weight:300;line-height:1.9;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:2rem clamp(1.25rem,5vw,2.5rem) 4rem}
+header{border-bottom:.5px solid var(--line);padding:1rem 0 1.15rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:baseline}
+.logo{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px}
+.logo-sub{font-size:9.5px;color:var(--ink3);letter-spacing:.06em}
+h1{font-family:"Noto Serif JP",serif;font-weight:600;font-size:20px;margin-bottom:.4rem}
+.sub{font-size:12.5px;color:var(--ink2);margin-bottom:1.6rem}
+label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:.9rem 0 .25rem}
+input[type=password],input[type=text]{width:100%;padding:.55rem .7rem;font-size:13px;border:.5px solid var(--line);border-radius:4px;background:#fff;font-family:"IBM Plex Mono",monospace}
+.row{display:flex;gap:.6rem;align-items:center;font-size:12px;color:var(--ink2);margin-top:.4rem}
+.drop{margin-top:1.4rem;border:1.5px dashed var(--gold);border-radius:8px;padding:2.2rem 1rem;text-align:center;color:var(--ink2);font-size:13.5px;cursor:pointer;transition:background .2s}
+.drop.over{background:var(--paper2)}
+.drop b{color:var(--accent);font-weight:500}
+.card{margin-top:1rem;border:.5px solid var(--line);border-radius:6px;background:#fff;padding:1rem 1.1rem}
+.card .fn{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--indigo)}
+.card .meta{font-size:12.5px;color:var(--ink2);margin-top:.3rem}
+.card .cat{display:inline-block;font-family:"Noto Serif JP",serif;font-weight:600;border:.5px solid var(--line);border-radius:50%;width:1.7em;height:1.7em;line-height:1.65em;text-align:center;margin-right:.5em;font-size:13px;color:var(--teal)}
+.card .warn{color:var(--accent);font-size:12px;margin-top:.3rem}
+button.go{margin-top:1.2rem;width:100%;padding:.8rem;font-size:14px;letter-spacing:.15em;font-family:"Noto Serif JP",serif;font-weight:600;background:var(--indigo);color:#fff;border:none;border-radius:5px;cursor:pointer}
+button.go:disabled{background:var(--ink3);cursor:not-allowed}
+.log{margin-top:1.2rem;font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.8;color:var(--ink2);white-space:pre-wrap}
+.log .ok{color:var(--teal)}
+.log .ng{color:var(--accent)}
+.log a{color:var(--indigo)}
+.note{margin-top:2.2rem;font-size:11.5px;color:var(--ink3);border-top:.5px solid var(--line);padding-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="logo">html-notes — add</div>
+    <div class="logo-sub">by Roberto Hoshino &#215; Claude.ai</div>
+  </div>
+  <div class="logo-sub" id="repoLabel"></div>
+</header>
+
+<h1>ノートを一枚、足す。</h1>
+<p class="sub">HTML ファイルを選ぶと、リポジトリに直接コミットされ、数十秒でサイトに現れます。トークンはこのブラウザから GitHub へ送られるだけで、どこにも保存されません(任意でこのタブの間だけ記憶)。</p>
+
+<label>Fine-grained token — 対象リポジトリのみ / Contents: Read &amp; Write</label>
+<input type="password" id="token" placeholder="github_pat_..." autocomplete="off">
+<div class="row">
+  <input type="checkbox" id="remember" style="width:auto">
+  <label for="remember" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px">このタブを閉じるまで記憶する(sessionStorage)</label>
+</div>
+
+<div class="drop" id="drop">
+  ここに HTML ファイルをドロップ<br>または <b>クリックして選択</b>
+  <input type="file" id="file" accept=".html" multiple style="display:none">
+</div>
+
+<div id="cards"></div>
+<button class="go" id="go" disabled>コミットして公開</button>
+<div class="log" id="log"></div>
+
+<p class="note">
+運用ルール:このページ自体には秘密は含まれないが、トークンは「notes リポジトリ1つ・Contents 読み書きのみ・有効期限は短く」で発行すること。アップロードするノートに合言葉・鍵・顧客情報を書かないこと。CJ_ME が無いファイルは警告付きでコミットされる(インデックスに載らない可能性がある)。
+</p>
+
+</div>
+
+<script>
+// ===== 設定:ここだけ書き換える ==========================================
+const CFG = {
+  owner:  "ROBERTOHOSHINO",   // リポジトリのオーナー
+  repo:   "dunksoft-notes",   // notes.digiterior.net のリポジトリ名
+  branch: "main",             // 公開ブランチ
+  dir:    ""                  // ノートを置くディレクトリ("" = ルート)
+};
+const SITE = "https://notes.digiterior.net";
+// ==========================================================================
+
+document.getElementById("repoLabel").textContent = CFG.owner + "/" + CFG.repo + " @ " + CFG.branch;
+
+const $ = id => document.getElementById(id);
+let files = [];
+
+// token remember (session only)
+const saved = sessionStorage.getItem("hn_token");
+if (saved){ $("token").value = saved; $("remember").checked = true; }
+$("token").addEventListener("input", persistTok);
+$("remember").addEventListener("change", persistTok);
+function persistTok(){
+  if ($("remember").checked && $("token").value) sessionStorage.setItem("hn_token", $("token").value);
+  else sessionStorage.removeItem("hn_token");
+}
+
+// drop zone
+const drop = $("drop");
+drop.addEventListener("click", () => $("file").click());
+$("file").addEventListener("change", e => addFiles([...e.target.files]));
+drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", e => {
+  e.preventDefault(); drop.classList.remove("over");
+  addFiles([...e.dataTransfer.files].filter(f => f.name.endsWith(".html")));
+});
+
+async function addFiles(list){
+  for (const f of list){
+    const text = await f.text();
+    const meta = parseCJME(text);
+    files.push({ file: f, text, meta });
+  }
+  render();
+}
+
+function parseCJME(text){
+  const m = text.match(/window\.CJ_ME\s*=\s*(\{[\s\S]*?\});/);
+  if (!m) return null;
+  try { return JSON.parse(m[1]); } catch(e){ return null; }
+}
+
+function render(){
+  $("cards").innerHTML = files.map((it, i) => {
+    const m = it.meta;
+    const head = m
+      ? '<span class="cat">' + esc((m.category||"?").slice(0,1)) + '</span>' + esc(m.title||"(無題)")
+      : '<span class="warn">CJ_ME メタデータが見つかりません — インデックスに載らない可能性</span>';
+    return '<div class="card"><div class="fn">' + esc(it.file.name) + '</div><div class="meta">' + head + (m && m.keywords ? '<span style="color:var(--ink3)"> &#183; ' + esc(m.keywords) + '</span>' : '') + '</div></div>';
+  }).join("");
+  $("go").disabled = files.length === 0;
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const log = (msg, cls) => { $("log").innerHTML += (cls ? '<span class="'+cls+'">' : '') + msg + (cls ? '</span>' : '') + "\n"; };
+
+$("go").addEventListener("click", async () => {
+  const token = $("token").value.trim();
+  if (!token){ log("トークンを入力してください。", "ng"); return; }
+  if (CFG.repo === "CHANGE-ME"){ log("CFG.repo が未設定です。ファイル冒頭の設定を書き換えてください。", "ng"); return; }
+  $("go").disabled = true;
+  const pushed = [];
+  for (const it of files){
+    const ok = await push(it, token);
+    if (ok && it.meta) pushed.push(it.meta);
+    if (ok && !it.meta) log("  &#8251; CJ_ME が無いためインデックスには載せません", "ng");
+  }
+  if (pushed.length) await updateIndex(pushed, token);
+  files = []; render();
+  $("go").disabled = true;
+});
+
+// notes-index.json に CJ_ME を upsert する(これで一覧に載る)
+async function updateIndex(metas, token){
+  const api = "https://api.github.com/repos/" + CFG.owner + "/" + CFG.repo + "/contents/notes-index.json";
+  const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+  log("インデックス notes-index.json を更新 ...");
+  const r = await fetch(api + "?ref=" + CFG.branch, { headers });
+  if (!r.ok){ log("  &#10007; インデックスの取得に失敗 (" + r.status + ")", "ng"); return; }
+  const cur = await r.json();
+  let idx;
+  try {
+    idx = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(cur.content.replace(/\n/g,"")), c => c.charCodeAt(0))));
+  } catch(e){ log("  &#10007; インデックスの解析に失敗: " + e.message, "ng"); return; }
+  const today = new Date().toISOString().slice(0,10);
+  for (const m of metas){
+    const entry = {
+      file: m.file, title: m.title || "", created: m.created || today,
+      updated: m.updated || today, category: m.category || "",
+      author: m.author || "", where: m.where || "",
+      keywords: m.keywords || "", coined: m.coined || "", picture: m.picture || ""
+    };
+    const i = idx.findIndex(e => e.file === entry.file);
+    if (i >= 0){ idx[i] = entry; log("  更新: " + entry.file); }
+    else { idx.unshift(entry); log("  追加: " + entry.file); }
+  }
+  const body = {
+    message: "notes: index " + metas.map(m => m.file).join(", "),
+    content: btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(idx, null, 2) + "\n"))),
+    branch: CFG.branch, sha: cur.sha
+  };
+  const w = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
+  if (w.ok) log("  &#10003; インデックス更新完了 — 一覧に載ります", "ok");
+  else { const err = await w.json().catch(() => ({})); log("  &#10007; インデックス更新失敗 (" + w.status + ") " + (err.message || ""), "ng"); }
+}
+
+async function push(it, token){
+  const path = (CFG.dir ? CFG.dir.replace(/\/$/,"") + "/" : "") + it.file.name;
+  const api = "https://api.github.com/repos/" + CFG.owner + "/" + CFG.repo + "/contents/" + encodeURIComponent(path).replace(/%2F/g,"/");
+  const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+
+  // 既存ファイルなら sha を取得して更新扱いにする
+  let sha = null;
+  try {
+    const r = await fetch(api + "?ref=" + CFG.branch, { headers });
+    if (r.ok) sha = (await r.json()).sha;
+  } catch(e){}
+
+  // UTF-8 → base64
+  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(it.text)));
+
+  const body = {
+    message: (sha ? "notes: update " : "notes: add ") + it.file.name,
+    content: b64,
+    branch: CFG.branch
+  };
+  if (sha) body.sha = sha;
+
+  log((sha ? "更新" : "追加") + " " + path + " ...");
+  const r = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
+  if (r.ok){
+    const slug = it.file.name.replace(/\.html$/, "");
+    log('  &#10003; コミット完了 &#8594; <a href="' + SITE + "/" + slug + '" target="_blank">' + SITE + "/" + slug + "</a> (Pages 反映まで数十秒)", "ok");
+    if (it.meta) it.meta.file = it.file.name;  // インデックスはファイル名を正とする
+    return true;
+  } else {
+    const err = await r.json().catch(() => ({}));
+    log("  &#10007; 失敗 (" + r.status + ") " + (err.message || ""), "ng");
+    return false;
+  }
+}
+</script>
+</body>
+</html>
