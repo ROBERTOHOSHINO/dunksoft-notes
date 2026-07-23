@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEURAL-MAP — notes.dunksoft.jp 全図 | DUNKSOFT × Claude.ai</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080f; --gold:#C8920A; --gold-l:#F9A825;
+  --認:#378ADD; --市:#BA7517; --語:#534AB7; --町:#3B6D11;
+  --white:rgba(255,255,255,.85); --dim:rgba(255,255,255,.35);
+  --mono:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.9;overflow-x:hidden}
+.header{padding:56px 6% 28px;text-align:center}
+.h-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:6px;color:var(--gold);margin-bottom:16px;text-transform:uppercase}
+.h-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,4.5vw,2.9rem);font-weight:900;color:#fff;line-height:1.35;margin-bottom:12px}
+.h-title em{color:var(--gold-l);font-style:normal}
+.h-sub{font-size:12.5px;color:var(--dim);max-width:560px;margin:0 auto;line-height:2.1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:18px 6% 8px}
+.lg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--dim);cursor:pointer;user-select:none;padding:3px 8px;border-radius:12px;border:.5px solid transparent}
+.lg.off{opacity:.3}
+.lg.on{border-color:rgba(255,255,255,.15)}
+.lg-dot{width:10px;height:10px;border-radius:50%}
+.count{ text-align:center;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px;padding-bottom:12px}
+.map-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.map-wrap{min-width:720px;max-width:1200px;margin:0 auto;padding:0 3%}
+svg{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node text{font-family:'Noto Sans JP',sans-serif;fill:var(--white);pointer-events:none}
+.node .t{font-size:11px}
+.node .d{font-size:9px;fill:rgba(255,255,255,.4)}
+.node:hover circle{filter:brightness(1.4)}
+.link{stroke:rgba(255,255,255,.10);stroke-width:1;fill:none}
+.link.kw{stroke:rgba(200,146,10,.28);stroke-dasharray:3 4}
+.foot{text-align:center;padding:36px 8% 64px}
+.foot .q{font-family:'Noto Serif JP',serif;font-size:clamp(.95rem,2.2vw,1.2rem);font-weight:700;color:#fff;line-height:2.1;max-width:600px;margin:0 auto 16px}
+.foot .q em{color:var(--gold-l);font-style:normal}
+.foot .c{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px;line-height:2.2}
+.foot a{color:var(--dim)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-eyebrow">NEURAL-MAP · Living Index</div>
+  <div class="h-title">notes の<em>全図</em></div>
+  <div class="h-sub">
+    このMAPは notes-index.json から自動生成——エントリを足せば、地図は勝手に育つ。<br>
+    ノードをタップするとそのnotesへ。⚡の輪 = 造語が生まれた一枚。金の点線 = 漢字キーワードの共鳴。
+  </div>
+</div>
+
+<div class="legend" id="legend"></div>
+<div class="count" id="count"></div>
+
+<div class="map-scroll"><div class="map-wrap" id="mapwrap"></div></div>
+
+<div class="foot">
+  <div class="q">「使える、探せるサイトマップって無いねー？！」<br>——<em>これが、その答えの二枚目。</em></div>
+  <div class="c">
+    NEURAL-MAP · notes.dunksoft.jp — Roberto Hoshino × Claude.ai 星C<br>
+    <a href="./">← カラーピン盤（一枚目の答え）へ</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var CATS = ['認','市','語','町'];
+  var HEX  = {'認':'#378ADD','市':'#BA7517','語':'#534AB7','町':'#3B6D11'};
+  var DESC = {'認':'認証・技術','市':'Marketing・市づくり','語':'コラム・物語','町':'文化・コミュニティ'};
+  var active = {'認':true,'市':true,'語':true,'町':true};
+  var notes = [];
+
+  fetch('notes-index.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ notes = d; buildLegend(); draw(); })
+    .catch(function(e){
+      document.getElementById('mapwrap').innerHTML =
+        '<p style="text-align:center;color:rgba(255,255,255,.4);padding:40px">notes-index.json を読み込めませんでした</p>';
+    });
+
+  function ckey(s){ // created "1996" | "2026-06" | "2026-06-13" → 比較キー
+    s = (s||'').trim(); if(!s) return '9999';
+    return (s + '-99-99').slice(0,10);
+  }
+  function kanji(s){ // キーワードから漢字だけ抽出
+    return (s||'').split('').filter(function(ch){ return /[\u4E00-\u9FFF]/.test(ch); });
+  }
+
+  function buildLegend(){
+    var lg = document.getElementById('legend');
+    CATS.forEach(function(c){
+      var el = document.createElement('div');
+      el.className = 'lg on';
+      el.innerHTML = '<div class="lg-dot" style="background:'+HEX[c]+'"></div>'+c+' — '+DESC[c];
+      el.onclick = function(){ active[c] = !active[c];
+        el.className = 'lg ' + (active[c] ? 'on' : 'off'); draw(); };
+      lg.appendChild(el);
+    });
+  }
+
+  function draw(){
+    var vis = notes.filter(function(n){
+      var cs = (n.category||'').split('');
+      return cs.length===0 || cs.some(function(c){ return active[c]; });
+    }).slice().sort(function(a,b){
+      return ckey(a.created) < ckey(b.created) ? -1 : 1;
+    });
+
+    document.getElementById('count').textContent =
+      vis.length + ' NOTES / ' + notes.length + ' TOTAL';
+
+    var GX = 210, X0 = 130, ROWY = {'認':110,'市':230,'語':350,'町':470};
+    var W = Math.max(720, X0 + vis.length*GX + 120), H = 580;
+    var pos = {};
+    var parts = [];
+    parts.push('<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">');
+
+    // カテゴリ行ガイド
+    CATS.forEach(function(c){
+      parts.push('<line x1="60" y1="'+ROWY[c]+'" x2="'+(W-60)+'" y2="'+ROWY[c]+
+        '" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>');
+      parts.push('<text x="34" y="'+(ROWY[c]+5)+'" font-size="15" fill="'+HEX[c]+
+        '" font-family="Noto Serif JP,serif" font-weight="700">'+c+'</text>');
+    });
+
+    // ノード座標（第一カテゴリの行 + 少しの揺らぎ）
+    vis.forEach(function(n,i){
+      var c1 = (n.category||'語')[0] || '語';
+      if(!(c1 in ROWY)) c1 = '語';
+      var x = X0 + i*GX;
+      var y = ROWY[c1] + ((i%2)? 26 : -26);
+      pos[n.file] = {x:x, y:y, c:c1};
+    });
+
+    // 時系列リンク（同カテゴリの連なり）
+    var lastOfCat = {};
+    vis.forEach(function(n){
+      var p = pos[n.file], prev = lastOfCat[p.c];
+      if(prev){
+        parts.push('<path class="link" d="M'+prev.x+','+prev.y+' C '+((prev.x+p.x)/2)+','+prev.y+
+          ' '+((prev.x+p.x)/2)+','+p.y+' '+p.x+','+p.y+'"/>');
+      }
+      lastOfCat[p.c] = p;
+    });
+
+    // キーワード共鳴リンク（漢字を1字以上共有）
+    for(var i=0;i<vis.length;i++){
+      var ki = kanji(vis[i].keywords);
+      if(!ki.length) continue;
+      for(var j=i+1;j<vis.length;j++){
+        var kj = kanji(vis[j].keywords);
+        var share = ki.some(function(ch){ return kj.indexOf(ch)>=0; });
+        if(share){
+          var a=pos[vis[i].file], b=pos[vis[j].file];
+          if(a.c===b.c) continue; // 同行は時系列線に任せる
+          parts.push('<path class="link kw" d="M'+a.x+','+a.y+' C '+a.x+','+((a.y+b.y)/2)+
+            ' '+b.x+','+((a.y+b.y)/2)+' '+b.x+','+b.y+'"/>');
+        }
+      }
+    }
+
+    // ノード
+    vis.forEach(function(n){
+      var p = pos[n.file];
+      var coined = (n.coined||'').trim();
+      var r = coined ? 15 : 11;
+      var ring = coined ? ' stroke="#F9A825" stroke-width="1.5"' : '';
+      var date = (n.created||'').slice(0,7);
+      var title = (n.title||n.file);
+      var short = title.length>14 ? title.slice(0,14)+'…' : title;
+      parts.push('<a class="node" href="'+encodeURI(n.file)+'">'+
+        '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="'+HEX[p.c]+'"'+ring+'/>'+
+        (coined ? '<text x="'+p.x+'" y="'+(p.y+4)+'" text-anchor="middle" font-size="10" fill="#fff">⚡</text>' : '')+
+        '<text class="t" x="'+p.x+'" y="'+(p.y - r - 20)+'" text-anchor="middle">'+esc(short)+'</text>'+
+        '<text class="d" x="'+p.x+'" y="'+(p.y - r - 7)+'" text-anchor="middle">'+esc(date)+'</text>'+
+        '<title>'+esc(title)+(coined? '\n⚡ '+esc(coined):'')+'</title></a>');
+    });
+
+    parts.push('</svg>');
+    document.getElementById('mapwrap').innerHTML = parts.join('');
+  }
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+})();
+</script>
+</body>
+</html>

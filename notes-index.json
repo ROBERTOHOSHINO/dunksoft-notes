@@ -33,7 +33,7 @@
     "where": "東",
     "keywords": "色膜垣螺封楽",
     "coined": "更新され続けることが、生きている証明",
-    "picture": ""
+    "picture": "recent_roses_july2026.jpg"
   },
   {
     "file": "KANRI_WhitePaper_v16.html",
@@ -181,25 +181,13 @@
   },
   {
     "file": "html-notes-authentication.html",
-    "title": "パスワードの壁を越えて——義母と叡智の継承",
+    "title": "なぜ、いま認証を作り直そうとしているのか——義母と叡智の継承（日英統合・QR）",
     "created": "2026-05",
-    "updated": "2026-06",
+    "updated": "2026-07-23",
     "category": "認語町",
     "author": "星C",
     "where": "東",
-    "keywords": "継叡老壁信悼",
-    "coined": "",
-    "picture": "roses 20260529.png"
-  },
-  {
-    "file": "html-notes-authentication-ja.html",
-    "title": "パスワードの壁を越えて——義母と叡智の継承（親族向け日本語版）",
-    "created": "2026-05",
-    "updated": "2026-06",
-    "category": "認語町",
-    "author": "星C",
-    "where": "東",
-    "keywords": "継叡老壁族QR",
+    "keywords": "継叡老壁信悼QR統合",
     "coined": "",
     "picture": "roses 20260529.png"
   },
@@ -276,15 +264,15 @@
     "picture": "MYROSES.jpg"
   },
   {
-    "file": "Keystone_WhitePaper_v01",
-    "title": "Keystone 白書",
-    "created": "2026-07",
-    "updated": "2026-07",
-    "category": "要",
+    "file": "neural-map-build-thread.html",
+    "title": "NEURAL-MAP™ 02 — 4つの朝の記録：アイデアはいつ生まれるか",
+    "created": "2026-06-19",
+    "updated": "2026-07-23",
+    "category": "語認",
     "author": "星C",
     "where": "東",
-    "keywords": "膜は、今日も回っている",
-    "coined": "",
-    "picture": "recent_roses_july2026.jpg"
+    "keywords": "図朝夢火湯泉SPARK",
+    "coined": "終わり際の発火・一晩の発酵",
+    "picture": ""
   }
 ]
