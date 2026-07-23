@@ -32,4 +32,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add notes-index.json
           git diff --cached --quiet || git commit -m "auto: notes-index.json 自動更新 [index-bot]"
-          git push
+          # add-notes.html アップローダーと同時更新になったら押し負けてOK(次のpushで再実行される)
+          git push || echo "::warning::並行更新のためスキップ。次回pushで自動的に再実行されます"
