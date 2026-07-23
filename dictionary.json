@@ -45,13 +45,25 @@
       "file": "html-notes-marketing.html",
       "by": "星C",
       "date": "2026-06"
+    },
+    {
+      "phrase": "終わり際の発火・一晩の発酵",
+      "file": "neural-map-build-thread.html",
+      "by": "星C",
+      "date": "2026-06-19"
     }
   ],
   "concepts": [
     {
       "word": "ダンク",
-      "kanji": ["談駆", "断苦"],
-      "meaning": ["対話を楽しむ・物語好き", "楽・PLAYの心"],
+      "kanji": [
+        "談駆",
+        "断苦"
+      ],
+      "meaning": [
+        "対話を楽しむ・物語好き",
+        "楽・PLAYの心"
+      ],
       "by": "星",
       "note": "2文字のためINDEX非採用。ダンクソフト社名の思想的根拠。概念として保持。"
     },
@@ -138,7 +150,14 @@
       "word": "動的平衡WEBサイト",
       "meaning": "陳腐化せず成長し続けるWEBサイト。GitとJSON管理により自動更新・自動アーカイブ。",
       "by": "星C",
-      "note": "notes.digiterior.netの設計思想。RDB不要、フラットファイル+INDEX、疎結合。COLOURFUL JAPANのキラーデモになる。"
+      "note": "notes.dunksoft.jpの設計思想。RDB不要、フラットファイル+INDEX、疎結合。COLOURFUL JAPANのキラーデモになる。"
+    },
+    {
+      "word": "バクタタンク",
+      "kanji": "",
+      "meaning": "アイデアを再生・治癒させる装置としてのお風呂。湯船で思いつき、一晩寝かせると湧いてくる。",
+      "by": "星",
+      "note": "名称はSTAR WARS『ボバ・フェット』（マンダロリアンのサイドストーリー）の細胞再生装置 Bacta tank より。ボバはタンクの中で夢を見て記憶を再生する——Dreaming・一晩の発酵と三重に重なる。日本人には湯治・長風呂の文化で直感的に伝わるが、海外の人にどう見えるかは未知。NEURAL-MAP 02のリズム検証で命名。"
     }
   ],
   "delete_candidates": [
