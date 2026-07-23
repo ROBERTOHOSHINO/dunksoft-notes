@@ -26,8 +26,8 @@ body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-ser
 .lg-dot{width:10px;height:10px;border-radius:50%}
 .count{ text-align:center;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px;padding-bottom:12px}
 .map-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.map-wrap{min-width:720px;max-width:1200px;margin:0 auto;padding:0 3%}
-svg{width:100%;height:auto;display:block}
+.map-wrap{width:max-content;margin:0 auto;padding:0 24px}
+svg{display:block}
 .node{cursor:pointer}
 .node text{font-family:'Noto Sans JP',sans-serif;fill:var(--white);pointer-events:none}
 .node .t{font-size:14px;font-weight:400}
@@ -55,6 +55,7 @@ svg{width:100%;height:auto;display:block}
 
 <div class="legend" id="legend"></div>
 <div class="count" id="count"></div>
+<div class="count" style="letter-spacing:1px">←→ 横にスクロール（右端が最新）</div>
 
 <div class="map-scroll"><div class="map-wrap" id="mapwrap"></div></div>
 
@@ -117,7 +118,7 @@ svg{width:100%;height:auto;display:block}
     var W = Math.max(720, X0 + vis.length*GX + 140), H = 660;
     var pos = {};
     var parts = [];
-    parts.push('<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">');
+    parts.push('<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">');
 
     // カテゴリ行ガイド
     CATS.forEach(function(c){
@@ -182,6 +183,8 @@ svg{width:100%;height:auto;display:block}
 
     parts.push('</svg>');
     document.getElementById('mapwrap').innerHTML = parts.join('');
+    var sc = document.querySelector('.map-scroll');
+    if (sc && !sc.dataset.scrolled){ sc.scrollLeft = sc.scrollWidth; sc.dataset.scrolled = '1'; }
   }
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
