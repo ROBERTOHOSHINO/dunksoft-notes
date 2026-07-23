@@ -18,9 +18,9 @@ body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-ser
 .h-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:6px;color:var(--gold);margin-bottom:16px;text-transform:uppercase}
 .h-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,4.5vw,2.9rem);font-weight:900;color:#fff;line-height:1.35;margin-bottom:12px}
 .h-title em{color:var(--gold-l);font-style:normal}
-.h-sub{font-size:12.5px;color:var(--dim);max-width:560px;margin:0 auto;line-height:2.1}
+.h-sub{font-size:14px;color:var(--dim);max-width:560px;margin:0 auto;line-height:2.1}
 .legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:18px 6% 8px}
-.lg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--dim);cursor:pointer;user-select:none;padding:3px 8px;border-radius:12px;border:.5px solid transparent}
+.lg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--dim);cursor:pointer;user-select:none;padding:3px 8px;border-radius:12px;border:.5px solid transparent}
 .lg.off{opacity:.3}
 .lg.on{border-color:rgba(255,255,255,.15)}
 .lg-dot{width:10px;height:10px;border-radius:50%}
@@ -30,8 +30,8 @@ body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-ser
 svg{width:100%;height:auto;display:block}
 .node{cursor:pointer}
 .node text{font-family:'Noto Sans JP',sans-serif;fill:var(--white);pointer-events:none}
-.node .t{font-size:11px}
-.node .d{font-size:9px;fill:rgba(255,255,255,.4)}
+.node .t{font-size:14px;font-weight:400}
+.node .d{font-size:11px;fill:rgba(255,255,255,.5)}
 .node:hover circle{filter:brightness(1.4)}
 .link{stroke:rgba(255,255,255,.10);stroke-width:1;fill:none}
 .link.kw{stroke:rgba(200,146,10,.28);stroke-dasharray:3 4}
@@ -113,8 +113,8 @@ svg{width:100%;height:auto;display:block}
     document.getElementById('count').textContent =
       vis.length + ' NOTES / ' + notes.length + ' TOTAL';
 
-    var GX = 210, X0 = 130, ROWY = {'認':110,'市':230,'語':350,'町':470};
-    var W = Math.max(720, X0 + vis.length*GX + 120), H = 580;
+    var GX = 250, X0 = 140, ROWY = {'認':120,'市':260,'語':400,'町':540};
+    var W = Math.max(720, X0 + vis.length*GX + 140), H = 660;
     var pos = {};
     var parts = [];
     parts.push('<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">');
@@ -171,12 +171,12 @@ svg{width:100%;height:auto;display:block}
       var ring = coined ? ' stroke="#F9A825" stroke-width="1.5"' : '';
       var date = (n.created||'').slice(0,7);
       var title = (n.title||n.file);
-      var short = title.length>14 ? title.slice(0,14)+'…' : title;
+      var short = title.length>15 ? title.slice(0,15)+'…' : title;
       parts.push('<a class="node" href="'+encodeURI(n.file)+'">'+
         '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="'+HEX[p.c]+'"'+ring+'/>'+
         (coined ? '<text x="'+p.x+'" y="'+(p.y+4)+'" text-anchor="middle" font-size="10" fill="#fff">⚡</text>' : '')+
-        '<text class="t" x="'+p.x+'" y="'+(p.y - r - 20)+'" text-anchor="middle">'+esc(short)+'</text>'+
-        '<text class="d" x="'+p.x+'" y="'+(p.y - r - 7)+'" text-anchor="middle">'+esc(date)+'</text>'+
+        '<text class="t" x="'+p.x+'" y="'+(p.y - r - 24)+'" text-anchor="middle">'+esc(short)+'</text>'+
+        '<text class="d" x="'+p.x+'" y="'+(p.y - r - 8)+'" text-anchor="middle">'+esc(date)+'</text>'+
         '<title>'+esc(title)+(coined? '\n⚡ '+esc(coined):'')+'</title></a>');
     });
 
