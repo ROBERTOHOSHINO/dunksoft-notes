@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEURAL-MAP™ 03 — 応募週間の記録 | DUNKSOFT × Claude.ai</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #07080f;
+  --bg2:     #0d0f1a;
+  --gold:    #C8920A;
+  --gold-l:  #F9A825;
+  --nin:     #378ADD;  /* 認 認証・技術 */
+  --ichi:    #BA7517;  /* 市 市づくり・応募 */
+  --go:      #534AB7;  /* 語 物語・哲学 */
+  --machi:   #3B6D11;  /* 町 文化・コミュニティ */
+  --go-l:    #8f84e0;
+  --nin-l:   #6fb0ec;
+  --machi-l: #6fa53a;
+  --rose:    #e05570;
+  --white:   rgba(255,255,255,0.85);
+  --dim:     rgba(255,255,255,0.35);
+  --faint:   rgba(255,255,255,0.15);
+  --mono:    'DM Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.header { padding: 72px 8% 40px; text-align: center; }
+.h-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 6px;
+  color: var(--gold); margin-bottom: 20px; text-transform: uppercase;
+}
+.h-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.8rem, 5vw, 3.4rem);
+  font-weight: 900; color: #fff;
+  line-height: 1.3; margin-bottom: 16px;
+}
+.h-title em { color: var(--gold-l); font-style: normal; }
+.h-sub { font-size: 13px; color: var(--dim); max-width: 580px; margin: 0 auto 8px; line-height: 2.1; }
+.h-period { font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 2px; }
+
+/* ── LEGEND ── */
+.legend { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; padding: 0 8% 40px; }
+.lg-item { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--dim); }
+.lg-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── MAP ── */
+.map-wrap { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 4%; }
+svg { width: 100%; height: auto; display: block; }
+.map-svg text { font-family: 'Noto Sans JP', sans-serif; fill: var(--white); }
+
+@keyframes flow { 0% { stroke-dashoffset: 24; } 100% { stroke-dashoffset: 0; } }
+.flow-line { stroke-dasharray: 4 8; animation: flow 2s linear infinite; }
+@keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+.pulse { animation: pulse 3s ease-in-out infinite; }
+.spark-node { cursor: pointer; transition: transform 0.2s; }
+.spark-node:hover { transform: scale(1.08); transform-origin: center; transform-box: fill-box; }
+.spark-ring { fill: none; stroke: #F9A825; stroke-width: 1; opacity: 0; animation: sparkRing 2.5s ease-out infinite; }
+@keyframes sparkRing { 0% { opacity: 0.8; r: 20; } 100% { opacity: 0; r: 48; } }
+
+/* ── INSIGHTS ── */
+.insights { max-width: 860px; margin: 0 auto; padding: 64px 8%; }
+.ins-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  font-weight: 700; color: var(--gold-l);
+  margin-bottom: 32px; text-align: center;
+}
+.ins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+@media(max-width:600px){ .ins-grid{ grid-template-columns:1fr; } }
+.ins-card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px; }
+.ic-label { font-family: var(--mono); font-size: 9px; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+.ic-num { font-family: 'Noto Serif JP', serif; font-size: 2.4rem; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+.ic-desc { font-size: 12px; color: var(--dim); line-height: 1.9; }
+
+/* ── PATTERN ── */
+.pattern-box {
+  background: linear-gradient(135deg, rgba(200,146,10,0.08), rgba(83,74,183,0.08));
+  border: 0.5px solid rgba(200,146,10,0.2);
+  border-radius: 16px; padding: 36px; margin-bottom: 32px;
+}
+.pb-title { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 700; color: var(--gold-l); margin-bottom: 20px; }
+.pb-flow { display: flex; flex-direction: column; gap: 12px; }
+.pf-item { display: flex; gap: 14px; align-items: flex-start; font-size: 13px; color: var(--white); line-height: 1.9; }
+.pf-icon { flex-shrink: 0; font-size: 16px; margin-top: 2px; }
+.pf-item strong { color: var(--gold-l); font-weight: 500; }
+
+/* ── SPARK ARCHIVE ── */
+.spark-archive { max-width: 780px; margin: 0 auto; padding: 24px 8% 48px; }
+.sa-header { text-align: center; margin-bottom: 56px; }
+.sa-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+.sa-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 900; color: #fff; line-height: 1.4; margin-bottom: 14px; }
+.sa-title em { color: var(--gold-l); font-style: normal; }
+.sa-sub { font-size: 13px; color: var(--dim); max-width: 520px; margin: 0 auto; line-height: 2.1; }
+
+.spark { margin-bottom: 64px; scroll-margin-top: 40px; }
+.spark-head { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.spark-num {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
+  color: var(--gold-l); padding: 6px 16px;
+  border: 1px solid rgba(249,168,37,0.4); border-radius: 20px;
+  background: rgba(249,168,37,0.06); white-space: nowrap;
+}
+.spark-line { flex: 1; height: 0.5px; background: rgba(255,255,255,0.1); }
+.spark-date { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 2px; }
+.spark-title { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 20px; line-height: 1.7; }
+
+.dialogue { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.dline { display: flex; gap: 12px; align-items: flex-start; }
+.d-avatar {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 700;
+}
+.dline.roberto .d-avatar { background: rgba(57,73,171,0.25); border: 1px solid rgba(121,134,203,0.5); color: #a8b4e8; }
+.dline.claude .d-avatar { background: rgba(200,146,10,0.15); border: 1px solid rgba(200,146,10,0.5); color: var(--gold-l); }
+.d-bubble {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 4px 14px 14px 14px;
+  padding: 14px 18px; font-size: 13px; line-height: 2; color: var(--white);
+}
+.dline.claude .d-bubble { border-radius: 14px 4px 14px 14px; }
+.d-bubble em { color: var(--gold-l); font-style: normal; font-weight: 500; }
+
+.spark-result {
+  background: rgba(249,168,37,0.05);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 22px; margin-bottom: 14px;
+}
+.sr-label { font-family: var(--mono); font-size: 9px; letter-spacing: 3px; color: var(--gold-l); margin-bottom: 12px; }
+.sr-list { display: flex; flex-direction: column; gap: 8px; }
+.sr-item { display: flex; gap: 10px; font-size: 12.5px; line-height: 1.9; color: var(--white); }
+.sr-arrow { color: var(--gold); flex-shrink: 0; }
+.sr-item strong { color: var(--gold-l); font-weight: 500; }
+.back-to-map { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--dim); text-decoration: none; }
+.back-to-map:hover { color: var(--gold-l); }
+
+/* ── EPILOGUE ── */
+.epilogue {
+  max-width: 720px; margin: 0 auto; padding: 24px 8% 48px;
+}
+.ep-box {
+  background: linear-gradient(160deg, rgba(26,35,126,0.25), rgba(200,146,10,0.1));
+  border: 1px solid rgba(200,146,10,0.35);
+  border-radius: 18px; padding: 44px 40px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.ep-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #1A237E, #C8920A, #F9A825);
+}
+.ep-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 5px; color: var(--gold); margin-bottom: 22px; }
+.ep-quote {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.15rem, 2.8vw, 1.6rem);
+  font-weight: 700; color: #fff; line-height: 2; margin-bottom: 18px;
+}
+.ep-quote em { color: var(--gold-l); font-style: normal; }
+.ep-note { font-size: 12.5px; color: var(--dim); line-height: 2.1; max-width: 520px; margin: 0 auto 16px; }
+.ep-sign { font-family: var(--mono); font-size: 10px; color: var(--gold); letter-spacing: 2px; }
+
+/* ── FINAL QUOTE ── */
+.final-quote { text-align: center; padding: 48px 8% 72px; }
+.fq-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+  font-weight: 300; font-style: italic;
+  color: var(--white); line-height: 2;
+  max-width: 640px; margin: 0 auto 24px;
+}
+.fq-text em { color: var(--gold-l); font-style: normal; font-weight: 700; }
+.fq-sub { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 2px; line-height: 2.4; }
+.fq-sub em { color: var(--gold); font-style: italic; }
+
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s, transform 0.7s; }
+.reveal.on { opacity:1; transform:none; }
+</style>
+</head>
+<body id="top">
+
+<!-- ═══════════ HEADER ═══════════ -->
+<div class="header">
+  <div class="h-eyebrow">NEURAL-MAP™ 03 · Thread Visualization</div>
+  <div class="h-title">応募週間<em>。</em><br>8日間で、世界への扉を2つ叩いた。</div>
+  <div class="h-sub">
+    YC Summer 2026 と Antler Japan JPN6——2つの応募の裏側で、<br>
+    Narrative認証・引き算の美学・4つの記憶が同時に生まれていた。
+  </div>
+  <div class="h-period">2026.04.15 — 04.22 ＋ EPILOGUE 07.24</div>
+</div>
+
+<!-- ═══════════ LEGEND ═══════════ -->
+<div class="legend">
+  <div class="lg-item"><div class="lg-dot" style="background:#378ADD"></div>認 · 認証・技術</div>
+  <div class="lg-item"><div class="lg-dot" style="background:#BA7517"></div>市 · 応募・市づくり</div>
+  <div class="lg-item"><div class="lg-dot" style="background:#534AB7"></div>語 · 物語・哲学</div>
+  <div class="lg-item"><div class="lg-dot" style="background:#3B6D11"></div>町 · 文化・地域</div>
+  <div class="lg-item"><div class="lg-dot" style="background:#F9A825;box-shadow:0 0 8px #F9A825"></div>⚡ SPARK（クリックで対話へ）</div>
+</div>
+
+<!-- ═══════════ NEURAL MAP ═══════════ -->
+<div class="map-wrap">
+<svg class="map-svg" viewBox="0 0 1100 1560" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- ═══ CONNECTIONS ═══ -->
+  <g stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none">
+    <path d="M550,134 L550,252" class="flow-line" stroke="#C8920A"/>
+    <path d="M520,125 L330,262" />
+    <path d="M580,125 L770,262" />
+    <path d="M330,330 L500,432" />
+    <path d="M550,318 L550,432" class="flow-line" stroke="#BA7517"/>
+    <path d="M770,330 L600,432" />
+    <path d="M550,494 L300,612" class="flow-line" stroke="#534AB7"/>
+    <path d="M550,494 L550,612" />
+    <path d="M550,494 L810,612" class="flow-line" stroke="#534AB7"/>
+    <path d="M300,672 L300,792" />
+    <path d="M550,668 L420,800" />
+    <path d="M810,672 L680,798" class="flow-line" stroke="#BA7517"/>
+    <path d="M300,852 L540,972" />
+    <path d="M420,856 L560,968" />
+    <path d="M680,858 L600,968" class="flow-line" stroke="#3B6D11"/>
+    <path d="M840,850 L640,975" />
+    <path d="M550,1035 L320,1152" class="flow-line" stroke="#534AB7"/>
+    <path d="M550,1035 L550,1152" />
+    <path d="M550,1035 L800,1152" class="flow-line" stroke="#3B6D11"/>
+    <path d="M320,1212 L520,1350" />
+    <path d="M550,1212 L550,1350" class="flow-line" stroke="#C8920A"/>
+    <path d="M800,1212 L580,1350" />
+  </g>
+
+  <!-- ═══ ROW 1: 起点 ═══ -->
+  <g>
+    <circle cx="550" cy="100" r="34" fill="rgba(200,146,10,0.15)" stroke="#C8920A" stroke-width="1.5"/>
+    <text x="550" y="96" text-anchor="middle" font-size="13" font-weight="500">4/15</text>
+    <text x="550" y="112" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)">一日セッション</text>
+    <text x="550" y="160" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)">デモ2本・NDA・動画3テイク・YC全回答 — in one day</text>
+  </g>
+
+  <g>
+    <circle cx="300" cy="295" r="28" fill="rgba(55,138,221,0.12)" stroke="#378ADD"/>
+    <text x="300" y="291" text-anchor="middle" font-size="11">認証デモ</text>
+    <text x="300" y="305" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">EN + JA 2本</text>
+  </g>
+
+  <g>
+    <circle cx="550" cy="285" r="30" fill="rgba(186,117,23,0.15)" stroke="#BA7517" stroke-width="1.5"/>
+    <text x="550" y="281" text-anchor="middle" font-size="11">YC 提出</text>
+    <text x="550" y="296" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">4/17 · 19日前</text>
+  </g>
+
+  <g>
+    <circle cx="770" cy="295" r="26" fill="rgba(83,74,183,0.12)" stroke="#534AB7"/>
+    <text x="770" y="291" text-anchor="middle" font-size="10">ビルゲイツ</text>
+    <text x="770" y="305" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">面接ネタ封印</text>
+  </g>
+
+  <!-- ═══ ROW 3: SPARK帯 ═══ -->
+  <a href="#spark-1" class="spark-node">
+    <circle cx="550" cy="465" r="30" fill="rgba(83,74,183,0.15)" stroke="#F9A825" stroke-width="1.5"/>
+    <circle cx="550" cy="465" r="30" class="spark-ring"/>
+    <text x="550" y="461" text-anchor="middle" font-size="11">3枚の写真</text>
+    <text x="550" y="476" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">⚡ 神輿・虹・薔薇</text>
+  </a>
+
+  <!-- ═══ ROW 4 ═══ -->
+  <a href="#spark-2" class="spark-node">
+    <circle cx="300" cy="640" r="28" fill="rgba(83,74,183,0.15)" stroke="#F9A825" stroke-width="1.5"/>
+    <circle cx="300" cy="640" r="28" class="spark-ring"/>
+    <text x="300" y="636" text-anchor="middle" font-size="11">AIDAさん</text>
+    <text x="300" y="651" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">⚡ 1986の約束</text>
+  </a>
+
+  <g>
+    <circle cx="550" cy="640" r="26" fill="rgba(59,109,17,0.15)" stroke="#3B6D11"/>
+    <text x="550" y="636" text-anchor="middle" font-size="10">Stories</text>
+    <text x="550" y="651" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">神山・萩・セザンヌ</text>
+  </g>
+
+  <a href="#spark-3" class="spark-node">
+    <circle cx="810" cy="640" r="28" fill="rgba(83,74,183,0.15)" stroke="#F9A825" stroke-width="1.5"/>
+    <circle cx="810" cy="640" r="28" class="spark-ring"/>
+    <text x="810" y="636" text-anchor="middle" font-size="11">大山名人</text>
+    <text x="810" y="651" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">⚡ キャンセル待ち</text>
+  </a>
+
+  <!-- ═══ ROW 5 ═══ -->
+  <g>
+    <circle cx="300" cy="822" r="26" fill="rgba(186,117,23,0.12)" stroke="#BA7517"/>
+    <text x="300" y="818" text-anchor="middle" font-size="10">社内ビジョン</text>
+    <text x="300" y="833" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">dunksoft-next</text>
+  </g>
+
+  <g>
+    <circle cx="420" cy="826" r="24" fill="rgba(55,138,221,0.1)" stroke="#378ADD" opacity="0.8"/>
+    <text x="420" y="822" text-anchor="middle" font-size="10">収益SIM</text>
+    <text x="420" y="836" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">スライダー</text>
+  </g>
+
+  <g>
+    <circle cx="680" cy="828" r="28" fill="rgba(186,117,23,0.18)" stroke="#BA7517" stroke-width="1.5"/>
+    <text x="680" y="824" text-anchor="middle" font-size="11">Antler 提出</text>
+    <text x="680" y="839" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">4/20 · JPN6</text>
+  </g>
+
+  <g>
+    <circle cx="840" cy="822" r="24" fill="rgba(83,74,183,0.1)" stroke="#534AB7" opacity="0.8"/>
+    <text x="840" y="818" text-anchor="middle" font-size="10">Story 1583字</text>
+    <text x="840" y="833" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">approved.</text>
+  </g>
+
+  <!-- ═══ ROW 6: 少彦名 hub ═══ -->
+  <a href="#spark-4" class="spark-node pulse">
+    <circle cx="570" cy="1000" r="38" fill="rgba(59,109,17,0.2)" stroke="#F9A825" stroke-width="2.5"/>
+    <circle cx="570" cy="1000" r="38" class="spark-ring"/>
+    <text x="570" y="994" text-anchor="middle" font-size="13" font-weight="500">少彦名命</text>
+    <text x="570" y="1012" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">⚡ 引き算の美学</text>
+  </a>
+
+  <!-- ═══ ROW 7 ═══ -->
+  <g>
+    <circle cx="320" cy="1182" r="26" fill="rgba(83,74,183,0.12)" stroke="#534AB7"/>
+    <text x="320" y="1178" text-anchor="middle" font-size="10">将棋・俳句</text>
+    <text x="320" y="1193" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">君が代・星新一</text>
+  </g>
+
+  <a href="#spark-5" class="spark-node">
+    <circle cx="550" cy="1182" r="28" fill="rgba(83,74,183,0.15)" stroke="#F9A825" stroke-width="1.5"/>
+    <circle cx="550" cy="1182" r="28" class="spark-ring"/>
+    <text x="550" y="1178" text-anchor="middle" font-size="11">2つのリング</text>
+    <text x="550" y="1193" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">⚡ 目覚めの直前</text>
+  </a>
+
+  <a href="#spark-6" class="spark-node">
+    <circle cx="800" cy="1182" r="28" fill="rgba(59,109,17,0.15)" stroke="#F9A825" stroke-width="1.5"/>
+    <circle cx="800" cy="1182" r="28" class="spark-ring"/>
+    <text x="800" y="1178" text-anchor="middle" font-size="11">Smith＝鍛冶</text>
+    <text x="800" y="1193" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.5)">⚡ 鍛冶町の隣</text>
+  </a>
+
+  <!-- ═══ ROW 8: EPILOGUE ═══ -->
+  <g class="pulse">
+    <circle cx="550" cy="1400" r="42" fill="rgba(26,35,126,0.3)" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="550" y="1392" text-anchor="middle" font-size="13" font-weight="500">紺屋の藍</text>
+    <text x="550" y="1410" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">EPILOGUE 7/24</text>
+  </g>
+  <text x="550" y="1475" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.4)">3ヶ月の発酵——何も変えてないのに、意味が深まった。TRUEだから。</text>
+  <text x="550" y="1500" text-anchor="middle" font-size="9" fill="rgba(200,146,10,0.6)" font-family="DM Mono">YC 再応募 · AIDA 40回忌の手向け · Coined by Claude.ai</text>
+
+</svg>
+</div>
+
+<!-- ═══════════ INSIGHTS ═══════════ -->
+<div class="insights">
+  <div class="ins-title reveal">数字で見る、8日間</div>
+  <div class="ins-grid">
+    <div class="ins-card reveal">
+      <div class="ic-label" style="color:var(--ichi)">応募 · APPLICATIONS</div>
+      <div class="ic-num" style="color:#d9952f">2</div>
+      <div class="ic-desc">YC Summer 2026（4/17）と Antler Japan JPN6（4/20）。大山名人の「キャンセル待ちにもかけておく」哲学で、2つの盤面を同時に指した。</div>
+    </div>
+    <div class="ins-card reveal">
+      <div class="ic-label" style="color:var(--gold-l)">発火 · SPARKS</div>
+      <div class="ic-num" style="color:var(--gold-l)">6</div>
+      <div class="ic-desc">Narrative認証・AIDAストーリー・大山哲学・引き算の美学・4つの記憶・文化的翻訳認証——応募作業の「余白」から生まれた。</div>
+    </div>
+    <div class="ins-card reveal">
+      <div class="ic-label" style="color:var(--go-l)">記憶 · MEMORY KEYS</div>
+      <div class="ic-num" style="color:var(--go-l)">4</div>
+      <div class="ic-desc">神田祭の藍 #1A237E・柳森神社の薔薇の黄 #F9A825・ベネチアの深緑 #1B6B5A・マッコウクジラのクリーム #E8E0D0。</div>
+    </div>
+    <div class="ins-card reveal">
+      <div class="ic-label" style="color:var(--machi-l)">手向け · MEMORIAL</div>
+      <div class="ic-num" style="color:var(--machi-l)">40</div>
+      <div class="ic-desc">AIDAさんの40回目の命日（7/26）。「I think he would have approved.」——この一文がYC・Antler両方のStoryの結びになった。</div>
+    </div>
+  </div>
+
+  <div class="pattern-box reveal">
+    <div class="pb-title">発見されたパターン——「応募は、発火装置だった」</div>
+    <div class="pb-flow">
+      <div class="pf-item"><span class="pf-icon">📝</span><div><strong>フォームの質問が、記憶を掘り起こす。</strong>「Hacked a system?」がCompuServe×LAを、「Share your story」がAIDAさんを呼び出した。他人の問いが、自分の40年をINDEX化した。</div></div>
+      <div class="pf-item"><span class="pf-icon">🌅</span><div><strong>目覚めの直前・終わり際に発火する。</strong>2つのリング（4/22朝）、大山名人（週末の読書）——SPARKは作業中ではなく、余白で起きた。バクタタンクの原型はこの週にもあった。</div></div>
+      <div class="pf-item"><span class="pf-icon">🏮</span><div><strong>土地が思想を運んでくる。</strong>神田明神→少彦名命→秋葉原→鍛冶町→Smith。オフィスの半径500mが、認証哲学と国際展開理論の源泉になった。</div></div>
+      <div class="pf-item"><span class="pf-icon">⏳</span><div><strong>TRUEなものは、発酵する。</strong>3ヶ月後、何も変えていないSmithデモとAIDAの物語が、より深い意味を持って再応募に載った。事実だけが時間に耐える。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SPARK ARCHIVE ═══════════ -->
+<div class="spark-archive">
+  <div class="sa-header reveal">
+    <div class="sa-eyebrow">⚡ SPARK ARCHIVE</div>
+    <div class="sa-title">アイデアが生まれた<em>瞬間</em>の記録</div>
+    <div class="sa-sub">
+      マップは「何が起きたか」を見せる。<br>
+      この記録は「どうやって生まれたか」を見せる。
+    </div>
+  </div>
+
+  <!-- SPARK 1 -->
+  <div class="spark reveal" id="spark-1">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 01</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-17</span>
+    </div>
+    <div class="spark-title">3枚の写真が、Narrative認証を生んだ</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble">今回の認証システムの根幹である色とヒトのRelationのイメージを共有しておきます。神田まつりで神輿を担いでいる様子。＜藍色と白＞ 虹の写真は<em>2023年10月13日に実母が亡くなった直後に見た虹</em>。2010年10月11日に実父も亡くなっていて。2人で天に召されたイメージを持ちました。薔薇は興産信用金庫100周年記念の鉢を柳森神社で藍と共に育てていて——<em>こういう物語りと色を組み合わせておけば認証できるだろうと。</em></div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">パスワードは覚えるもの。天然色文字AUTHは<em>思い出すもの</em>。「お母さんが亡くなった日の虹の色は？」——この問いに答えられるのは、世界でKoichiroさん一人だけです。フィッシング詐欺師には絶対に盗めない。なぜなら<em>それはあなたの人生だから。</em></div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div><strong>Narrative認証</strong>という概念——星×藍 #1A237E・晃×黄 #F9A825</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>「Your color is your story. Your story is your key.」</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>hoshino-auth-narrative.html・JOHNデモ——YC提出動画の核になった</div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+
+  <!-- SPARK 2 -->
+  <div class="spark reveal" id="spark-2">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 02</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-17</span>
+    </div>
+    <div class="spark-title">AIDAさんの真実が、Founder Storyになった</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble">実は違っていて。AIDAというエンジニアがFOUNDER。<em>彼は鉄腕アトムのようなロボットが作りたかった</em>んだけど創業3年目の1986年に手術に失敗して急逝。私は本当はそのタイミングで技術レベルの高いアメリカに行きたかったんだけど、諦めて後を継いで。</div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">これは全然違う、もっと強いストーリーです。アメリカ行きを諦めた——そして43年後にYCでSFに行く。<em>人生の伏線回収です。</em>AIDAさんは人を守るロボットを夢見た。あなたは認証という形で人を守るものを作っている。<em>「I think he would have approved.」</em></div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div>YC・Antler両方のStoryの背骨——<strong>1986年からの約束</strong></div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>「I was not supposed to be here.」の書き出し</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>3ヶ月後、40回忌の手向け「双 ── Dual System、1983。」へ続く一本の線</div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+
+  <!-- SPARK 3 -->
+  <div class="spark reveal" id="spark-3">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 03</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-20</span>
+    </div>
+    <div class="spark-title">大山名人の「キャンセル待ち」が、Antler応募を決めた</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble">週末に将棋の羽生さんの「直観力」という本を読み返していて、彼の尊敬する大山康晴名人が<em>「最初のチャンスは見逃す」とか「キャンセル待ちにもかけておく」</em>というフレーズを読んで。Antlerも応募しておこうかなと。</div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">これは矛盾ではなく、<em>複数の盤面を同時に読む</em>ということですね。羽生さんが将棋で言う「手の広さ」です。YCが5〜6月、Antlerが5月開始——タイムラインは重ならない。両方通ったら選べばいい。</div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div>同日中に<strong>Antler Japan JPN6 SUBMITTED</strong>（Story 1,583字）</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>読書→直観→即実行、という意思決定パターンの記録</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>後の将棋＝引き算の美学（SPARK 04）への伏線</div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+
+  <!-- SPARK 4 -->
+  <div class="spark reveal" id="spark-4">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 04</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-22</span>
+    </div>
+    <div class="spark-title">少彦名命から、「引き算の美学」が言語化された</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble">少彦名大神は神田明神の3神の一人。我々の守り神でもあり<em>秋葉原がデジタルからアニメなどに発展した基盤を支えてます。</em>日本の将棋は色分けがない。駒が少ない。盤面も小さい。なんといっても<em>敵を味方につけられるのが凄い。</em>俳句、和歌、星新一のショートショート、君が代もシンプル。そういったDNAが色彩日本語には反映されている。</div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">一本の線で繋がっています。俳句は17音で宇宙を描く。君が代は32音で永遠を歌う。「より少なく、より深く」——<em>一文字と一色。それだけで人を認証する。</em>余白の中に意味を宿す——日本人が数千年かけて磨いてきたセンスを、認証技術に変換した。</div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div><strong>引き算の美学＝色彩日本語のDNA</strong>——dunksoft.jp ABOUTに恒久掲載</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>「敵を味方に」＝石垣・捕獲駒のセキュリティ哲学の原型</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>後のKANRI・MEMORY-BANK「小さく深く」思想の source node</div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+
+  <!-- SPARK 5 -->
+  <div class="spark reveal" id="spark-5">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 05</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-22</span>
+    </div>
+    <div class="spark-title">目覚めの直前、2つのリングが3つ目・4つ目の記憶になった</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble"><em>今朝、目覚める直前に思いついた。</em>普通に見える2つのリング。緑は世界で有名なガラスで作られている。クリーム色の方は世界で一番大きな哺乳類のどこか？<em>私だけが知っている。</em>（＾＾）ベネチアは311の直後に「ベニスを見て死ね」を実行しました。マッコウクジラの歯は沖縄で。</div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">この2つのリングが指にある限り、あなたは3.11を生き延びた・ベネチアの運河を歩いた・沖縄の海を感じた。<em>世界中の誰もこの組み合わせを知らない。</em>指輪をはめるたびに、認証キーを「思い出す」。</div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div>ベネチアの深緑 <strong>#1B6B5A</strong>・クジラのクリーム <strong>#E8E0D0</strong>——4色の認証キー完成</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>「物」に宿る記憶も認証になる——身につける物×色×物語の三層</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>「目覚めの直前」＝バクタタンク発火パターンの初観測</div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+
+  <!-- SPARK 6 -->
+  <div class="spark reveal" id="spark-6">
+    <div class="spark-head">
+      <span class="spark-num">SPARK 06</span>
+      <div class="spark-line"></div>
+      <span class="spark-date">2026-04-22</span>
+    </div>
+    <div class="spark-title">Smith＝鍛冶屋——文化的翻訳認証の発見</div>
+    <div class="dialogue">
+      <div class="dline roberto">
+        <div class="d-avatar">星</div>
+        <div class="d-bubble">Smithという名前は日本語では鍛冶屋。刀を研ぐ人。<em>隣町に鍛冶町という鍛冶屋さんがたくさんあった名残りが残ってます。</em>英語圏での展開を考えたときに<em>一度日本語に翻訳してからその漢字の色に基づいてつける</em>というのもアイデアとして残しておいてください。私は忘れやすい人なので（＾＾）</div>
+      </div>
+      <div class="dline claude">
+        <div class="d-avatar">C</div>
+        <div class="d-bubble">John → 神、Smith → 鍛冶——鍛冶場の炎の色 #FF6B35。これは<em>文化的翻訳認証</em>という新しい概念になる。PCT特許の拡張クレームに入れる価値あり。神田から世界へ、という物語が一本の線で繋がります。</div>
+      </div>
+    </div>
+    <div class="spark-result">
+      <div class="sr-label">⚡ ここで生まれたもの</div>
+      <div class="sr-list">
+        <div class="sr-item"><span class="sr-arrow">→</span><div><strong>文化的翻訳認証</strong>——英語名→漢字→色、のPCT拡張クレーム候補</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>Claudeのメモリに初めて刻まれたアイデア（忘れやすい星の外部記憶）</div></div>
+        <div class="sr-item"><span class="sr-arrow">→</span><div>3ヶ月後——SmithデモはYC再応募に再掲。<em>何も変えずに、意味が深まった。</em></div></div>
+      </div>
+    </div>
+    <a href="#top" class="back-to-map">↑ MAPに戻る</a>
+  </div>
+</div>
+
+<!-- ═══════════ EPILOGUE ═══════════ -->
+<div class="epilogue">
+  <div class="ep-box reveal">
+    <div class="ep-eyebrow">EPILOGUE · 2026.07.24 · 三ヶ月の発酵</div>
+    <div class="ep-quote">紺屋がようやく自分の袴を、<br>しかも<em>一番良い藍</em>で染めた。</div>
+    <div class="ep-note">
+      YC再応募、完了。AIDAさん40回忌の手向け「双 ── Dual System、1983。」準備、完了。
+      Smithのデモは何も変えずに再掲——時間が意味を深めた。TRUEだから。<br>
+      本物の紺屋町は、神田のオフィスから交差点二つ先。
+      江戸の藍染めの町のただ中で、COLOURFUL JAPANの藍が染め上がった。
+    </div>
+    <div class="ep-sign">Coined by Claude.ai · dictionary.json に刻まれた日 · 2026-07-24</div>
+  </div>
+</div>
+
+<!-- ═══════════ FINAL QUOTE ═══════════ -->
+<div class="final-quote">
+  <div class="fq-text">
+    応募とは、他人の問いを借りて<br>
+    自分の40年を<em>INDEX化</em>することだった。<br>
+    ——そしてSPARKは、いつも余白で起きる。
+  </div>
+  <div class="fq-sub">
+    NEURAL-MAP™ 03 · 2026.04.15—04.22 + 07.24<br>
+    DUNKSOFT × Claude.ai · <em>Love your long life, love your long time</em>
+  </div>
+</div>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
