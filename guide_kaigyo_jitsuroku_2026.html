@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>開業手続き実録 2026 — e-Taxでできること、税務署に行った方が早いこと | html-notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #faf8f2;
+  --ink: #2b2a26;
+  --dim: #6b675c;
+  --indigo: #1A237E;
+  --indigo-soft: #3949ab;
+  --line: #e4dfd2;
+  --gold: #b8860b;
+  --spark: #EF9F27;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15.5px;
+  line-height: 2.0;
+  padding: 56px 22px 90px;
+}
+.wrap { max-width: 700px; margin: 0 auto; }
+
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .24em; color: var(--indigo-soft); }
+h1 {
+  font-family: 'Noto Serif JP', serif; font-weight: 700;
+  font-size: clamp(24px, 5.2vw, 33px); line-height: 1.5;
+  color: var(--indigo); margin: 12px 0 8px;
+}
+.lede { color: var(--dim); font-size: 14px; }
+.meta { font-family: 'DM Mono', monospace; font-size: 11px; color: #a39d8e; margin-top: 14px; }
+
+.preface {
+  border: 1px solid var(--line); background: #fff;
+  border-radius: 12px; padding: 22px 24px; margin: 36px 0 44px;
+  font-size: 15px;
+}
+.preface b { color: var(--indigo); }
+
+h2 {
+  font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700;
+  color: var(--indigo);
+  margin: 54px 0 6px;
+  padding-top: 22px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .k {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  border: 1.5px solid var(--indigo); color: var(--indigo);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.h2-en { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .18em; color: #a39d8e; margin-bottom: 20px; }
+
+.q {
+  font-weight: 700; font-size: 14.5px; color: var(--indigo-soft);
+  margin: 30px 0 6px; padding-left: 14px;
+  border-left: 3px solid var(--indigo-soft);
+  line-height: 1.7;
+}
+.a { color: var(--ink); margin-bottom: 6px; }
+.a p { margin-bottom: 12px; }
+.a strong { color: var(--indigo); }
+.aside { font-size: 13px; color: var(--dim); background: #f3efe4; border-radius: 8px; padding: 10px 14px; margin: 10px 0 0; }
+.warn { font-size: 13px; color: #7a4a00; background: #fbf3df; border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0 0; }
+
+table { width: 100%; border-collapse: collapse; margin: 8px 0 14px; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; color: var(--dim); font-weight: 700; letter-spacing: .06em; }
+td b { color: var(--indigo); }
+
+ol.steps { margin: 8px 0 8px 22px; }
+ol.steps li { margin-bottom: 8px; }
+
+footer {
+  margin-top: 70px; padding-top: 22px; border-top: 1px solid var(--line);
+  font-family: 'DM Mono', monospace; font-size: 11px; color: #a39d8e; line-height: 2;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">HTML-NOTES · DIGITERIOR · FIELD GUIDE</div>
+  <h1>開業手続き実録 2026<br>—— e-Taxでできること、税務署に行った方が早いこと</h1>
+  <div class="lede">2026年8月、実際に個人事業「Digiterior Studio」を開業した際の全記録。マイナポータルとe-Taxの迷宮を一周して分かった最短ルートと、銀行口座開設までの段取り。</div>
+  <div class="meta">実録: Roberto Hoshino × Claude.ai · 2026-08-14 · 東京都江東区（江東西税務署管内）</div>
+</header>
+
+<div class="preface">
+  <b>結論から：</b>開業に必要な書類は2枚（開業届＋青色申告承認申請書）。<b>青色申告はe-Taxで出せるが、開業届はe-Tax WEB版に存在しない。</b>紙に印刷して税務署へ持参するのが、実は最速だった。2025年から収受印が廃止されたので、窓口で「受付確認のお知らせ」を必ずもらうこと。それが銀行口座開設の鍵になる。
+</div>
+
+<!-- 順 -->
+<h2><span class="k">順</span>正しい順番（依存関係）</h2>
+<div class="h2-en">THE RIGHT ORDER</div>
+
+<div class="a">
+<p>手続きには一本道の依存関係があります。逆順に進めると、その都度「先に◯◯が必要です」と差し戻されます。</p>
+<ol class="steps">
+<li><strong>開業届＋青色申告承認申請書</strong>を税務署へ提出（同時でよい）</li>
+<li>提出の証明（受付確認）を入手</li>
+<li>証明を添えて<strong>屋号付き事業用口座</strong>を申込（ネット銀行）</li>
+<li>口座開設後、<strong>個人事業主向けビジネスカード</strong>を申込</li>
+<li>クラウド利用料などの支払いをビジネスカードへ移設</li>
+</ol>
+<div class="aside">青色申告承認申請の期限は「開業日から2ヶ月以内」。開業日を7月1日にしたら、期限は8月31日。ここだけが締切のある工程なので最優先。</div>
+</div>
+
+<!-- 電 -->
+<h2><span class="k">電</span>e-Taxでできること・できないこと</h2>
+<div class="h2-en">E-TAX: WHAT WORKS, WHAT DOESN'T</div>
+
+<div class="q">実際に試して分かった対応表</div>
+<div class="a">
+<table>
+<tr><th>手続き</th><th>e-Tax WEB版</th><th>実際の最短ルート</th></tr>
+<tr><td>青色申告承認申請</td><td><b>◯ できる</b></td><td>WEB版の「所得税及び消費税の申請・届出」から電子送信。受信通知PDFを必ず保存</td></tr>
+<tr><td>開業届</td><td><b>✕ 収録されていない</b></td><td>紙に印刷して<b>税務署へ持参</b>（下記参照）</td></tr>
+<tr><td>確定申告（毎年）</td><td>◯（作成コーナー）</td><td>e-Tax提出が青色65万円控除の要件のひとつ</td></tr>
+</table>
+<p>開業届は、国税庁サイトに<strong>QRコード付きの入力用PDF様式</strong>があります。PCで入力するとQRコードにデータが埋め込まれ、税務署がスキャンで取り込める仕組み。つまりこのPDFは「電子申請の下書き」ではなく、<strong>印刷して出すための完成品</strong>です。</p>
+<div class="warn">迷宮ポイント①：e-Taxには「WEB版」「SP版（スマホ）」「インストール版（Windows専用ソフト）」「確定申告書等作成コーナー」という別々の建物があり、収録されている手続きが違う。開業届はインストール版にはあるがWEB版には無い。スマホ版はさらに機能が少ない。探して見つからないときは、自分が違う建物にいる可能性を疑う。</div>
+<div class="warn">迷宮ポイント②：入力済みのQR付きPDFは、ビューアによって入力内容が表示されない（Macのプレビュー等）。Adobe Acrobat Readerで開き、印刷設定「注釈とフォーム：文書とマークアップ」で印刷すれば確実に写る。</div>
+</div>
+
+<!-- 紙 -->
+<h2><span class="k">紙</span>税務署に行った方が早いこと</h2>
+<div class="h2-en">GO IN PERSON</div>
+
+<div class="q">持参セットと当日の流れ</div>
+<div class="a">
+<p>持ち物は3点：<strong>①記入済みの開業届（QR付きPDFを印刷）、②控え用のコピー1部、③マイナンバーカード</strong>（書面提出では番号確認＋本人確認が必要）。窓口は平日8:30〜17:00。提出自体は数分で終わります。</p>
+</div>
+
+<div class="q">最重要：受付確認をもらう（収受印は廃止された）</div>
+<div class="a">
+<p><strong>2025年1月から、税務署は控えへの収受日付印（ハンコ）を廃止しています。</strong>黙って提出すると、手元に「出した証拠」が何も残りません。代わりに、希望者には<strong>「申告書等の提出について」というお知らせ（受付日・税務署名入りのリーフレット）</strong>が交付されます。窓口で必ず「受付の確認になるものをください」と一言。メモ欄に「令和8年分・開業届」のように書き込んでもらえば、これが実質的な控えになります。</p>
+<div class="aside">e-Taxで出した書類（青色申告など）の証明は「受信通知（メール詳細）」のPDF。紙は受付リーフレット、電子は受信通知——2種類の証明を揃えておくと、この後の銀行手続きが一度で通る。</div>
+</div>
+
+<!-- 座 -->
+<h2><span class="k">座</span>銀行口座（GMOあおぞらネット銀行の例）</h2>
+<div class="h2-en">BUSINESS BANK ACCOUNT</div>
+
+<div class="a">
+<p>個人事業主でも「<strong>屋号＋氏名</strong>」名義の事業用口座が作れます。ネット銀行はオンライン完結で早い。実際の流れ：</p>
+<ol class="steps">
+<li>オンラインで申込（屋号、事業内容などを入力）</li>
+<li>審査の過程で<strong>開業届の提出書類</strong>を求められる → 開業届PDF＋受付確認リーフレットをオンラインでアップロード</li>
+<li>審査通過後、口座開設 → ビジネスデビット/クレジットカードの申込へ</li>
+</ol>
+<div class="aside">つまずきやすい質問：「外国の居住地国」の欄は、FATCA/CRS（国際税務ルール）に基づく「あなたは税務上どの国の居住者か」という確認。日本在住なら「なし（日本のみ）」でよい。海外渡航の予定や、将来の海外法人設立とは無関係。</div>
+<div class="aside">表記の統一：開業届の屋号、口座名義、請求書の名義は同じ表記に揃える（例: Digiterior Studio ／ カナ登録はデジテリアスタジオ）。三点が一致していると審査も経理も引っかからない。</div>
+</div>
+
+<!-- 再 -->
+<h2><span class="k">再</span>おまけ：日本は再挑戦できる国になっていた</h2>
+<div class="h2-en">SECOND CHANCES BY LAW</div>
+
+<div class="a">
+<p>今回、弁護士から教わって驚いたこと。<strong>個人破産をしても、免責を受けて復権すれば、会社の役員に就任することも、新たに起業することも、法律上できる。</strong></p>
+<p>かつての商法では「破産して復権していない者」は取締役になれない欠格事由がありました。しかし2000年代の一連の法改正——2001年施行の個人再生手続の創設、2005年の破産法全面改正（成立。施行は2005年1月）、そして会社法制定で<strong>破産は取締役の欠格事由から外れ</strong>、経済的な失敗からの再スタートを制度として支える形に変わっています。</p>
+<p>つまり「一度失敗したら終わり」は、少なくとも法律の上ではもう昔の話。誠実に手続きを行い、免責を得て、落ち着いたら再び挑戦する——それが制度として想定されている。この国は、静かに再挑戦できる国になっていました。</p>
+<div class="aside">※個別の状況（免責の可否、資格制限のある職業など）は必ず弁護士に確認を。本記事は一般的な制度の紹介です。</div>
+</div>
+
+<h2><span class="k">録</span>今回の実録タイムライン</h2>
+<div class="h2-en">ACTUAL TIMELINE</div>
+
+<div class="a">
+<table>
+<tr><th>日付</th><th>やったこと</th></tr>
+<tr><td>7月1日</td><td>開業日（前日6月30日に旧法人の清算登記）</td></tr>
+<tr><td>8月上旬</td><td>青色申告承認申請をe-Tax WEB版から電子送信（期限8/31）</td></tr>
+<tr><td>8月13日</td><td>QR付きPDFで開業届を作成（表示問題はAcrobatで解決）</td></tr>
+<tr><td>8月14日</td><td>江東西税務署へ持参・提出、受付確認リーフレット入手、同日中に銀行へオンライン提出</td></tr>
+</table>
+<p>正味の作業時間は、迷宮の探索を除けば<strong>合計2〜3時間</strong>。迷宮探索を含めると数日。この記事が、あなたの探索時間をゼロにできますように。</p>
+</div>
+
+<footer>
+  HTML-NOTES · 開業手続き実録 2026 · Roberto Hoshino × Claude.ai<br>
+  制度・様式は2026年8月時点。最新情報は国税庁サイトで要確認<br>
+  DIGITERIOR STUDIO · Love your life, love your time®
+</footer>
+
+</div>
+</body>
+</html>
