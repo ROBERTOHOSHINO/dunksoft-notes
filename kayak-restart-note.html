@@ -1,0 +1,317 @@
+<title>カヤックフィッシング再起動ノート</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #F6F8F7;
+    --card: #FFFFFF;
+    --ink: #1C2A33;
+    --muted: #5A6B75;
+    --line: #DCE4E6;
+    --accent: #0E6B76;
+    --accent-ink: #0A525B;
+    --accent-soft: #E4EFF0;
+    --warm: #92610F;
+    --warm-soft: #F4ECDC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1A20;
+      --card: #16242C;
+      --ink: #E4EDF0;
+      --muted: #93A6B0;
+      --line: #2A3B45;
+      --accent: #6BC7CF;
+      --accent-ink: #8FD8DE;
+      --accent-soft: #10333A;
+      --warm: #D9A85A;
+      --warm-soft: #2E2618;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1A20;
+    --card: #16242C;
+    --ink: #E4EDF0;
+    --muted: #93A6B0;
+    --line: #2A3B45;
+    --accent: #6BC7CF;
+    --accent-ink: #8FD8DE;
+    --accent-soft: #10333A;
+    --warm: #D9A85A;
+    --warm-soft: #2E2618;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.4rem 4.5rem;
+  }
+  .kicker {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 1.1rem;
+  }
+  h1 {
+    font-family: "Zen Old Mincho", "Hiragino Mincho ProN", serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .lede {
+    color: var(--muted);
+    margin: 0 0 0.6rem;
+  }
+  .meta {
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    padding-bottom: 2.2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  section { margin-top: 3rem; }
+  .label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 1.1rem;
+  }
+  .label .tag {
+    font-family: "Zen Old Mincho", serif;
+    font-weight: 700;
+    color: var(--accent-ink);
+    font-size: 1.02rem;
+    letter-spacing: 0.3em;
+    white-space: nowrap;
+  }
+  .label .rule { flex: 1; height: 1px; background: var(--line); }
+  h2 {
+    font-family: "Zen Old Mincho", serif;
+    font-weight: 700;
+    font-size: 1.32rem;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    margin: 0 0 0.9rem;
+    text-wrap: balance;
+  }
+  p { margin: 0 0 1.1rem; }
+  strong { font-weight: 700; }
+  em { font-style: normal; background: linear-gradient(transparent 68%, var(--accent-soft) 68%); }
+  .cards { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.4rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.4rem 1.5rem 1.2rem;
+  }
+  .card h3 {
+    font-family: "Zen Old Mincho", serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.6rem;
+    color: var(--accent-ink);
+  }
+  .card p { margin-bottom: 0.8rem; }
+  .kv {
+    display: grid;
+    grid-template-columns: 6.2em 1fr;
+    gap: 0.15rem 1rem;
+    font-size: 0.92rem;
+    border-top: 1px dashed var(--line);
+    padding-top: 0.7rem;
+  }
+  .kv dt { color: var(--muted); font-weight: 500; margin: 0; }
+  .kv dd { margin: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin-top: 1.2rem;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .tblwrap { overflow-x: auto; }
+  .steps { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-direction: column; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 5.2em 1fr;
+    gap: 1.1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .steps .when {
+    font-family: "Zen Old Mincho", serif;
+    font-weight: 700;
+    color: var(--accent-ink);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .note {
+    background: var(--warm-soft);
+    border-left: 3px solid var(--warm);
+    padding: 0.9rem 1.2rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.93rem;
+    margin-top: 1.3rem;
+  }
+  .note .n-label {
+    font-size: 0.76rem;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    color: var(--warm);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  ul.plain { margin: 0.2rem 0 1.1rem; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 0.5rem; }
+  a { color: var(--accent-ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .sources { font-size: 0.86rem; color: var(--muted); }
+  .sources li { margin-bottom: 0.4rem; }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="kicker">企画ノート ｜ 中村 了 様へ</p>
+    <h1>道具が売れない時代に、<br>「第一人者」を売るという選択</h1>
+    <p class="lede">釣具・カヤックの商流(輸入→問屋→小売)が崩れているのは事実です。でもそれは「モノを売る側」の話であって、海の体験・教育・観光にお金を払う人は、むしろ増えています。このノートは、中村さんがすでに持っている資産をお金に変え直すための、たたき台です。</p>
+    <p class="meta">2026年8月25日 ／ 作成：星野ロベルト(Dunksoft)</p>
+  </header>
+
+  <section>
+    <div class="label"><span class="tag">前　提</span><span class="rule"></span></div>
+    <h2>業界の回復を待たない</h2>
+    <p>釣り人口はコロナ特需の反動で縮小し、釣具の国内商流は当面戻りません。輸入メーカーや小売と同じ船に乗り続ける限り、一緒に沈みます。一方で、周辺には<em>開いている財布</em>が3つあります。</p>
+    <p><strong>① 教育。</strong>修学旅行・探究学習では「体験して、対話する」プログラムの需要が伸びており、学校や教育旅行会社は毎年まとまった予算を持って催行先を探しています。<strong>② 観光・自治体。</strong>西伊豆町ではカヤック・SUP体験がふるさと納税の返礼品として商品化され、自治体が体験事業者の「販売代理」をしてくれる構図ができています。インバウンドの回復で英語対応ツアーは単価を上げられます。<strong>③ ファン。</strong>YouTubeの視聴者は「引退しないで続けてほしい」と言っています。広告や業界からではなく、視聴者から直接もらう仕組み(メンバーシップ・講座・ツアー予約)は、この規模の事業なら十分に柱になります。</p>
+    <p>共通しているのは、どれも<em>釣具業界の外</em>にある財布だということです。売るものを「道具」から「体験・知識・安心」に切り替えるのが、このノート全体の骨子です。</p>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">資　産</span><span class="rule"></span></div>
+    <h2>中村さんがすでに持っているもの</h2>
+    <p>在庫や店舗ではなく、次の5つが本当の資産です。<strong>「カヤックフィッシングの第一人者」という肩書き</strong>(後発は名乗れない)。<strong>安全とルールの知見</strong>(漁業権、航路、出艇マナー——業界で今いちばん欠けているもの)。<strong>YouTubeという発信基盤</strong>(信頼の証明であり、集客装置)。<strong>伊豆というフィールド</strong>(首都圏から日帰り圏、インバウンド回復の恩恵圏)。そして<strong>地元の人間関係</strong>(漁協・自治体と話ができること自体が参入障壁)。</p>
+    <p>実際、西伊豆ではガイドツアー事業のモデルケースが生まれつつありますが、業界最大の課題は「ルールを知らない新規参入者が地元と揉める。<em>教えてもらえる環境がない</em>」ことだと指摘されています。つまり、第一人者にしか売れない商品が確かに存在します。</p>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">方　向</span><span class="rule"></span></div>
+    <h2>4つの事業の柱</h2>
+    <p>どれか1つに賭けるのではなく、即金性のあるものと仕込みを組み合わせます。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>一、ガイド養成・安全認定スクール</h3>
+        <p>安全講習+漁協との付き合い方+出艇ルールをパッケージにした講習・認定制度。道具を売る商売の川下ではなく、業界の「教育と認定」という川上に立つ発想です。業界が細るほど、事故とトラブルを防ぐ仕組みの価値は上がります。第一人者の名前がそのまま認定の信用になります。</p>
+        <dl class="kv">
+          <dt>誰が払うか</dt><dd>新規参入の個人、ツアー事業者、艇の販売店(講習付き販売)</dd>
+          <dt>最初の一歩</dt><dd>1日講習(座学+海上)を1本商品化して、YouTubeで告知</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>二、子ども向け「獲って食べる」体験</h3>
+        <p>単なるカヤック遊びではなく、<em>自分で釣った魚をその場でさばいて食べる</em>までを一続きにした食育・探究プログラム。個人客ではなく学校・教育旅行会社にまとめて売るのが肝です。1回で20〜40人、平日稼働、天候リスクも事前に組み込める。伊豆は首都圏の学校の教育旅行圏内です。</p>
+        <dl class="kv">
+          <dt>誰が払うか</dt><dd>学校・教育旅行会社(B2B)、週末は家族客(B2C)</dd>
+          <dt>最初の一歩</dt><dd>半日プログラムの企画書1枚を作り、地元の観光協会と旅行会社に持ち込む</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>三、YouTubeの直接課金化</h3>
+        <p>「続けてほしいけどお金は出ない」と言う業界に期待するのをやめて、視聴者から直接もらう構造へ。メンバーシップ、有料オンライン講座(艤装・安全・ポイント選び)、そして講習・ツアーへの予約導線。チャンネルは広告収入の場ではなく、柱一と二への<em>送客装置</em>と位置づけ直します。</p>
+        <dl class="kv">
+          <dt>誰が払うか</dt><dd>視聴者・ファン(月額)、講座受講者(買い切り)</dd>
+          <dt>最初の一歩</dt><dd>メンバーシップ開設と、概要欄への予約リンク設置。撮影は今のままでいい</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>四、自治体・インバウンドへの組み込み</h3>
+        <p>西伊豆町の例にならい、ふるさと納税返礼品・観光協会の公式体験商品として自治体側に載せてもらう。集客と決済を自治体・OTAが肩代わりしてくれるので、広告費ゼロで販路が増えます。英語対応(通訳ガイドとの組みでも可)ができれば単価は1.5〜2倍を狙えます。</p>
+        <dl class="kv">
+          <dt>誰が払うか</dt><dd>ふるさと納税の寄付者、訪日観光客、OTA経由の予約客</dd>
+          <dt>最初の一歩</dt><dd>市町の観光・ふるさと納税担当課に体験商品の掲載を相談(前例があるので話が早い)</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr><th>柱</th><th>現金になる早さ</th><th>積み上がる資産</th><th>先にやる理由</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>三 YouTube課金化</td><td>早い(即月)</td><td>ファン基盤</td><td>費用ゼロで今日から着手できる</td></tr>
+          <tr><td>一 スクール</td><td>早い(1〜2ヶ月)</td><td>肩書きと認定制度</td><td>第一人者の優位が最も効く</td></tr>
+          <tr><td>四 自治体</td><td>中(数ヶ月)</td><td>公的な販路</td><td>広告費なしで販路が増える</td></tr>
+          <tr><td>二 子ども体験</td><td>遅い(学校は年度単位)</td><td>毎年続く団体契約</td><td>当たれば最も安定する</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">九十日</span><span class="rule"></span></div>
+    <h2>最初の90日でやること</h2>
+    <ul class="steps">
+      <li><span class="when">〜2週目</span><span>YouTubeメンバーシップ開設。動画の最後に「講習・ツアーは概要欄から」の一言を入れる。既存動画の概要欄も一括更新。</span></li>
+      <li><span class="when">〜4週目</span><span>1日安全講習を商品化(料金・定員・保険・キャンセル規定を決める)。予約はまずGoogleフォーム+銀行振込で十分。動画1本で告知。</span></li>
+      <li><span class="when">〜8週目</span><span>講習を2〜3回催行して内容を固める。並行して、子ども向け半日プログラムの企画書1枚を作成(ロベルトが手伝えます)。</span></li>
+      <li><span class="when">〜12週目</span><span>観光協会・自治体・教育旅行会社への持ち込み開始。講習参加者の声と催行実績を企画書に載せる。</span></li>
+    </ul>
+    <div class="note">
+      <span class="n-label">先に潰しておく論点</span>
+      募集型ツアーの形態によっては旅行業登録や漁協・港湾側との調整が要ります。傷害保険・賠償責任保険(体験事業者向け)、子ども対象の場合の引率比率と救命装備、天候中止時の返金規定——このあたりは商品化の前に一度整理が必要です。逆に言えば、ここを整えた事実そのものが「安全認定スクール」の教材になります。
+    </div>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">結　び</span><span class="rule"></span></div>
+    <h2>センミツで構いません</h2>
+    <p>千に三つなら、三つ当たれば十分です。業界の看板を背負って沈む義理はありません。中村さんの名前と知見は、道具が売れない時代にこそ値段がつくものだと思っています。まずは費用ゼロで始められる柱三と、第一人者の強みが直撃する柱一から。企画書づくりや告知まわり、ITやマーケティングの実務はこちらでも手伝えます。</p>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">出　典</span><span class="rule"></span></div>
+    <ul class="plain sources">
+      <li><a href="https://tsurinews.jp/172660/">カヤックフィッシングの『今と未来』西伊豆のモデルケースとは？(TSURINEWS)</a> — ガイドツアー事業化の先行例と、ルール教育の欠如という業界課題</li>
+      <li><a href="https://www.travelvoice.jp/20250225-157169">修学旅行でも探究的学習の「対話的な学び」重視が増加(トラベルボイス)</a> — 教育旅行における体験プログラム需要</li>
+      <li><a href="https://www.furusato-tax.jp/product/detail/22306/6005053">西伊豆町カヤック体験ペアチケット(ふるさと納税返礼品)</a> — 自治体経由の体験商品化の前例</li>
+      <li><a href="https://www.jaftma.or.jp/service/images/202502_28kjdch.pdf">日本釣用品工業会「釣用品の国内需要動向調査報告書」(第28回)</a> — 釣用品国内市場の動向</li>
+    </ul>
+  </section>
+
+  <footer>
+    本ノートはたたき台です。数字・制度は着手前に最新のものをご確認ください。<br>
+    作成：星野ロベルト ｜ roberto@dunksoft.com ｜ 2026.08.25
+  </footer>
+</div>
