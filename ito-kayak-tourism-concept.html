@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伊東・海の体験を観光インフラに ｜ 共同提案 構想ノート</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #F5F8F9;
+    --card: #FFFFFF;
+    --ink: #1B2B36;
+    --muted: #5B6C77;
+    --line: #DAE3E7;
+    --sea: #0E5A76;        /* 伊東の海 */
+    --sea-ink: #0A4459;
+    --sea-soft: #E3EEF3;
+    --sun: #B0641A;        /* 温泉と朝日 */
+    --sun-soft: #F6ECDD;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0E1A21;
+      --card: #15252E;
+      --ink: #E3EDF1;
+      --muted: #94A7B1;
+      --line: #293C46;
+      --sea: #64BFDA;
+      --sea-ink: #8AD2E6;
+      --sea-soft: #0F3341;
+      --sun: #DCA45C;
+      --sun-soft: #2E2517;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 3.5rem 1.4rem 4.5rem; }
+  .kicker {
+    font-size: 0.78rem; letter-spacing: 0.22em; color: var(--sea);
+    font-weight: 700; margin: 0 0 1.1rem;
+  }
+  h1 {
+    font-family: "Zen Old Mincho", "Hiragino Mincho ProN", serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+    line-height: 1.45; letter-spacing: 0.04em;
+    margin: 0 0 1rem; text-wrap: balance;
+  }
+  .lede { color: var(--muted); margin: 0 0 0.6rem; }
+  .meta {
+    font-size: 0.82rem; color: var(--muted); letter-spacing: 0.06em;
+    padding-bottom: 2.2rem; border-bottom: 1px solid var(--line);
+  }
+  section { margin-top: 3rem; }
+  .label { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 1.1rem; }
+  .label .tag {
+    font-family: "Zen Old Mincho", serif; font-weight: 700;
+    color: var(--sea-ink); font-size: 1.02rem; letter-spacing: 0.3em; white-space: nowrap;
+  }
+  .label .rule { flex: 1; height: 1px; background: var(--line); }
+  h2 {
+    font-family: "Zen Old Mincho", serif; font-weight: 700;
+    font-size: 1.32rem; letter-spacing: 0.05em; line-height: 1.6;
+    margin: 0 0 0.9rem; text-wrap: balance;
+  }
+  p { margin: 0 0 1.1rem; }
+  strong { font-weight: 700; }
+  em { font-style: normal; background: linear-gradient(transparent 68%, var(--sea-soft) 68%); }
+
+  /* 三者の持ち寄り：signature の三連札 */
+  .triad { display: grid; grid-template-columns: 1fr; gap: 0.9rem; margin-top: 1.3rem; }
+  @media (min-width: 620px) { .triad { grid-template-columns: 1fr 1fr 1fr; } }
+  .tri {
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    border-top: 4px solid var(--sea); padding: 1.1rem 1.2rem 1rem;
+  }
+  .tri:nth-child(2) { border-top-color: var(--sun); }
+  .tri:nth-child(3) { border-top-color: var(--sea-ink); }
+  .tri h3 {
+    font-family: "Zen Old Mincho", serif; font-size: 1.02rem; font-weight: 700;
+    letter-spacing: 0.06em; margin: 0 0 0.5rem;
+  }
+  .tri p { font-size: 0.9rem; margin: 0 0 0.6rem; }
+  .tri .give, .tri .get { font-size: 0.85rem; margin: 0; }
+  .tri .give::before { content: "持ち寄る　"; color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; }
+  .tri .get::before  { content: "得るもの　"; color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; }
+
+  .cards { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.4rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    padding: 1.3rem 1.5rem 1.1rem;
+  }
+  .card h3 {
+    font-family: "Zen Old Mincho", serif; font-size: 1.08rem; font-weight: 700;
+    letter-spacing: 0.04em; margin: 0 0 0.6rem; color: var(--sea-ink);
+  }
+  .card p { margin-bottom: 0.4rem; font-size: 0.95rem; }
+
+  .steps { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-direction: column; }
+  .steps li {
+    display: grid; grid-template-columns: 6.4em 1fr; gap: 1.1rem;
+    padding: 0.85rem 0; border-bottom: 1px dashed var(--line);
+  }
+  .steps .when {
+    font-family: "Zen Old Mincho", serif; font-weight: 700;
+    color: var(--sea-ink); white-space: nowrap; letter-spacing: 0.04em;
+  }
+  .note {
+    background: var(--sun-soft); border-left: 3px solid var(--sun);
+    padding: 0.9rem 1.2rem; border-radius: 0 4px 4px 0;
+    font-size: 0.93rem; margin-top: 1.3rem;
+  }
+  .note .n-label {
+    font-size: 0.76rem; letter-spacing: 0.2em; font-weight: 700;
+    color: var(--sun); display: block; margin-bottom: 0.2rem;
+  }
+  ul.plain { margin: 0.2rem 0 1.1rem; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 0.5rem; }
+  a { color: var(--sea-ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; border-radius: 2px; }
+  .sources { font-size: 0.86rem; color: var(--muted); }
+  .sources li { margin-bottom: 0.4rem; }
+  footer {
+    margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+    font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">構想ノート ｜ 共同提案のたたき台（中村 了 様との検討用）</p>
+    <h1>伊東の海の体験を、<br>まちの観光インフラにする</h1>
+    <p class="lede">安全講習付きカヤック体験を、伊東市の公式な観光商品として組み込み、予約・多言語・安全教育をひとつのWebサービスにまとめる構想です。西伊豆で生まれた「自治体×体験事業者」のモデルを、第一人者の知見とデジタルの力で東伊豆に持ち込みます。</p>
+    <p class="meta">2026年8月25日 ／ 起案：星野ロベルト（デジテリアスタジオ ｜ Digiterior Studio）</p>
+  </header>
+
+  <section>
+    <div class="label"><span class="tag">骨　子</span><span class="rule"></span></div>
+    <h2>三者が持ち寄り、三者が得る</h2>
+    <p>この構想は誰かが誰かに売り込む話ではなく、<em>三者それぞれの持ち物を一枚のサービスに束ねる</em>話です。市は販路と信用を、中村さんは体験と安全の中身を、デジテリアは仕組みを持ち寄ります。</p>
+    <div class="triad">
+      <div class="tri">
+        <h3>中村 了</h3>
+        <p>カヤックフィッシングの第一人者。安全・ルール・海の知見。</p>
+        <p class="give">体験プログラム、安全講習、YouTubeでの発信力</p>
+        <p class="get">公的販路と広告費ゼロの集客、事業の柱の実装</p>
+      </div>
+      <div class="tri">
+        <h3>伊東市・観光協会</h3>
+        <p>販路（ふるさと納税・公式サイト・OTA）と地域の信用。</p>
+        <p class="give">返礼品・公式体験商品としての掲載枠、地元調整</p>
+        <p class="get">安全にルール順守で運営される海の観光資源、インバウンド単価</p>
+      </div>
+      <div class="tri">
+        <h3>デジテリアスタジオ</h3>
+        <p>Webサービスの設計・構築とAI活用。</p>
+        <p class="give">予約・多言語・安全教育のデジタル基盤、運用設計</p>
+        <p class="get">観光×地域デジタルの実装フィールド</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">仕組み</span><span class="rule"></span></div>
+    <h2>Webサービスの姿：予約より先に「安全」を通す</h2>
+    <p>ただの予約サイトなら世の中にあふれています。この構想の芯は、<strong>予約の手前に安全教育を組み込む</strong>ことです。業界最大の課題は「ルールを知らない参加者が地元と揉めること」——ここをデジタルで先回りします。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>一、予約と決済</h3>
+        <p>体験メニュー・空き枠・天候による催行判断までをWebで完結。市の返礼品ページやOTAからの導線を受け止める受け皿になります。</p>
+      </div>
+      <div class="card">
+        <h3>二、事前安全講習のデジタル化</h3>
+        <p>出艇ルール・漁業権・ライフジャケットの基本を、短い動画と理解度チェックで予約前に受講。修了した人だけが海に出る——第一人者の知見がそのまま教材になり、漁協・地元との信頼の土台になります。</p>
+      </div>
+      <div class="card">
+        <h3>三、多言語・インバウンド対応</h3>
+        <p>AIによる多言語化で、英語圏の旅行者にも同じ品質の安全教育と予約体験を提供。英語対応ツアーは単価を1.5〜2倍に設定できます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">前　例</span><span class="rule"></span></div>
+    <h2>市への提案ポイント：前例があるので話が早い</h2>
+    <p>西伊豆町ではカヤック・SUP体験がふるさと納税の返礼品として商品化され、自治体が体験事業者の販売を後押しする構図が既にできています。伊東市への提案は「ゼロからの新規事業」ではなく、<em>隣で動いているモデルの東伊豆版＋安全教育のデジタル強化</em>という位置づけになります。市にとっては、導入済みの制度（返礼品・観光協会公式商品）に載せるだけで始められる話です。</p>
+    <div class="note">
+      <span class="n-label">サラッと添える一枚</span>
+      提案時には、星野が総務省「地域情報化アドバイザー」に登録されていることを一言添えます。市側が希望すれば、アドバイザー派遣制度（市から総務省への要請）を通じて地域デジタル化の相談を受けられる、という選択肢の提示です。地域×デジタルの協働例としては、岐阜・いぶき福祉会との「親なき後問題」エンディングノートのデジタル化——ガバメント・クラウドファンディングと連動し、当事者との開かれた対話を重ねながら約1ヶ月で公開——があります（前職・ダンクソフト代表としての協働）。
+    </div>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">進め方</span><span class="rule"></span></div>
+    <h2>小さく速く、今シーズンのうちに</h2>
+    <ul class="steps">
+      <li><span class="when">第一歩</span><span>中村さんと構想をすり合わせ、体験メニューと安全講習の中身を1本に絞る（このノートがたたき台）。</span></li>
+      <li><span class="when">第二歩</span><span>共同提案書（A4数枚）に仕立て、伊東市観光課・観光協会に持ち込む。西伊豆の前例と安全教育の仕組みを軸に。</span></li>
+      <li><span class="when">第三歩</span><span>小さな実証：講習＋体験を数回催行し、参加者の声と安全運営の実績をつくる。その実績が返礼品・公式商品化の審査材料になる。</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="label"><span class="tag">出　典</span><span class="rule"></span></div>
+    <ul class="plain sources">
+      <li><a href="https://www.furusato-tax.jp/product/detail/22306/6005053">西伊豆町カヤック体験ペアチケット（ふるさと納税返礼品）</a> — 自治体経由の体験商品化の前例</li>
+      <li><a href="https://tsurinews.jp/172660/">カヤックフィッシングの『今と未来』西伊豆のモデルケースとは？（TSURINEWS）</a> — ルール教育の欠如という業界課題</li>
+      <li><a href="https://www.dunksoft.com/message/what-digital-technology-can-contribute-to-the-welfare-for-people-with-disabilities">障害福祉の課題にデジタルが寄与できること（いぶき福祉会との対話）</a> — 地域×デジタル協働の実績例</li>
+    </ul>
+  </section>
+
+  <footer>
+    本ノートは中村様との検討用のたたき台です。市への提出版は、すり合わせ後に共同名義で作成します。<br>
+    起案：星野ロベルト（デジテリアスタジオ ｜ Digiterior Studio） ｜ roberto@digiterior.net ｜ 2026.08.25
+  </footer>
+</div>
+</body>
+</html>
