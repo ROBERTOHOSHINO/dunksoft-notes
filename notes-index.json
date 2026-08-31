@@ -1,5 +1,17 @@
 [
   {
+    "file": "html-notes-aozora-auth.html",
+    "title": "名前と色の記憶による認証基盤——高齢のお客さまが使い続けられる本人認証",
+    "created": "2026-08",
+    "updated": "2026-08",
+    "category": "認市",
+    "author": "星C",
+    "where": "東",
+    "keywords": "認証色記憶銀行",
+    "coined": "slowness as a feature — 「間」も設計",
+    "picture": ""
+  },
+  {
     "file": "KANRI_RecordFormat_v02.html",
     "title": "KANRI 記録様式——紙一枚",
     "created": "2026-07-13",
