@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>html-notes | 名前と色の記憶による認証基盤 — Roberto Hoshino</title>
+<meta name="description" content="高齢のお客さまが使い続けられる本人認証のご提案。天然色文字AUTH（CHROMAKEY AUTH™）。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&display=swap');
+
+:root {
+  --ink: #1a1814;
+  --ink2: #4a4640;
+  --ink3: #8a8680;
+  --paper: #faf8f4;
+  --paper2: #f2efe8;
+  --gold: #b8960c;
+  --vermilion: #c0392b;
+  --indigo: #1a3a5c;
+  --teal: #0f6e56;
+  --accent: #c0550a;
+  --auth: #378ADD;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+.color-strip { display: flex; height: 4px; overflow: hidden; }
+.cs { flex: 1; }
+
+header.site {
+  border-bottom: 0.5px solid rgba(0,0,0,0.12);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(250,248,244,0.95);
+}
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--ink);
+}
+.logo-sub { font-size: 10px; color: var(--ink3); letter-spacing: .12em; margin-top: 2px; font-weight: 300; }
+nav { display: flex; gap: 2rem; }
+nav a { font-size: 12px; letter-spacing: .08em; color: var(--ink2); text-decoration: none; font-weight: 300; }
+nav a:hover { color: var(--accent); }
+
+/* HERO */
+.hero { max-width: 800px; margin: 0 auto; padding: 3.5rem 2rem 2.75rem; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: .18em; color: var(--ink3); text-transform: uppercase;
+  font-weight: 300; margin-bottom: 1.4rem; display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 24px; background: var(--gold); opacity: .5; }
+.hero h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(26px, 4.6vw, 42px);
+  font-weight: 600; line-height: 1.45; letter-spacing: .01em; margin-bottom: .9rem;
+}
+.hero-en { font-family: 'Cormorant Garamond', serif; font-size: clamp(14px, 1.9vw, 18px); font-style: italic; color: var(--ink3); letter-spacing: .04em; margin-bottom: 1.6rem; }
+.hero-lead { font-size: clamp(14.5px, 1.8vw, 16.5px); color: var(--ink2); max-width: 620px; line-height: 2.0; font-weight: 300; }
+.hero-meta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; font-size: 11.5px; color: var(--ink3); letter-spacing: .05em; }
+.hero-meta-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-right: 7px; vertical-align: 2px; }
+
+/* SECTIONS */
+main { max-width: 800px; margin: 0 auto; padding: 0 2rem 4rem; }
+section.blk { padding: 2.4rem 0 0.4rem; }
+.section-eyebrow {
+  font-size: 10px; letter-spacing: .2em; color: var(--ink3); text-transform: uppercase;
+  font-weight: 300; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::after { content: ''; display: block; height: 1px; flex: 1; background: rgba(0,0,0,0.08); }
+section.blk h2 { font-family: 'Noto Serif JP', serif; font-size: 21px; font-weight: 600; line-height: 1.6; margin-bottom: .9rem; }
+section.blk h2 .tint { color: var(--auth); }
+section.blk p { font-size: 15px; color: var(--ink2); margin-bottom: .9rem; max-width: 46em; }
+mark { background: linear-gradient(transparent 64%, rgba(184,150,12,.32) 64%); color: inherit; padding: 0 1px; }
+
+.pts { list-style: none; margin: .4rem 0 1rem; }
+.pts li {
+  position: relative; padding: .55rem 0 .55rem 1.5rem; font-size: 14.5px; color: var(--ink2);
+  border-bottom: 0.5px solid rgba(0,0,0,0.06);
+}
+.pts li::before { content: '▸'; position: absolute; left: .2rem; top: .55rem; color: var(--gold); font-size: 12px; }
+.pts b { color: var(--ink); font-weight: 500; }
+
+.quiet {
+  background: var(--paper2); border-left: 3px solid var(--indigo);
+  padding: 1.2rem 1.5rem; margin: 1.4rem 0; font-size: 14px; color: var(--ink2); max-width: 46em;
+}
+.quiet .q-eyebrow { font-size: 10px; letter-spacing: .18em; color: var(--teal); margin-bottom: .4rem; font-weight: 500; }
+
+footer.site {
+  border-top: 0.5px solid rgba(0,0,0,0.1); margin-top: 2rem;
+  padding: 1.6rem 2rem 2.6rem; font-size: 12px; color: var(--ink3); line-height: 1.9; text-align: center;
+}
+footer.site .way { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: var(--indigo); display: block; margin-top: .5rem; }
+
+@media (max-width: 600px) {
+  header.site { padding: 1rem 1.25rem; }
+  nav { gap: 1.1rem; }
+  .hero, main { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
+@media print {
+  body { background: #fff; }
+  header.site nav { display: none; }
+  .hero { padding-top: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<script>window.CJ_ME = {"file": "html-notes-aozora-auth.html", "title": "名前と色の記憶による認証基盤——高齢のお客さまが使い続けられる本人認証", "created": "2026-08", "updated": "2026-08", "category": "認市", "author": "星C", "where": "東", "keywords": "認証色記憶銀行", "coined": "slowness as a feature — 「間」も設計", "picture": ""};</script>
+<!-- ═══════════════════════════════════════════════════════════
+     COLOURFUL JAPAN 共通ヘッダー  v3 (QR・カラフル・オリジン非依存)
+     ・各 html-notes の <body> 直後に貼り付け（直前に window.CJ_ME を定義）
+     ・カードは CJ_ME から即描画（ネットワーク非依存）
+     ・同一オリジンに notes-index.json が在れば取得して最新化（任意・失敗時は無視）
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="cj-header"></div>
+
+<style>
+  #cj-header { font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif; }
+  .cjh-card {
+    background:#FFFFFF; border:0.5px solid rgba(0,0,0,0.1);
+    border-radius:12px; overflow:hidden; margin:1.4rem auto 0;
+    max-width:860px; display:flex; flex-direction:column;
+  }
+  .cjh-bar { display:flex; height:5px; width:100%; }
+  .cjh-bar span { flex:1; }
+  .cjh-main { display:flex; flex-direction:column; }
+  .cjh-pic { width:100%; max-height:240px; object-fit:cover; display:block; background:#e8e6e0; }
+  .cjh-pic.cjh-empty { display:none; }
+  .cjh-body { padding:18px 22px 20px; }
+  .cjh-top { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:12px; }
+  .cjh-nav { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+  .cjh-home { font-size:12px; letter-spacing:.1em; text-decoration:none; margin-right:4px; white-space:nowrap; }
+  .cjh-dot {
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:500; text-decoration:none; transition:transform .1s;
+  }
+  .cjh-dot:hover { transform:scale(1.1); }
+  .cjh-dot.on { outline:2px solid currentColor; outline-offset:2px; }
+  .cjh-qr { flex-shrink:0; text-align:center; }
+  .cjh-qr img { width:84px; height:84px; display:block; border-radius:5px; background:#fff; padding:3px; border:0.5px solid rgba(0,0,0,0.08); }
+  .cjh-qr-cap { font-size:10px; color:#6b6b66; margin-top:4px; letter-spacing:.06em; }
+  .cjh-title { font-size:21px; font-weight:500; line-height:1.5; margin-bottom:7px; }
+  .cjh-meta { font-size:12px; color:#5F5E5A; letter-spacing:.05em; }
+  .cjh-kw { font-size:12px; margin-top:9px; letter-spacing:.14em; }
+  .cjh-coined { display:inline-block; font-size:12px; margin-top:10px; padding:4px 12px; border-radius:12px; letter-spacing:.02em; line-height:1.6; }
+  @media (min-width: 720px) {
+    .cjh-main { flex-direction:row; align-items:stretch; }
+    .cjh-pic { width:200px; max-height:none; flex-shrink:0; }
+    .cjh-body { flex:1; min-width:0; }
+  }
+</style>
+
+<script>
+(function(){
+  var PIC_BASE   = 'https://picture.dunksoft.jp/';
+  var NOTES_HOME = '/';
+  var CATS = ['認','市','語','町'];
+  var CAT_DESC = { '認':'認証・技術', '市':'Marketing・市づくり', '語':'コラム・物語', '町':'文化・コミュニティ' };
+  var COL  = { '認':'#378ADD','市':'#BA7517','語':'#534AB7','町':'#3B6D11' };
+  var COLT = { '認':'#E6F1FB','市':'#FAEEDA','語':'#EEEDFE','町':'#EAF3DE' };
+  var COLD = { '認':'#042C53','市':'#412402','語':'#26215C','町':'#173404' };
+  var KWPAL = ['#185FA5','#854F0B','#534AB7','#3B6D11'];
+  var TPAL  = ['#185FA5','#BA7517','#C2185B','#534AB7','#3B6D11','#0F6E56'];
+  var TNEUT = '#a39a90';
+  var WORD  = /[0-9A-Za-z\u3041-\u3096\u30a1-\u30fa\u30fc\u3400-\u9fff\uff10-\uff19\uff21-\uff5a]/;
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function colorTitle(t){
+    t = t || ''; var out = '', k = 0;
+    for(var i=0;i<t.length;i++){
+      var ch = t.charAt(i);
+      if(WORD.test(ch)){ out += '<span style="color:' + TPAL[k % TPAL.length] + '">' + esc(ch) + '</span>'; k++; }
+      else { out += '<span style="color:' + TNEUT + '">' + esc(ch) + '</span>'; }
+    }
+    return out;
+  }
+  function firstCat(cat){ var a=(cat||'').split(''); for(var i=0;i<a.length;i++){ if(CATS.indexOf(a[i])>=0) return a[i]; } return '語'; }
+  function qrSrc(){ return 'https://api.qrserver.com/v1/create-qr-code/?size=168x168&margin=0&data=' + encodeURIComponent(location.origin + location.pathname); }
+
+  function render(me){
+    if(!me) return;
+    var fc = firstCat(me.category);
+    var pic = me.picture
+      ? '<img class="cjh-pic" src="' + PIC_BASE + encodeURIComponent(me.picture) + '" alt="' + esc(me.title) + '">'
+      : '<img class="cjh-pic cjh-empty" alt="">';
+    var myCats = (me.category||'').split('');
+    var dots = CATS.map(function(c){
+      var on = myCats.indexOf(c)>=0 ? ' on' : '';
+      return '<a class="cjh-dot' + on + '" style="background:' + COL[c] + ';color:' + COLT[c] + '" href="' + NOTES_HOME + '?cat=' + encodeURIComponent(c) + '" title="' + CAT_DESC[c] + '">' + c + '</a>';
+    }).join('');
+    var bar = CATS.map(function(c){ return '<span style="background:' + COL[c] + '"></span>'; }).join('');
+    var date = me.updated || me.created || '';
+    var meta = [date, me.author, me.where].filter(Boolean).join(' ・ ');
+    var kw = '';
+    if(me.keywords){
+      kw = '<div class="cjh-kw">' + me.keywords.split('').map(function(ch,i){
+        return '<span style="color:' + KWPAL[i % KWPAL.length] + '">' + esc(ch) + '</span>';
+      }).join(' ') + '</div>';
+    }
+    var coined = me.coined ? '<div class="cjh-coined" style="background:' + COL[fc] + ';color:' + COLT[fc] + '">' + esc(me.coined) + '</div>' : '';
+    var qr = '<div class="cjh-qr"><img src="' + qrSrc() + '" alt="QR"><div class="cjh-qr-cap">スマホで読む</div></div>';
+
+    document.getElementById('cj-header').innerHTML =
+      '<div class="cjh-card">' +
+        '<div class="cjh-bar">' + bar + '</div>' +
+        '<div class="cjh-main">' + pic +
+          '<div class="cjh-body">' +
+            '<div class="cjh-top">' +
+              '<div class="cjh-nav"><a class="cjh-home" style="color:' + COLD[fc] + '" href="' + NOTES_HOME + '">notes ←</a>' + dots + '</div>' +
+              qr +
+            '</div>' +
+            '<div class="cjh-title">' + colorTitle(me.title) + '</div>' +
+            '<div class="cjh-meta">' + esc(meta) + '</div>' +
+            kw + coined +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  var me = (window.CJ_ME && typeof window.CJ_ME === 'object') ? window.CJ_ME : null;
+  render(me);
+
+  var myFile = decodeURIComponent((location.pathname.split('/').pop() || '')).replace(/\.html$/,'');
+  fetch(location.origin + '/notes-index.json')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(notes){
+      if(!notes) return;
+      var fresh = notes.filter(function(n){ return n.file === (myFile+'.html') || n.file.replace(/\.html$/,'') === myFile; })[0];
+      if(fresh) render(fresh);
+    })
+    .catch(function(){});
+})();
+</script>
+
+<!-- ═══════════ /COLOURFUL JAPAN 共通ヘッダー ═══════════ -->
+
+<div class="color-strip">
+  <div class="cs" style="background:#c0392b"></div>
+  <div class="cs" style="background:#1a5276"></div>
+  <div class="cs" style="background:#1e5c2f"></div>
+  <div class="cs" style="background:#6c3483"></div>
+  <div class="cs" style="background:#b8960c"></div>
+  <div class="cs" style="background:#0e7b82"></div>
+  <div class="cs" style="background:#c0550a"></div>
+</div>
+
+<header class="site">
+  <div>
+    <div class="logo">html-notes</div>
+    <div class="logo-sub">by Roberto Hoshino × Claude.ai</div>
+  </div>
+  <nav>
+    <a href="https://digiterior.net">digiterior.net</a>
+    <a href="https://note.com/roberto_hoshino" target="_blank">note</a>
+    <a href="https://www.linkedin.com/in/roberto-hoshino" target="_blank">LinkedIn</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">ご説明資料 — 技術対話のご相談</div>
+  <h1>名前と色の記憶による認証基盤<br>——高齢のお客さまが使い続けられる本人認証</h1>
+  <div class="hero-en">Authentication from your name and color memories.</div>
+  <p class="hero-lead">
+    パスワードでもなく、端末でもなく、消えない記憶で本人を確かめる。攻撃者は文字列を総当たりできても、三歳のとき着た祭り半纏の藍色までは総当たりできません。
+  </p>
+  <div class="hero-meta">
+    <span><span class="hero-meta-dot"></span>デジテリアスタジオ　星野晃一郎（東京・豊洲）</span>
+    <span><span class="hero-meta-dot"></span>御行法人口座を利用中・API連携を自事業の会計一元化で実践中</span>
+  </div>
+</section>
+
+<main>
+
+  <section class="blk">
+    <div class="section-eyebrow">Issue — 課題</div>
+    <h2>認証が、資産を持つ世代を締め出している</h2>
+    <p>パスワードは高齢のお客さまにとって「覚える・打つ・更新する」のすべてが障壁となり、<mark>口座はあるのに使えない状態</mark>を生んでいます。既存の代替もこの層では決め手を欠きます。</p>
+    <ul class="pts">
+      <li><b>パスキー／FIDO2：</b>本人ではなく端末に紐づく。スマホの紛失・買い替えが即ロックアウトに直結し、最も影響を受けるのが高齢層。</li>
+      <li><b>生体認証：</b>漏えい後に「変更」ができない。加齢による身体変化にも弱い。</li>
+      <li>いずれも「credential の問題」は解いても<b>「human の問題」を解いていない</b>、というのが弊方の見立てです。</li>
+    </ul>
+  </section>
+
+  <section class="blk">
+    <div class="section-eyebrow">Proposal — 提案</div>
+    <h2>天然色文字AUTH<span class="tint">（CHROMAKEY AUTH™）</span></h2>
+    <p>氏名の頭文字（漢字・かな・ラテン文字等）× 本人だけが持つ色の記憶を組み合わせ、128-bit の認証トークンを構成します。<mark>文字列の暗記が不要</mark>で、フィッシング耐性を設計段階で持ちます。</p>
+    <ul class="pts">
+      <li><b>推測攻撃への備え：</b>「好きな色」は使いません。鍵になるのは私的な感覚記憶であり、選定ロジックは営業秘密として非公開。方式を知っても鍵は導けません。</li>
+      <li><b>総当たりへの備え：</b>認証は意図的に「間」を持たせた設計（slowness as a feature）。実効鍵空間はオフライン攻撃に晒されません。</li>
+      <li><b>知財：</b>特許出願済（IPC G06F 16/903）。アーキテクチャ請求項は公開、中核の感覚記憶ロジックは営業秘密——見える壁と、見えない深さの二層構造。</li>
+      <li><b>稼働実証：</b>公開デモが実運用中（自社ピッチ資料のアクセスゲートとして常時稼働）。digiterior.net にて実際にお試しいただけます。</li>
+    </ul>
+  </section>
+
+  <section class="blk">
+    <div class="section-eyebrow">Fit — なぜネット銀行か</div>
+    <h2>認証はプロダクトそのもの</h2>
+    <p>店舗網を持たない銀行にとって、認証・本人確認は付帯機能ではなく事業の中核です。日本の家計金融資産2,000兆円超は高齢層に集中しており、この層が安全に使い続けられる認証は、そのまま<mark>口座の稼働率とお客さまの資産寿命</mark>に直結します。API・組込型金融を外部へ開いてこられた御行の方針とも、開発者としてご一緒しやすい領域と考えています。</p>
+  </section>
+
+  <section class="blk">
+    <div class="section-eyebrow">Ask — ご相談したいこと</div>
+    <h2>小さく、具体的に</h2>
+    <ul class="pts">
+      <li><b>技術対話の機会：</b>認証・セキュリティご担当の方との30分の意見交換。方式の説明と、御行環境での検証可能性の当たり付け。</li>
+      <li><b>小規模PoC の検討：</b>限定ユーザー・非本番環境での検証設計をこちらで用意します。導入判断を求めるものではありません。</li>
+    </ul>
+    <div class="quiet">
+      <div class="q-eyebrow">BACKGROUND</div>
+      デジテリアスタジオ（個人事業・2026年7月開業）｜ 前身：株式会社ダンクソフト（1983–2026、金融機関向けIT・Microsoftパートナー43年）｜ Anthropic Claude Partner Network（Select+）
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  本ページは印刷（A4）にも対応しています。紙でお渡しした場合も、右上のQRコードからこのページをスマホでご覧いただけます。
+  <span class="way">This is the way!</span>
+</footer>
+
+</body>
+</html>
