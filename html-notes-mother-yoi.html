@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>html-notes | 母ヨイを見送った日の言葉 — 星野晃一郎</title>
+<meta name="description" content="2023年10月、母・星野ヨイの告別式での挨拶と、四十九日の御礼文。1933年八丁堀に生まれ、牛久で生涯を全うした一人の女性と、その世代の記録。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digiterior Studio — notes">
+<meta property="og:title" content="母ヨイを見送った日の言葉 — html-notes">
+<meta property="og:description" content="告別式での挨拶と四十九日の御礼文。1933年八丁堀生まれ、牛久で生涯を全うした母と、その世代の記録。">
+<meta property="og:url" content="https://notes.digiterior.net/html-notes-mother-yoi">
+<!-- TODO: notes.digiterior.net 共通のOGP画像パスに差し替える -->
+<meta property="og:image" content="https://notes.digiterior.net/og/html-notes-mother-yoi.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ai:#1A237E;        /* 神田祭の深い藍 */
+    --kin:#F9A825;       /* 柳森神社の薔薇の黄 */
+    --zouge:#E8E0D0;     /* マッコウクジラの象牙 */
+    --sumi:#2B2B2B;
+    --usuzumi:#6B6B6B;
+    --paper:#F6F2EA;
+    --maxw:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--sumi);
+    font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    line-height:2;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  header.top{
+    position:sticky;top:0;z-index:10;
+    background:rgba(246,242,234,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--zouge);
+  }
+  .top-inner{
+    max-width:var(--maxw);margin:0 auto;padding:12px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;
+  }
+  .top-inner .site{color:var(--ai);letter-spacing:.08em;text-decoration:none}
+  .top-inner .site b{font-weight:500}
+  .toggle{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--ai);border-radius:999px;padding:4px 12px;
+    background:transparent;color:var(--ai);cursor:pointer;
+    font-family:inherit;font-size:12px;
+  }
+  .toggle[aria-pressed="true"]{background:var(--ai);color:#fff}
+  .toggle:focus-visible{outline:2px solid var(--kin);outline-offset:2px}
+
+  main{max-width:var(--maxw);margin:0 auto;padding:56px 20px 96px}
+
+  .kicker{
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--usuzumi);margin:0 0 18px;
+  }
+  h1{
+    font-weight:600;font-size:clamp(24px,4.6vw,32px);line-height:1.6;
+    color:var(--ai);margin:0 0 12px;letter-spacing:.02em;
+  }
+  h1 small{
+    display:block;font-weight:400;font-size:.55em;color:var(--usuzumi);
+    letter-spacing:.06em;margin-top:8px;font-family:"Noto Sans JP",sans-serif;
+  }
+  .lede{
+    margin:28px 0 0;padding:20px 24px;background:#fff;border-left:3px solid var(--kin);
+    font-size:15px;line-height:1.95;color:var(--sumi);
+  }
+  .lede .who{font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);margin-top:10px}
+
+  section{margin-top:72px}
+  .sec-head{
+    display:flex;align-items:baseline;gap:14px;
+    border-bottom:1px solid var(--zouge);padding-bottom:10px;margin-bottom:28px;
+  }
+  .sec-head .num{
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--kin);font-weight:500;
+  }
+  h2{font-size:20px;font-weight:600;margin:0;color:var(--ai);letter-spacing:.04em}
+  .sec-head time{margin-left:auto;font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi)}
+
+  .speech p{margin:0 0 1.4em;text-indent:1em}
+  .speech p.no-indent{text-indent:0}
+  .speech .sign{
+    text-align:right;text-indent:0;margin-top:2.2em;
+    font-family:"Noto Sans JP",sans-serif;font-size:14px;color:var(--sumi);
+  }
+  .speech .sign b{font-weight:500;color:var(--ai)}
+
+  .letter p{margin:0 0 1.2em;text-indent:0}
+  .letter .open,.letter .close{font-family:"Noto Sans JP",sans-serif}
+  .letter .close{text-align:right}
+  .letter .date{margin-top:1.6em}
+  .letter .name{text-align:right}
+
+  .name-en{
+    font-family:"Noto Sans JP",sans-serif;font-size:.92em;letter-spacing:.06em;
+    color:var(--ai);
+  }
+
+  figure{margin:40px 0 0}
+  figure img{
+    display:block;width:100%;height:auto;border-radius:2px;
+    box-shadow:0 1px 0 var(--zouge),0 12px 32px rgba(26,35,126,.08);
+  }
+  figure .ph{
+    aspect-ratio:3/2;background:var(--zouge);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--usuzumi);font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.1em;
+  }
+  figcaption{
+    margin-top:10px;font-family:"Noto Sans JP",sans-serif;font-size:12px;
+    color:var(--usuzumi);letter-spacing:.04em;
+  }
+
+  .dedication{
+    margin-top:80px;padding:28px 28px 24px;background:#fff;
+    border-top:2px solid var(--ai);
+  }
+  .dedication .k{font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;color:var(--usuzumi);margin:0 0 12px}
+  .dedication p{margin:0 0 1em;font-size:15px}
+  .dedication .names{
+    font-family:"Noto Sans JP",sans-serif;letter-spacing:.14em;color:var(--ai);font-size:14px;
+    margin-top:1.2em;
+  }
+  .dedication .names span{display:inline-block;margin-right:1.4em}
+
+
+  .qr{display:flex;gap:20px;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--zouge)}
+  .qr-code{flex:0 0 112px;width:112px;height:112px;background:#fff;padding:6px;border:1px solid var(--zouge)}
+  .qr-code svg{width:100%;height:100%;display:block}
+  .qr-text{font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);line-height:1.8}
+  .qr-text .k2{letter-spacing:.2em;color:var(--kin);font-weight:500}
+  .qr-text .url{color:var(--ai);font-size:13px;word-break:break-all}
+  @media print{.qr-code{width:96px;flex-basis:96px;height:96px}}
+
+  footer{
+    max-width:var(--maxw);margin:0 auto;padding:0 20px 56px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);
+  }
+  footer .rakkan{
+    width:36px;height:36px;border:1px solid var(--ai);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;color:var(--ai);font-size:11px;letter-spacing:.05em;
+  }
+  footer a{color:var(--ai);text-decoration:none;border-bottom:1px solid var(--zouge)}
+
+  /* ふりがな */
+  rt{font-size:.5em;color:var(--usuzumi);letter-spacing:0;font-family:"Noto Sans JP",sans-serif}
+  body.no-ruby rt{display:none}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media print{
+    header.top,footer .rakkan+*{display:none}
+    body{background:#fff;font-size:11.5pt}
+    main{padding:0}
+    .lede,.dedication{background:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="site" href="https://notes.digiterior.net/">notes.digiterior.net <b>／ html-notes</b></a>
+    <button class="toggle" id="rubyToggle" aria-pressed="true" type="button">ふりがな ON</button>
+  </div>
+</header>
+
+<main>
+  <p class="kicker">HTML-NOTES ｜ 2023年10月 → 2026年9月</p>
+  <h1>
+    <ruby>母<rt>はは</rt></ruby>ヨイを<ruby>見送<rt>みおく</rt></ruby>った<ruby>日<rt>ひ</rt></ruby>の<ruby>言葉<rt>ことば</rt></ruby>
+    <small>告別式での挨拶と、四十九日の御礼文</small>
+  </h1>
+
+  <div class="lede">
+    1933年、<ruby>八丁堀<rt>はっちょうぼり</rt></ruby>。<ruby>疎開<rt>そかい</rt></ruby>と<ruby>焼<rt>や</rt></ruby>け<ruby>野原<rt>のはら</rt></ruby>。1955年の結婚とベビーブーム。1980年代の<ruby>牛久<rt>うしく</rt></ruby>。そして2023年10月の<ruby>虹<rt>にじ</rt></ruby>。
+    一人の女性の九十年は、そのまま一つの世代の記録でもある。ここに置く二つの文章は、<ruby>喪主<rt>もしゅ</rt></ruby>として当日に読んだ挨拶と、四十九日に出した御礼の手紙。言葉は当時のまま、親族の名前だけをアルファベットにした。
+    <div class="who">星野晃一郎 ｜ Digiterior Studio</div>
+  </div>
+
+  <!-- ================= 01 告別式での挨拶 ================= -->
+  <section id="farewell" class="speech">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2><ruby>告別式<rt>こくべつしき</rt></ruby>での<ruby>挨拶<rt>あいさつ</rt></ruby></h2>
+      <time datetime="2023-10-13">2023年10月13日</time>
+    </div>
+
+    <p>本日はご多忙中、また急な日取りにも関わらず、母ヨイの告別式にお越しいただきありがとうございます。親族を代表しまして一言ご挨拶させていただきます。</p>
+
+    <p>母、ヨイは1933年12月16日に<ruby>眞島<rt>まじま</rt></ruby>家の五女として東京の中央区<ruby>八丁堀<rt>はっちょうぼり</rt></ruby>で生を受けます。彼女の7日後、平成天皇が誕生し、トットちゃん（黒柳徹子さん）も同世代。太平洋戦争に突入し<ruby>疎開<rt>そかい</rt></ruby>していた世代の子どもたちです。</p>
+
+    <p>母の記憶では終戦直後、新潟から上野経由で降りたった水道橋の駅から南は<ruby>焼<rt>や</rt></ruby>け<ruby>野原<rt>のはら</rt></ruby>が広がっていたそうです。父母、叔父叔母が30人それぞれ大家族で、でも戦争の話はあまり聞いた事はありません。</p>
+
+    <p>この世代の日本人がみんな明るく未来を見てチャレンジしてきたおかげでいまの平和な日本がある事を忘れてはいけないと思います。1955年に父と結ばれ私たち兄妹が次々に生まれてさらに叔父叔母も順番に結婚して、ベビーブーム、沢山の従兄弟たちとともに大家族で育ってきた、とても楽しい思い出があります。</p>
+
+    <p>父が1980年代に大英断で東京から故郷の茨城<ruby>牛久<rt>うしく</rt></ruby>に引っ越して、妹が市役所に勤めて、そこで<span class="name-en">ITSUO</span>さんと出会い、親戚や近所のコミュニティーに溶け込んで、3人の孫、さらに2人のひ孫にも恵まれて、東京都心には無い人情味あふれる地で生涯を全う出来て本人も、たぶん仕組んだ父こそが結果に大満足だと思います。牛久<ruby>下町<rt>しもまち</rt></ruby>の近隣の方々とも畑を借りたり、野菜の育て方を教わったり、生まれた頃には想像もできなかった精神的にも豊かな暮らしができていたと思います。</p>
+
+    <p>ここ数年は<ruby>誤嚥性肺炎<rt>ごえんせいはいえん</rt></ruby>を患い入院生活でしたが最後まで意識もはっきりしていて、<ruby>危篤<rt>きとく</rt></ruby>から復活して孫、<span class="name-en">TATSURO</span>さん、<span class="name-en">KIE</span>さんカップルがディズニーランドで結婚式を挙げたミッキーミニーたちオールスターの写真を大層喜んでおりました。</p>
+
+    <p>眞島家のお墓の問題もスッキリして<span class="name-en">YOSHIYUKI</span>さん、<span class="name-en">MIYOKO</span>おばさんにも感謝しておりました。</p>
+
+    <p>本日10月13日は父、<ruby>操一<rt>そういち</rt></ruby>と、すぐ下の一緒に疎開した<span class="name-en">HIROSHI</span>叔父の<ruby>命日<rt>めいにち</rt></ruby>です。良い天気にも恵まれて旅立ちの秋！</p>
+
+    <p>2人に連れられて楽しいツアーに出掛けて行くところ、どうかみなさまも明るく見送っていただければと思います。10月29日、日曜日の朝方には巨大な<ruby>虹<rt>にじ</rt></ruby>がかかっていました。見事な旅立ちを見送れました。</p>
+
+    <p>残された家族も親戚、ご近所の方たちと仲良く元気に暮らして参ります。引き続きご指導ご<ruby>鞭撻<rt>べんたつ</rt></ruby>のほどお願いして私からの挨拶とさせていただきます。</p>
+
+    <p class="no-indent">本日はありがとうございました。</p>
+
+    <p class="sign">親族代表　<ruby>喪主<rt>もしゅ</rt></ruby>・長男　<b>星野　晃一郎</b></p>
+
+    <figure>
+      <!-- TODO: 虹の写真を img/rainbow-20231029.jpg として置く -->
+      <div class="ph">虹の写真 ｜ img/rainbow-20231029.jpg</div>
+      <figcaption>2023年10月29日 日曜日 朝 — 東京湾岸にかかった虹</figcaption>
+    </figure>
+  </section>
+
+  <!-- ================= 02 四十九日の御礼 ================= -->
+  <section id="letter" class="letter">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2><ruby>四十九日<rt>しじゅうくにち</rt></ruby>の<ruby>御礼<rt>おんれい</rt></ruby></h2>
+      <time datetime="2023-11-25">令和5年11月25日</time>
+    </div>
+
+    <p class="open"><ruby>謹啓<rt>きんけい</rt></ruby></p>
+    <p>ご尊家益々御<ruby>清祥<rt>せいしょう</rt></ruby>のこととお喜び申し上げます</p>
+    <p>先般　亡母　ヨイ儀　死去に際しましてはご丁重なるご<ruby>厚志<rt>こうし</rt></ruby>を賜り厚く御礼申し上げます</p>
+    <p>おかげをもちまして　この度　恵雲朗和大姉（<ruby>戒名<rt>かいみょう</rt></ruby>）四十九日法要を滞りなく営むことができました</p>
+    <p>本来であればお目にかかりお礼申し上げるべきところ失礼ではございますが</p>
+    <p>まずは<ruby>略儀<rt>りゃくぎ</rt></ruby>ながら書中をもってお礼方々ご挨拶申し上げます</p>
+    <p class="close"><ruby>敬具<rt>けいぐ</rt></ruby></p>
+    <p class="date">令和5年11月25日</p>
+    <p class="name">星野　晃一郎</p>
+
+    <figure>
+      <!-- TODO: 祭壇の写真を img/altar-20231013.jpg として置く -->
+      <div class="ph">祭壇の写真 ｜ img/altar-20231013.jpg</div>
+      <figcaption>告別式の祭壇</figcaption>
+    </figure>
+  </section>
+
+  <!-- ================= この記録について ================= -->
+  <aside class="dedication" id="about">
+    <p class="k">この記録について ｜ 2026年9月3日</p>
+    <!-- 下書き：星野さんの言葉に書き換えてください -->
+    <p>母の告別式から三年。今日、叔母を見送った日に、この二つの文章をここに置いておくことにした。読み返すと、母の一生を語りながら、実は一つの世代のことを語っていたのだと分かる。</p>
+    <p>母を見送った日、隣にいてくれた人たちと、今日、叔母を見送った人へ。</p>
+    <p class="names">
+      <span>MAYUMI</span><span>YUMIKO</span><span>TAKAKO</span>
+    </p>
+    <div class="qr">
+      <div class="qr-code"><svg role="img" aria-label="QRコード：このページのURL" width="148" height="148" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a237e" d="M2 2.5h7m5 0h1m3 0h1m1 0h4m1 0h2m1 0h7m-33 1h1m5 0h1m3 0h1m4 0h2m1 0h1m2 0h2m3 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m3 0h1m1 0h1m2 0h1m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m6 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h5m2 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m2 0h1m5 0h2m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m2 0h1m3 0h1m2 0h3m2 0h1m-25 1h1m1 0h5m2 0h2m1 0h3m2 0h1m1 0h2m1 0h2m2 0h5m-29 1h2m3 0h2m1 0h1m2 0h2m2 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-32 1h1m4 0h1m1 0h1m1 0h1m2 0h3m1 0h1m2 0h1m7 0h1m1 0h1m-31 1h1m1 0h3m3 0h1m1 0h4m1 0h4m1 0h2m3 0h2m1 0h3m-30 1h1m3 0h2m4 0h2m1 0h3m7 0h1m3 0h2m1 0h2m-32 1h1m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1m2 0h1m1 0h2m-32 1h3m1 0h2m1 0h4m3 0h3m3 0h2m1 0h3m2 0h3m-29 1h3m1 0h2m2 0h1m1 0h1m1 0h1m5 0h1m3 0h2m2 0h2m-31 1h1m1 0h2m1 0h2m3 0h8m4 0h1m1 0h2m1 0h2m3 0h1m-32 1h1m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m4 0h2m2 0h1m1 0h6m1 0h1m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h1m2 0h2m1 0h1m4 0h2m3 0h3m2 0h1m1 0h5m-30 1h2m2 0h2m3 0h2m2 0h1m2 0h1m3 0h1m2 0h1m1 0h3m1 0h2m-33 1h3m1 0h1m3 0h2m1 0h1m1 0h1m1 0h2m5 0h2m2 0h1m2 0h1m2 0h1m-33 1h1m1 0h1m2 0h4m1 0h1m1 0h1m4 0h2m1 0h2m3 0h3m3 0h1m-32 1h1m1 0h1m2 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m2 0h3m2 0h1m2 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h1m1 0h1m4 0h4m1 0h7m-21 1h1m1 0h1m1 0h3m1 0h5m2 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m3 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h1m2 0h1m1 0h3m2 0h4m3 0h3m-31 1h1m1 0h3m1 0h1m1 0h1m7 0h1m2 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h1m2 0h5m1 0h5m1 0h1m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h7m2 0h1m1 0h2m2 0h2m1 0h1m-30 1h1m5 0h1m4 0h1m2 0h2m2 0h5m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h1m3 0h1m1 0h1m1 0h1m2 0h4m1 0h1m1 0h1m1 0h1"/></svg></div>
+      <div class="qr-text">
+        <div class="k2">このページへ</div>
+        <div class="url">notes.digiterior.net/<wbr>html-notes-mother-yoi</div>
+        <div class="note">印刷して法要や集まりの席に置けます。読み取るとこのページが開きます。</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="rakkan" aria-hidden="true">星</div><!-- TODO: 既存の落款SVGに差し替え -->
+  <div>Roberto Hoshino ｜ <a href="https://notes.digiterior.net/">Digiterior Studio</a> ｜ Love your life, love your time®</div>
+</footer>
+
+<script>
+  (function(){
+    var btn=document.getElementById('rubyToggle');
+    var on=true;
+    function render(){
+      document.body.classList.toggle('no-ruby',!on);
+      btn.setAttribute('aria-pressed',on?'true':'false');
+      btn.textContent=on?'ふりがな ON':'ふりがな OFF';
+    }
+    btn.addEventListener('click',function(){on=!on;render();});
+    render();
+  })();
+</script>
+</body>
+</html>
