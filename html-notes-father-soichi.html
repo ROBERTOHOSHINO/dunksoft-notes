@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>html-notes | 野間道場の床から見ていたもの — 星野晃一郎</title>
+<meta name="description" content="父・星野操一の17回忌に向けて。8歳から15歳まで稽古した野間道場の床——雑巾がけ、スプリングの入った床、フラットな関係——と、持田盛二先生の「基礎に50年」、楽＝PLAY、Heuristic。2026年3月の対談を編み直した記録。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digiterior Studio — notes">
+<meta property="og:title" content="野間道場の床から見ていたもの — html-notes">
+<meta property="og:description" content="父・星野操一の17回忌に向けて。野間道場の床で培ったものと、楽＝PLAYの哲学。">
+<meta property="og:url" content="https://notes.digiterior.net/html-notes-father-soichi">
+<!-- TODO: notes.digiterior.net 共通のOGP画像パスに差し替える -->
+<meta property="og:image" content="https://notes.digiterior.net/og/html-notes-father-soichi.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ai:#1A237E;        /* 神田祭の深い藍 */
+    --kin:#F9A825;       /* 柳森神社の薔薇の黄 */
+    --zouge:#E8E0D0;     /* マッコウクジラの象牙 */
+    --sumi:#2B2B2B;
+    --usuzumi:#6B6B6B;
+    --paper:#F6F2EA;
+    --maxw:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--sumi);
+    font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    line-height:2;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  header.top{
+    position:sticky;top:0;z-index:10;
+    background:rgba(246,242,234,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--zouge);
+  }
+  .top-inner{
+    max-width:var(--maxw);margin:0 auto;padding:12px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;
+  }
+  .top-inner .site{color:var(--ai);letter-spacing:.08em;text-decoration:none}
+  .top-inner .site b{font-weight:500}
+  .toggle{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--ai);border-radius:999px;padding:4px 12px;
+    background:transparent;color:var(--ai);cursor:pointer;
+    font-family:inherit;font-size:12px;
+  }
+  .toggle[aria-pressed="true"]{background:var(--ai);color:#fff}
+  .toggle:focus-visible{outline:2px solid var(--kin);outline-offset:2px}
+
+  main{max-width:var(--maxw);margin:0 auto;padding:56px 20px 96px}
+
+  .kicker{
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--usuzumi);margin:0 0 18px;
+  }
+  h1{
+    font-weight:600;font-size:clamp(24px,4.6vw,32px);line-height:1.6;
+    color:var(--ai);margin:0 0 12px;letter-spacing:.02em;
+  }
+  h1 small{
+    display:block;font-weight:400;font-size:.55em;color:var(--usuzumi);
+    letter-spacing:.06em;margin-top:8px;font-family:"Noto Sans JP",sans-serif;
+  }
+  .lede{
+    margin:28px 0 0;padding:20px 24px;background:#fff;border-left:3px solid var(--kin);
+    font-size:15px;line-height:1.95;color:var(--sumi);
+  }
+  .lede .who{font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);margin-top:10px}
+
+  section{margin-top:72px}
+  .sec-head{
+    display:flex;align-items:baseline;gap:14px;
+    border-bottom:1px solid var(--zouge);padding-bottom:10px;margin-bottom:28px;
+  }
+  .sec-head .num{
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--kin);font-weight:500;
+  }
+  h2{font-size:20px;font-weight:600;margin:0;color:var(--ai);letter-spacing:.04em}
+  .sec-head time{margin-left:auto;font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi)}
+
+  .speech p{margin:0 0 1.4em;text-indent:1em}
+  .speech p.no-indent{text-indent:0}
+  .speech .sign{
+    text-align:right;text-indent:0;margin-top:2.2em;
+    font-family:"Noto Sans JP",sans-serif;font-size:14px;color:var(--sumi);
+  }
+  .speech .sign b{font-weight:500;color:var(--ai)}
+
+  .letter p{margin:0 0 1.2em;text-indent:0}
+  .letter .open,.letter .close{font-family:"Noto Sans JP",sans-serif}
+  .letter .close{text-align:right}
+  .letter .date{margin-top:1.6em}
+  .letter .name{text-align:right}
+
+  .name-en{
+    font-family:"Noto Sans JP",sans-serif;font-size:.92em;letter-spacing:.06em;
+    color:var(--ai);
+  }
+
+  figure{margin:40px 0 0}
+  figure img{
+    display:block;width:100%;height:auto;border-radius:2px;
+    box-shadow:0 1px 0 var(--zouge),0 12px 32px rgba(26,35,126,.08);
+  }
+  figure .ph{
+    aspect-ratio:3/2;background:var(--zouge);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--usuzumi);font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.1em;
+  }
+  figcaption{
+    margin-top:10px;font-family:"Noto Sans JP",sans-serif;font-size:12px;
+    color:var(--usuzumi);letter-spacing:.04em;
+  }
+
+  .dedication{
+    margin-top:80px;padding:28px 28px 24px;background:#fff;
+    border-top:2px solid var(--ai);
+  }
+  .dedication .k{font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.2em;color:var(--usuzumi);margin:0 0 12px}
+  .dedication p{margin:0 0 1em;font-size:15px}
+  .dedication .names{
+    font-family:"Noto Sans JP",sans-serif;letter-spacing:.14em;color:var(--ai);font-size:14px;
+    margin-top:1.2em;
+  }
+  .dedication .names span{display:inline-block;margin-right:1.4em}
+
+
+  .dedication .related{margin-top:1.6em;font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:1.9}
+  .dedication .related .k2{display:block;font-size:11px;letter-spacing:.2em;color:var(--kin);font-weight:500}
+  .dedication .related a{color:var(--ai);text-decoration:none;border-bottom:1px solid var(--zouge)}
+  .dedication .related a:hover{border-bottom-color:var(--ai)}
+  .qr{display:flex;gap:20px;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--zouge)}
+  .qr-code{flex:0 0 128px;width:128px;height:128px;background:#fff;padding:12px;border:1px solid var(--zouge)}
+  .qr-code svg{width:100%;height:100%;display:block}
+  .qr-text{font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);line-height:1.8}
+  .qr-text .k2{letter-spacing:.2em;color:var(--kin);font-weight:500}
+  .qr-text .url{color:var(--ai);font-size:13px;word-break:break-all}
+  @media print{.qr-code{width:120px;flex-basis:120px;height:120px}}
+
+  footer{
+    max-width:var(--maxw);margin:0 auto;padding:0 20px 56px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi);
+  }
+  footer .rakkan{
+    width:36px;height:36px;border:1px solid var(--ai);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;color:var(--ai);font-size:11px;letter-spacing:.05em;
+  }
+  footer a{color:var(--ai);text-decoration:none;border-bottom:1px solid var(--zouge)}
+
+  /* ふりがな */
+  rt{font-size:.5em;color:var(--usuzumi);letter-spacing:0;font-family:"Noto Sans JP",sans-serif}
+  body.no-ruby rt{display:none}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media print{
+    header.top,footer .rakkan+*{display:none}
+    body{background:#fff;font-size:11.5pt}
+    main{padding:0}
+    .lede,.dedication{background:none}
+  }
+
+  /* 対談 */
+  .dialogue{margin-top:8px}
+  .dialogue .turn{display:flex;gap:14px;margin:0 0 1.3em}
+  .dialogue .spk{
+    flex:0 0 3.2em;font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.1em;
+    color:var(--usuzumi);padding-top:.55em;
+  }
+  .dialogue .turn.me .spk{color:var(--ai);font-weight:500}
+  .dialogue .txt{flex:1;margin:0}
+  .dialogue .turn.me .txt{background:#fff;padding:10px 16px;border-left:2px solid var(--kin)}
+  blockquote{
+    margin:1.6em 0;padding:14px 22px;border-left:3px solid var(--zouge);color:var(--sumi);
+    font-size:15px;line-height:1.95;
+  }
+  blockquote cite{display:block;margin-top:.6em;font-style:normal;font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--usuzumi)}
+  .maxim{font-size:15px;margin:1.2em 0}
+  .maxim b{font-weight:600;color:var(--ai)}
+  .src{font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:1.9;color:var(--usuzumi);margin:0 0 .6em}
+  .src b{color:var(--sumi);font-weight:500}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="site" href="https://notes.digiterior.net/">notes.digiterior.net <b>／ html-notes</b></a>
+    <button class="toggle" id="rubyToggle" aria-pressed="true" type="button">ふりがな ON</button>
+  </div>
+</header>
+
+<main>
+  <p class="kicker">HTML-NOTES ｜ 2010年10月 → 2026年10月</p>
+  <h1>
+    <ruby>野間道場<rt>のまどうじょう</rt></ruby>の<ruby>床<rt>ゆか</rt></ruby>から<ruby>見<rt>み</rt></ruby>ていたもの
+    <small>What I saw from the floor of Noma Dojo — 父・星野操一の十七回忌に</small>
+  </h1>
+
+  <figure>
+    <!-- TODO: 写真ファイルを置いて src を差し替える（Noteに掲載した野間道場の写真） -->
+    <img src="img/father-noma-dojo.jpg" alt="野間道場の床に正座する父・星野操一。背後に道場の鏡と額。" loading="lazy">
+    <figcaption>野間道場にて。父・星野操一（剣道六段錬士）。</figcaption>
+  </figure>
+
+  <div class="lede">
+    父は、生まれたときの名を<ruby>操<rt>みさお</rt></ruby>といった。女性の名にも取られる、戦争の時代の名残りだ。成人してから、自分で「一」を足して<ruby>操一<rt>そういち</rt></ruby>にした。自分の名前を、自分の手で完成させた人だった。
+    その父が持田盛二先生と望月正房先生に<ruby>可愛<rt>かわい</rt></ruby>がられた野間道場で、私は8歳から15歳まで<ruby>研鑽<rt>けんさん</rt></ruby>した。そこで培ったものが、いまも自分の中で生きていると確信している。
+    2026年10月11日が父の十七回忌にあたる。同じ年の3月にClaudeと交わした「<ruby>楽<rt>らく</rt></ruby>＝PLAY」の対談を、この日に向けて編み直し、ここに置く。
+    <div class="who">星野晃一郎 ｜ Digiterior Studio</div>
+  </div>
+
+  <!-- ================= 01 床 ================= -->
+  <section id="floor" class="speech">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2><ruby>雑巾<rt>ぞうきん</rt></ruby>がけ、スプリング、フラットな<ruby>関係<rt>かんけい</rt></ruby></h2>
+      <time datetime="1964">1964年〜1971年</time>
+    </div>
+
+    <p>野間道場は、講談社の創業者・<ruby>野間清治<rt>のませいじ</rt></ruby>が社技として剣道を選び、師として持田盛二先生を迎えて開いた道場である。持田先生は昭和4年5月の天覧試合に指定選手として出場し、優勝した。望月先生は昭和15年の天覧試合、府県選士の部に東京代表として出て優勝している。野間道場は昭和の天覧試合に3人の優勝者を出した道場であり、持田先生と望月先生はそのうちの二人だ。父は、その二人に可愛がられた。</p>
+
+    <p>私が覚えているのは、まず床の広さだ。稽古が終わると、子どもたちは毎回、雑巾がけをした。とても広い道場を、手で拭く。時間がかかる。子どもの手にはなかなか大変な仕事だった。けれど朝稽古の大人たちも、同じように床をきちんと掃除している。それを見ていて、子どもながらにマナーというものを感じた。誰かに言われるからやるのではなく、この場所を使う者が、この場所を整える。</p>
+
+    <p>次に覚えているのは、人の関係だ。当時のスポーツ界には珍しく、野間道場の関係はフラットだった。威張る先輩がいない。上司ぶる大人がいない。とてもフランクなやり取りを、子どもの目で見て感心していた。強さの序列はある。持田先生の十段は目の前に確かにあり、「上には上がある」という感覚は幼いDNAに刷り込まれた。けれど、その序列が人を威張らせなかった。</p>
+
+    <p>そして床そのものが、すごい仕掛けだった。古民家の太い柱ほどの木材が並べて置かれ、その下にスプリングが入っている。踏み込むと、床が跳ねる。その勢いを利用して攻め込む。だから早い仕掛けができて、攻防のレベルが高かったのだと思う。踏み込んだ力を床が返してくる。返ってきた力で前に出る。私が後になって<ruby>剣道<rt>けんどう</rt></ruby>以外の場所で見つけたことの多くは、この床の構造をしていた。</p>
+  </section>
+
+  <!-- ================= 02 基礎に50年 ================= -->
+  <section id="mochida" class="speech">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2>「<ruby>基礎<rt>きそ</rt></ruby>に50年かかった」</h2>
+      <time datetime="2005-03-03">2005年3月3日のブログから</time>
+    </div>
+
+    <p>2005年、勉強会で紹介されたセミナーを受けて、会社のDNAと自分のDNAを振り返る機会があった。そのとき書いたブログ「自分のDNA：楽＝Playの心」に、持田先生の<ruby>遺訓<rt>いくん</rt></ruby>を引いている。</p>
+
+    <blockquote>
+      基礎に50年かかった。50を過ぎてから、本当の修行に入った。心で剣道しようとしたから。
+      <cite>持田盛二 遺訓（要旨）</cite>
+    </blockquote>
+
+    <p>楽しめるレベルになる高い技術の獲得には時間がかかる。結果にこだわると成長は難しい。プロセスにこだわってこそ。当時の私はそう書き、それをダンクソフトのテーマ「楽しむ＝Play」の根っこに置いた。結果を急いで「安易なフォームレベルに下がっていく」のは、勝負にこだわるあまり再構築できなくなるアマチュアの姿だ、とも。</p>
+
+    <p>効率の目で見れば、基礎に50年は恐ろしく無駄の多い道のりだ。だがその無駄の蓄積が、80歳を過ぎて誰も敵わない境地を生んだ。父も、あの床を50年拭いたのだと思う。</p>
+  </section>
+
+  <!-- ================= 03 対談 ================= -->
+  <section id="dialogue" class="speech">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2><ruby>賢者<rt>けんじゃ</rt></ruby>、Heuristic、あいだ</h2>
+      <time datetime="2026-03-09">2026年3月 Claude（Anthropic）との対談から</time>
+    </div>
+
+    <p class="no-indent">3月、70歳の誕生日に、この「楽＝PLAY」をClaudeと話した。全文はNoteに残してある。ここでは、床の話につながる部分だけを編み直して置く。</p>
+
+    <div class="dialogue">
+      <div class="turn me">
+        <span class="spk">星野</span>
+        <p class="txt">最近、スピノザの賢者の話に触れた。「楽しむを追求すると賢者になる」。『エチカ』第四部の定理四五備考で、スピノザは、よい食べものや飲みもの、香り、緑、装飾、音楽、運動競技、演劇——他人を害することなしに各人が使えるもので自分を爽快にし元気づけることは、賢者にふさわしい、と言い切っている。Smart Life Stylesが目指しているのも、ここだ。</p>
+      </div>
+      <div class="turn">
+        <span class="spk">Claude</span>
+        <p class="txt">重いのは「賢者にふさわしい」という言葉です。スピノザは楽しむことを「許される」と言っているのではなく、賢者こそが楽しむ、と断言している。そして「他人を害することなしに」という条件。自分が楽しむことが他者の楽しみや生を奪わない——これが「楽しむ」の品格ですね。</p>
+      </div>
+      <div class="turn me">
+        <span class="spk">星野</span>
+        <p class="txt">この40年デジタルに関係してきた人は、技術の進歩の早さを体感していて、常に正しい答えが出ないことも知っている。だからチャレンジし続けて、失敗してもそれを楽しめる。結果・効率だけでは進歩がない。とはいえ、このマインドセットはスポーツでも音楽でもアートでも、技術を追求する分野なら切り離せないはずだ。</p>
+      </div>
+      <div class="turn">
+        <span class="spk">Claude</span>
+        <p class="txt">テクノロジーの世界では「昨日の正解が今日の間違い」になる。だから答えを持つより、問い続けて楽しめる人が残る。ただ一つ挑発的な問いを返すと——効率化こそデジタルが最も得意とすることでもある。デジタルは「チャレンジを楽しむ文化」と「効率化・最適化」という、一見矛盾する二つを同時に持ち込んだ、とも言えませんか。</p>
+      </div>
+      <div class="turn me">
+        <span class="spk">星野</span>
+        <p class="txt">Heuristicという考え方は情報処理から来ている。結果をプロットしていくと、このあたりに収束はするが1点にはならない。突き詰めると、そこからまた拡散したりする。ぼんやり「そのあたり」という落ち着きどころがある。正解とはちょっと違う<ruby>緩<rt>ゆる</rt></ruby>さを許容して、そこからまた次に進む。</p>
+      </div>
+      <div class="turn">
+        <span class="spk">Claude</span>
+        <p class="txt">完全な正解を求めると人は止まってしまう。Heuristicの「このあたり」という緩さが、実はチャレンジし続けるための心理的な安全地帯になっている。持田先生の修行の構造とも重なります。50年かけて基礎に収束したと思ったら、そこから「心で剣道する」という新しい拡散が始まる。1点に到達したら終わり、ではなく、収束したらまた次が始まる。</p>
+      </div>
+      <div class="turn me">
+        <span class="spk">星野</span>
+        <p class="txt">HeuristicもEpigeneticも、自分の辞書を書き換え始めた頃に覚えた言葉だ。分断されているものの<ruby>間<rt>あいだ</rt></ruby>に入り、多面的に結ぶことで新しい知を生む。デジタル（digital）とインテリア（interior）の間に名前をつけたdigiteriorも、もともとその考え方から生まれている。</p>
+      </div>
+      <div class="turn">
+        <span class="spk">Claude</span>
+        <p class="txt">「あいだ」に立つという構造は、Heuristicの「1点に収束しない」構造と同じです。正解を持って上に立つのではなく、異なるものの間に立って対話と協働を生む。剣道・音楽・サッカー・テニス・デジタル・ビジネスと領域を横断してきた星野さんは、自然にその「あいだ」に立てる人だった。ダンクソフトも、技術とビジネスと遊び心の間に立つ組織だったし、digiteriorという名前そのものが、二つの語の間に置かれた一語ですね。</p>
+      </div>
+      <div class="turn me">
+        <span class="spk">星野</span>
+        <p class="txt">Polyvalent。サッカーの言葉で、いろいろなポジションを楽しめる人はチャンスが広がるという考え方。DNAを遡ると32世代で自分の中に42億人がいる。私はこんな人間だと思いがちだが、実は多様だ。それを引き出すのは、関係した人々——多様な人と会うことで、自分の多様な個性が引き出される。</p>
+      </div>
+      <div class="turn">
+        <span class="spk">Claude</span>
+        <p class="txt">自分は1人ではなく、42億の可能性の束だった。何が発現するかは環境と関係で変わる。そしてここに「楽＝PLAY」が戻ってきます。知らない自分に出会うことを怖れず、楽しめるかどうか。それが賢者への道であり、スピノザの言った「自らを爽快にし元気づけること」の本質かもしれません。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 床が返す力 ================= -->
+  <section id="rebound" class="speech">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2><ruby>床<rt>ゆか</rt></ruby>が<ruby>返<rt>かえ</rt></ruby>す<ruby>力<rt>ちから</rt></ruby></h2>
+      <time datetime="2026-10-11">2026年10月11日 十七回忌</time>
+    </div>
+
+    <p>3月の対談を半年後に読み返して気づいたのは、Claudeと話した三つのこと——賢者の「他人を害することなしに」、Heuristicの「収束したらまた次が始まる」、digiteriorの「あいだ」——が、どれもあの床の上ですでに起きていたということだ。</p>
+
+    <p>他人を害さずに楽しむ品格は、大人も子どもも同じ雑巾で床を拭く姿にあった。1点に固まらず次に進む緩さは、フラットで、威張る人のいない関係にあった。そして踏み込んだ力を返してくる床。収束は終点ではなく、返ってきた力でまた前に出るための踏み込みだった。持田先生の50年も、たぶんそういう床の上にあった。</p>
+
+    <p>私は、あの床から見ていた。父の背中と、父を可愛がった二人の天覧試合優勝者と、朝稽古の大人たちの掃除と、床の跳ねる音を。ここで培ったものが、いまも自分の中で生きている。<ruby>操<rt>みさお</rt></ruby>に自分で一画を足した人の息子として、その一画の続きを、まだ書いている。</p>
+
+    <p class="sign"><b>星野晃一郎</b><br>2026年10月11日</p>
+  </section>
+
+  <!-- ================= 出典・つながる記録 ================= -->
+  <aside class="dedication" id="about">
+    <p class="k">出典とつながる記録</p>
+    <p class="src"><b>『野間道場物語』</b> 原園光憲 著、講談社。持田盛二先生の昭和4年天覧試合優勝は p.119、道好会主要会員の名簿（師範・望月正房、会員に父・星野操一）は pp.157–158、望月先生の写真は p.250。父の名が載っている、唯一の書籍。</p>
+    <p class="src"><b>スピノザ『エチカ』</b> 第四部 定理四五 備考。</p>
+    <p class="related">
+      <span class="k2">つながる記録</span>
+      <a href="https://note.com/roberto_hoshino/n/n9a707611bf2d">対談：遊び心の哲学——スピノザ、剣道、そしてDUNKSOFT（Note、2026年3月9日）全文</a><br>
+      <a href="https://robertoplay.seesaa.net/article/201010article_3.html">インターネット時代の訃報：楽＝Playの心（2010年10月、父の写真つき）</a><br>
+      <a href="https://robertoplay.seesaa.net/">自分のDNA：楽＝Playの心（2005年3月3日）</a><br>
+      <a href="https://notes.digiterior.net/html-notes-mother-yoi">母ヨイを見送った日の言葉</a>
+    </p>
+    <div class="qr">
+      <div class="qr-code"><svg role="img" aria-label="QRコード：このページのURL" viewBox="0 0 148 148" width="148" height="148" class="segno" shape-rendering="crispEdges"><path transform="scale(4)" class="qrline" stroke="#1a237e" d="M2 2.5h7m2 0h2m1 0h2m2 0h6m1 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h4m1 0h1m2 0h2m3 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h5m1 0h1m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h1m1 0h1m1 0h4m1 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m1 0h2m2 0h2m1 0h1m3 0h1m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m2 0h2m2 0h1m5 0h1m2 0h1m-25 1h1m1 0h5m2 0h3m1 0h3m1 0h1m1 0h2m1 0h2m2 0h5m-31 1h2m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m3 0h4m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m1 0h1m1 0h1m1 0h3m2 0h1m3 0h1m2 0h1m1 0h1m7 0h1m1 0h1m-24 1h4m3 0h3m1 0h1m1 0h2m3 0h2m1 0h3m-31 1h1m1 0h1m1 0h3m2 0h1m2 0h1m2 0h1m2 0h1m5 0h1m3 0h2m1 0h2m-33 1h2m2 0h1m2 0h1m1 0h2m3 0h8m1 0h1m2 0h1m2 0h1m1 0h2m-33 1h2m1 0h1m1 0h2m4 0h1m5 0h1m2 0h3m1 0h3m2 0h3m-32 1h2m1 0h1m4 0h1m1 0h4m2 0h1m2 0h1m1 0h1m3 0h2m2 0h2m-29 1h1m1 0h5m2 0h4m1 0h2m4 0h1m1 0h2m1 0h2m3 0h1m-33 1h2m1 0h3m2 0h4m4 0h2m1 0h2m2 0h1m2 0h2m1 0h2m1 0h1m-31 1h1m3 0h3m2 0h7m3 0h2m1 0h5m1 0h2m-32 1h4m1 0h1m4 0h2m2 0h5m1 0h3m2 0h1m1 0h5m-32 1h1m2 0h1m2 0h4m3 0h4m5 0h1m2 0h1m1 0h3m1 0h2m-33 1h3m1 0h1m2 0h2m2 0h1m1 0h1m1 0h1m2 0h3m1 0h2m2 0h1m2 0h1m2 0h1m-33 1h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h4m1 0h2m3 0h3m3 0h1m-32 1h1m1 0h4m1 0h3m1 0h3m1 0h1m2 0h1m2 0h2m1 0h1m1 0h1m2 0h3m-32 1h1m4 0h2m4 0h5m1 0h4m1 0h1m1 0h5m2 0h1m-24 1h1m1 0h1m2 0h1m2 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m7 0h2m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h1m1 0h1m3 0h1m4 0h4m3 0h3m-31 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h2m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h3m1 0h3m1 0h1m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h7m2 0h1m2 0h1m1 0h2m2 0h2m1 0h1m-30 1h1m5 0h1m3 0h1m1 0h2m2 0h1m1 0h5m2 0h1m2 0h3m-31 1h7m1 0h1m1 0h2m5 0h1m1 0h1m2 0h3m1 0h2m1 0h1m1 0h1"/></svg></div>
+      <div class="qr-text">
+        <div class="k2">このページへ</div>
+        <div class="url">notes.digiterior.net/<wbr>html-notes-father-soichi</div>
+        <div class="note">印刷して法要の席に置けます。読み取るとこのページが開きます。</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="rakkan" aria-hidden="true">星</div><!-- TODO: 既存の落款SVGに差し替え -->
+  <div>Roberto Hoshino ｜ <a href="https://notes.digiterior.net/">Digiterior Studio</a> ｜ Love your life, love your time®</div>
+</footer>
+
+<script>
+  (function(){
+    var btn=document.getElementById('rubyToggle');
+    var on=true;
+    function render(){
+      document.body.classList.toggle('no-ruby',!on);
+      btn.setAttribute('aria-pressed',on?'true':'false');
+      btn.textContent=on?'ふりがな ON':'ふりがな OFF';
+    }
+    btn.addEventListener('click',function(){on=!on;render();});
+    render();
+  })();
+</script>
+</body>
+</html>
