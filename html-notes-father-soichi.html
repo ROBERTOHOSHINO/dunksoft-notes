@@ -10,8 +10,9 @@
 <meta property="og:title" content="野間道場の床から見ていたもの — html-notes">
 <meta property="og:description" content="父・星野操一の17回忌に向けて。野間道場の床で培ったものと、楽＝PLAYの哲学。">
 <meta property="og:url" content="https://notes.digiterior.net/html-notes-father-soichi">
-<!-- TODO: notes.digiterior.net 共通のOGP画像パスに差し替える -->
-<meta property="og:image" content="https://notes.digiterior.net/og/html-notes-father-soichi.png">
+<meta property="og:image" content="https://picture.digiterior.net/father-noma-dojo.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="670">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -186,6 +187,11 @@
   .maxim b{font-weight:600;color:var(--ai)}
   .src{font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:1.9;color:var(--usuzumi);margin:0 0 .6em}
   .src b{color:var(--sumi);font-weight:500}
+  .dedication figure.book{float:right;margin:0 0 12px 20px;width:150px}
+  .dedication figure.book img{width:100%;height:auto;border:1px solid var(--zouge);display:block}
+  .dedication figure.book figcaption{font-size:11px;line-height:1.6;color:var(--usuzumi);margin-top:6px;text-align:left}
+  .dedication .qr{clear:both}
+  @media (max-width:520px){.dedication figure.book{float:none;margin:0 auto 14px}}
 </style>
 </head>
 <body>
@@ -205,8 +211,7 @@
   </h1>
 
   <figure>
-    <!-- TODO: 写真ファイルを置いて src を差し替える（Noteに掲載した野間道場の写真） -->
-    <img src="img/father-noma-dojo.jpg" alt="野間道場の床に正座する父・星野操一。背後に道場の鏡と額。" loading="lazy">
+    <img src="https://picture.digiterior.net/father-noma-dojo.jpg" alt="野間道場の床に正座する父・星野操一。背後に道場の鏡と額。" loading="lazy">
     <figcaption>野間道場にて。父・星野操一（剣道六段錬士）。</figcaption>
   </figure>
 
@@ -328,6 +333,10 @@
   <!-- ================= 出典・つながる記録 ================= -->
   <aside class="dedication" id="about">
     <p class="k">出典とつながる記録</p>
+    <figure class="book">
+      <img src="https://picture.digiterior.net/noma-dojo-monogatari.jpg" alt="『野間道場物語』（原園光憲 著、講談社）の表紙。無人の野間道場の床と柱の写真。" loading="lazy" width="220">
+      <figcaption>『野間道場物語』原園光憲 著（講談社）— 著者所蔵</figcaption>
+    </figure>
     <p class="src"><b>『野間道場物語』</b> 原園光憲 著、講談社。持田盛二先生の昭和4年天覧試合優勝は p.119、道好会主要会員の名簿（師範・望月正房、会員に父・星野操一）は pp.157–158、望月先生の写真は p.250。父の名が載っている、唯一の書籍。</p>
     <p class="src"><b>スピノザ『エチカ』</b> 第四部 定理四五 備考。</p>
     <p class="related">
