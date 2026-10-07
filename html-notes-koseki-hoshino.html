@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>星野家 除籍謄本7通の文字起こし — Reading the family register, 1843–2023</title>
+<meta name="description" content="星野家の除籍謄本・改製原戸籍7通（天保〜令和）を現代語で文字起こしした記録。高祖父・久造から父・操、母・ヨイまで。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ai:#1A237E;      /* 神田祭の深い藍 */
+  --kin:#F9A825;     /* 柳森神社の薔薇の金 */
+  --zouge:#E8E0D0;   /* マッコウクジラの象牙 */
+  --sumi:#2B2B2B;
+  --line:#CFC6B4;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--zouge);color:var(--sumi);font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;font-size:16px;line-height:1.9}
+main{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+header.hero{border-bottom:1px solid var(--line);padding-bottom:1.5rem;margin-bottom:2rem}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;color:var(--ai);margin:0 0 .5rem}
+h1{font-family:"Noto Serif JP",serif;font-weight:700;font-size:1.6rem;line-height:1.5;color:var(--ai);margin:0}
+h1 .en{display:block;font-size:1rem;font-weight:500;letter-spacing:.02em;margin-top:.35rem;color:var(--sumi)}
+.meta{font-size:.85rem;color:#555;margin-top:.75rem}
+h2{font-family:"Noto Serif JP",serif;font-size:1.25rem;color:var(--ai);border-left:4px solid var(--ai);padding-left:.75rem;margin:3rem 0 1rem}
+h2 .en{display:block;font-family:"Noto Sans JP",sans-serif;font-size:.85rem;font-weight:500;color:#555}
+h3{font-size:1rem;color:var(--ai);margin:1.75rem 0 .5rem}
+p{margin:.6rem 0}
+rt{font-size:.6em;color:#555}
+.lead{font-size:1.05rem}
+.key{background:#fff;border:1px solid var(--line);border-left:6px solid var(--kin);padding:1rem 1.25rem;border-radius:4px;margin:1.5rem 0}
+.key p{margin:.3rem 0}
+.note{background:#fff;border:1px solid var(--line);padding:.9rem 1.1rem;border-radius:4px;font-size:.9rem;margin:1rem 0}
+.lineage{list-style:none;padding:0;margin:1rem 0;background:#fff;border:1px solid var(--line);border-radius:4px}
+.lineage li{padding:.7rem 1rem;border-bottom:1px solid var(--line);display:grid;grid-template-columns:7.5em 1fr;gap:.5rem}
+.lineage li:last-child{border-bottom:none}
+.lineage .rel{color:var(--ai);font-weight:500}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:.92rem;margin:.75rem 0 1.25rem}
+th,td{border:1px solid var(--line);padding:.5rem .6rem;vertical-align:top;text-align:left}
+th{background:var(--ai);color:var(--zouge);font-weight:500;white-space:nowrap}
+tbody th{background:#F4F0E6;color:var(--ai);width:8em}
+.wrap{overflow-x:auto}
+.doc{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1rem 1.25rem;margin:1rem 0}
+.doc dl{display:grid;grid-template-columns:7em 1fr;gap:.25rem .75rem;margin:0}
+.doc dt{color:var(--ai);font-weight:500}
+.doc dd{margin:0}
+.u{border-bottom:1px dotted #999}            /* 判読不確か */
+.gap{color:#888}                              /* 判読不能 */
+.events{margin:.5rem 0 0;padding-left:1.1rem;font-size:.92rem}
+.events li{margin:.25rem 0}
+footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1.25rem;font-size:.85rem;color:#555}
+footer .tag{color:var(--ai);font-weight:500}
+@media (max-width:600px){
+  .lineage li{grid-template-columns:1fr}
+  .doc dl{grid-template-columns:1fr}
+  h1{font-size:1.35rem}
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--zouge:#1E1C19;--sumi:#E6E0D4;--line:#4A463F}
+  :root:not([data-theme="light"]) .key,:root:not([data-theme="light"]) .note,:root:not([data-theme="light"]) .lineage,:root:not([data-theme="light"]) table,:root:not([data-theme="light"]) .doc{background:#27241F}
+  :root:not([data-theme="light"]) tbody th{background:#2F2B25;color:#C5CAE9}
+  :root:not([data-theme="light"]) h1,:root:not([data-theme="light"]) h2,:root:not([data-theme="light"]) h3,:root:not([data-theme="light"]) .eyebrow,:root:not([data-theme="light"]) .doc dt,:root:not([data-theme="light"]) .lineage .rel{color:#9FA8DA}
+  :root:not([data-theme="light"]) .meta,:root:not([data-theme="light"]) rt,:root:not([data-theme="light"]) footer,:root:not([data-theme="light"]) h2 .en{color:#B5AE9F}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <p class="eyebrow">HTML-NOTES ／ 家族史</p>
+  <h1>星野家 除籍謄本7通の文字起こし
+    <span class="en">Reading the family register, 1843–2023 — from Kuzō to Yoi</span>
+  </h1>
+  <p class="meta">文字起こし：2026年10月7日 ／ 原本：茨城県筑西市長・東京都千代田区長発行の除籍謄本・改製原戸籍 計7通（令和8年2月12日ほか交付）</p>
+</header>
+
+<p class="lead">2026年10月、伊勢原市の泉龍寺にある<ruby>操<rt>みさお</rt></ruby>・<ruby>きよ<rt>きよ</rt></ruby>・ヨイの墓を同じ寺の合葬墓へ移すことにした。改葬の申請に戸籍が要る。妹が母の相続のときにそろえた除籍謄本7通が、そのまま使えると伊勢原市が言ってくれた。送る前に写しを取り、ついでに全部読んでみた。</p>
+
+<p>手書きの縦書きで、旧字と変体仮名が混じる。読めるところは読み、読めないところは読めないと書いた。父母と義母への手向けはもう済んでいる。これは、その前の世代——久造、八郎、多喜造、ます、きよ——への手向けとして置いておく。</p>
+
+<div class="key">
+  <p><strong>7通で分かること</strong></p>
+  <p>星野家の本籍は、茨城県真壁郡上野村大字向上野（現・筑西市）に始まり、昭和5年に東京府北豊島郡南千住町へ、戦前に真壁郡明野村大字宮山へ戻り、父・操の婚姻で東京都千代田区飯田町（のち九段北）に分かれ、昭和62年に茨城県牛久市へ移った。</p>
+  <p>高祖父・<ruby>久造<rt>きゅうぞう</rt></ruby>（天保14年生）から母・ヨイ（令和5年没）まで、およそ180年・5世代の移動がこの7通に収まっている。</p>
+</div>
+
+<h2>家系の骨格 <span class="en">The lineage, as the registers record it</span></h2>
+
+<ul class="lineage">
+  <li><span class="rel">高祖父</span><span>星野 <ruby>久造<rt>きゅうぞう</rt></ruby> — 天保14年（1843）3月3日生。上野村向上野の前戸主。</span></li>
+  <li><span class="rel">曾祖父</span><span>星野 <ruby>八郎<rt>はちろう</rt></ruby> — 明治元年（1868）生。久造の長男。妻・ます（父 飯村吉十郎、弐女）。</span></li>
+  <li><span class="rel">祖父</span><span>星野 <ruby>多喜造<rt>たきぞう</rt></ruby> — 明治29年（1896）3月12日生。八郎の長男。昭和5年に南千住へ転籍。昭和11年11月10日没。</span></li>
+  <li><span class="rel">祖父の前妻</span><span>さく（父 <span class="u">武井</span>某、参女）— 美知・正憲の母として記載。</span></li>
+  <li><span class="rel">祖母</span><span><ruby>きよ<rt>きよ</rt></ruby>（父 谷田部仙松、長女、明治28年1月11日生）— 後妻。泉龍寺に眠る「浄雲妙清大姉」。</span></li>
+  <li><span class="rel">父</span><span>星野 <ruby>操<rt>みさお</rt></ruby> — 大正13年（1924）1月1日、上野村向上野で生まれる。昭和30年12月19日、眞島ヨイと婚姻。平成22年10月13日没。</span></li>
+  <li><span class="rel">母</span><span>星野 ヨイ（旧姓 眞島）— 昭和8年（1933）12月16日、東京市京橋区生まれ。父 眞島音次郎、母 タツ、五女。令和5年10月11日没。</span></li>
+</ul>
+
+<div class="note">
+<p><strong>読みの注記。</strong> 操の「母」欄は、活字の除籍（文書A）では「さく」と印字されている。手書きの謄本では「きよ」とも読める箇所があり、同じ筆跡の他の欄と見比べると「きよ」。きよと多喜造の婚姻日は文書Fに「大正12年1月11日」と読める。操の出生（大正13年1月1日）はその後になるので、生みの母はきよとみるのが自然だが、活字の記載との食い違いは原本で確かめてほしい。</p>
+<p>以下、<span class="u">点線の下線</span>は判読に自信のない箇所、〔　〕は読めなかった箇所。</p>
+</div>
+
+<!-- ================================================================ -->
+<h2>文書A　除籍（全部事項証明）牛久市 — 星野操 <span class="en">Document A — Ushiku, typed register of Misao (Heisei 18 reformatted, closed Reiwa 5)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城県牛久市牛久町2434番地3</dd>
+<dt>氏名</dt><dd>星野 操</dd>
+<dt>戸籍事項</dt><dd>戸籍改製：平成18年2月18日（平成6年法務省令第51号附則第2条第1項による改製）<br>戸籍消除：令和5年10月12日</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長 設楽詠美子（戸籍法第120条の2第1項による広域交付）</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>記録されている者</th><th>記載事項</th></tr></thead>
+<tbody>
+<tr><th>操（除籍）</th><td>生年月日 大正13年1月1日／父 星野多喜造／母 星野さく／続柄 長男<br>
+<ul class="events">
+<li>婚姻：昭和30年12月19日　配偶者 眞島ヨイ　従前戸籍 茨城県真壁郡明野村大字宮山714番地2 星野正憲</li>
+<li>死亡：平成22年10月13日 午前9時　死亡地 茨城県牛久市　届出日 平成22年10月13日　届出人 親族 星野ヨイ</li>
+</ul></td></tr>
+<tr><th>ヨイ（除籍）</th><td>生年月日 昭和8年12月16日／父 眞島音次郎／母 眞島タツ／続柄 五女<br>
+<ul class="events">
+<li>出生：昭和8年12月16日 東京市京橋区　届出日 同月22日 父　送付を受けた日 同月30日　受理者 東京市京橋区長</li>
+<li>婚姻：昭和30年12月19日　配偶者 星野操　従前戸籍 東京都千代田区飯田町一丁目7番地2 眞島音次郎</li>
+<li>配偶者の死亡：平成22年10月13日</li>
+<li>死亡：令和5年10月11日 午後7時57分　死亡地 茨城県つくば市　届出日 令和5年10月12日　届出人 親族 石川有光子</li>
+</ul></td></tr>
+</tbody></table></div>
+
+<!-- ================================================================ -->
+<h2>文書B　改製原戸籍 牛久市 — 星野操 <span class="en">Document B — Ushiku, pre-reform original (Showa 62 → Heisei 18)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城県牛久市牛久町二千四百三十四番地の三</dd>
+<dt>氏名</dt><dd>星野 操</dd>
+<dt>戸籍事項</dt><dd>昭和62年6月27日、東京都千代田区九段北一丁目七番地二から転籍届出。平成6年法務省令第51号附則第2条第1項による改製につき、平成18年2月18日消除</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>記録されている者</th><th>記載事項</th></tr></thead>
+<tbody>
+<tr><th>操（戸主相当・筆頭者）</th><td>大正13年1月1日生／父 亡星野多喜造／母 <span class="u">きよ</span>／長男<br>
+<ul class="events">
+<li>大正13年1月1日、茨城県真壁郡上野村で出生。昭和2年10月30日、父届出により入籍（出生届が3年遅れている）</li>
+<li>昭和30年12月19日、眞島ヨイと婚姻届出。真壁郡明野村大字宮山七百十四番地の二 星野正憲戸籍から入籍</li>
+</ul></td></tr>
+<tr><th>妻 ヨイ</th><td>昭和8年12月16日生／父 眞島音次郎／母 タツ／五女<br>
+<ul class="events">
+<li>昭和8年12月16日、東京市京橋区で出生。同月22日父届出、同月30日同区長から送付により入籍</li>
+<li>昭和30年12月19日、星野操と婚姻届出。東京都千代田区飯田町一丁目七番地の二 眞島音次郎戸籍から入籍</li>
+</ul></td></tr>
+</tbody></table></div>
+
+<!-- ================================================================ -->
+<h2>文書C　除籍 千代田区飯田町 — 星野操 <span class="en">Document C — Chiyoda, the Tokyo household founded by marriage (Showa 30–62)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>東京都千代田区飯田町一丁目七番地二（町名変更により 九段北一丁目七番地二）</dd>
+<dt>氏名</dt><dd>星野 操</dd>
+<dt>戸籍事項</dt><dd>婚姻の届出により昭和30年12月19日、夫婦につき本戸籍編製。滅失の虞あるため命により昭和39年<span class="u">5月</span>本戸籍再製。昭和62年6月27日、茨城県牛久市牛久町二千四百三十四番地の三に転籍届出、同年7月3日同市長から送付消除</dd>
+<dt>認証</dt><dd>平成22年10月20日　千代田区長 石川雅己（除籍の原本と相違ないことを認証）</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>記録されている者</th><th>記載事項</th></tr></thead>
+<tbody>
+<tr><th>操</th><td>大正13年1月1日生／父 亡星野多喜造／母 <span class="u">きよ</span>／長男<br>
+<ul class="events">
+<li>大正13年1月1日、茨城県真壁郡上野村大字向上野弐百参番地で出生。父届出により入籍</li>
+<li>昭和30年12月19日、眞島ヨイと婚姻届出。茨城県真壁郡明野村大字宮山七百拾四番地の二 星野正憲戸籍より入籍</li>
+</ul></td></tr>
+<tr><th>妻 ヨイ</th><td>昭和8年12月16日生／父 眞島音次郎／母 タツ／五女<br>
+<ul class="events">
+<li>昭和8年12月16日、東京市京橋区で出生。同月22日父届出、同月30日同区長から送付入籍</li>
+<li>昭和30年12月19日、星野操と婚姻届出。同区飯田町一丁目七番地二 眞島音次郎戸籍より入籍</li>
+</ul></td></tr>
+<tr><th>長男 晃一郎（除籍）</th><td>昭和31年3月9日生／父 星野操／母 ヨイ<br>
+<ul class="events">
+<li>昭和31年3月9日、東京都新宿区で出生。同月<span class="u">13日</span>父届出入籍</li>
+<li>昭和61年3月1日、<span class="u">大倉眞弓</span>と婚姻届出。同月5日川崎市麻生区長から送付、同区百合丘一丁目四番地に夫の氏の新戸籍編製につき除籍</li>
+</ul></td></tr>
+<tr><th>長女 有光子（除籍）</th><td>昭和33年7月13日生／父 星野操／母 ヨイ<br>
+<ul class="events">
+<li>昭和33年7月13日、東京都<span class="u">千代田区</span>で出生。同月<span class="u">22日</span>父届出入籍</li>
+<li>昭和58年11月6日、石川逸夫と婚姻届出。同月11日茨城県稲敷郡牛久町長から送付、同町大字田宮百三十七番地の五十八に夫の氏の新戸籍編製につき除籍</li>
+</ul></td></tr>
+</tbody></table></div>
+
+<!-- ================================================================ -->
+<h2>文書D　除籍 真壁郡上野村向上野 — 戸主 星野八郎 <span class="en">Document D — Mukai-Ueno, the household of Hachirō (Meiji era)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城縣眞壁郡上野村大字向上野三拾八番屋敷</dd>
+<dt>前戸主</dt><dd>星野 久造</dd>
+<dt>戸主</dt><dd>星野 八郎（久造の長男）</dd>
+<dt>戸籍事項</dt><dd>明治<span class="u">39年</span>3月、前戸主久造の<span class="u">隠居</span>により八郎が家督相続。〔　〕年、上野村大字向上野弐百参番地へ転籍。大正<span class="u">4年</span>以降の事項は文書Eへ続く</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>続柄</th><th>氏名</th><th>生年月日</th><th>父母・備考</th></tr></thead>
+<tbody>
+<tr><th>戸主</th><td>八郎</td><td>明治元年<span class="u">2月12日</span></td><td>父 久造（長男）</td></tr>
+<tr><th>父</th><td>久造</td><td>天保14年3月3日</td><td>前戸主</td></tr>
+<tr><th>母</th><td><span class="u">ます</span></td><td>弘化<span class="u">4年</span></td><td>〔　〕</td></tr>
+<tr><th>妻</th><td><span class="u">ます</span></td><td>〔　〕</td><td>父 飯村吉十郎、弐女（文書Eの「祖母 ます」と同一人物）</td></tr>
+<tr><th>長女</th><td>〔　〕</td><td>明治<span class="u">24年1月1日</span></td><td>他家へ婚姻により除籍</td></tr>
+<tr><th>次女</th><td>〔　〕</td><td>明治<span class="u">27年</span></td><td>他家へ婚姻により除籍</td></tr>
+<tr><th>長男</th><td>多喜造</td><td>明治29年3月12日</td><td>のち戸主（文書E）</td></tr>
+<tr><th>次男</th><td>和一</td><td>明治32年11月5日</td><td>〔　〕</td></tr>
+<tr><th>参女</th><td>きみ</td><td>明治34年9月5日</td><td>〔　〕</td></tr>
+<tr><th>参男</th><td>登代三郎</td><td>明治36年6月5日</td><td>妻 <span class="u">イ子</span>（父 谷口豊、参女）、長女 恵美子</td></tr>
+<tr><th>婦（多喜造妻）</th><td>さく</td><td>明治<span class="u">30年</span></td><td>父 <span class="u">武井</span>某、参女。大正<span class="u">11年</span>死亡と読める</td></tr>
+<tr><th>婦（多喜造妻）</th><td>きよ</td><td>明治28年1月11日</td><td>父 谷田部仙松、長女。結城郡豊加美村大字谷田部から入籍</td></tr>
+<tr><th>孫</th><td>美知</td><td>大正4年1月3日</td><td>父 多喜造 母 さく、長女</td></tr>
+<tr><th>孫</th><td>正憲</td><td>大正9年2月17日</td><td>父 多喜造 母 さく、長男</td></tr>
+<tr><th>孫</th><td>操</td><td>大正13年1月1日</td><td>父 多喜造 母 <span class="u">さく</span>、弐男（戸籍の続柄）</td></tr>
+<tr><th>孫</th><td>善紀</td><td>大正<span class="u">15年3月</span></td><td>父 多喜造 母 <span class="u">さく</span>、参男</td></tr>
+<tr><th>孫</th><td>孝子</td><td>昭和3年<span class="u">8月4日</span></td><td>父 多喜造 母 きよ</td></tr>
+<tr><th>孫</th><td>智子</td><td>昭和5年<span class="u">8月4日</span></td><td>父 多喜造 母 きよ</td></tr>
+<tr><th>孫</th><td>恵美子</td><td>昭和<span class="u">3年</span></td><td>父 登代三郎 母 <span class="u">イ子</span>、長女</td></tr>
+</tbody></table></div>
+
+<p class="note">「八郎」の下に「久造」が父として立っているので、久造が高祖父、八郎が曾祖父。八郎の妻ますは、文書E・Fで「祖母」「曽祖母」として昭和まで生きて記載されている。</p>
+
+<!-- ================================================================ -->
+<h2>文書E　除籍 真壁郡上野村向上野203番地 — 戸主 星野多喜造 <span class="en">Document E — Mukai-Ueno 203, the household of Takizō (Taishō – early Shōwa)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城縣眞壁郡上野村大字向上野弐百参番地</dd>
+<dt>前戸主</dt><dd>星野 八郎</dd>
+<dt>戸主</dt><dd>星野 多喜造（八郎の長男、明治29年3月12日生）</dd>
+<dt>戸籍事項</dt><dd>大正<span class="u">5年</span>〔　〕月、前戸主八郎の死亡により家督相続届出。昭和5年7月29日、東京府北豊島郡南千住町下谷通新八拾九番地に転籍届出、同月31日同町長岡崎直受附、送付により消除</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>続柄</th><th>氏名</th><th>生年月日</th><th>父母・備考</th></tr></thead>
+<tbody>
+<tr><th>戸主</th><td>多喜造</td><td>明治29年3月12日</td><td>父 亡星野八郎 母 ます、長男</td></tr>
+<tr><th>祖母</th><td>ます</td><td>弘化<span class="u">4年3月3日</span></td><td>父 飯村吉十郎、弐女</td></tr>
+<tr><th>妻</th><td>きよ</td><td>明治28年1月11日</td><td>父 谷田部仙松、長女。結城郡豊加美村大字谷田部百拾四番地 戸主谷田部唯一の妹。大正<span class="u">12年1月11日</span>婚姻届出入籍</td></tr>
+<tr><th>長女</th><td>美知</td><td>大正4年1月3日</td><td>母 さく</td></tr>
+<tr><th>長男</th><td>正憲</td><td>大正9年2月17日</td><td>母 さく</td></tr>
+<tr><th>弐男</th><td>操</td><td>大正13年1月1日</td><td>母 <span class="u">さく</span>。昭和2年10月30日父届出入籍</td></tr>
+<tr><th>参男</th><td>善紀</td><td>大正<span class="u">15年3月</span></td><td>母 <span class="u">さく</span></td></tr>
+<tr><th>弐女</th><td>孝子</td><td>昭和3年<span class="u">8月4日</span></td><td>母 きよ</td></tr>
+<tr><th>参女</th><td>智子</td><td>昭和5年<span class="u">8月4日</span></td><td>母 きよ</td></tr>
+<tr><th>四女</th><td>澄子</td><td>昭和8年10月28日</td><td>母 きよ</td></tr>
+<tr><th>五女</th><td>芳子</td><td>昭和10年7月2日</td><td>母 きよ</td></tr>
+</tbody></table></div>
+
+<p class="note">この戸籍には「さく」の名が妻欄になく、事項欄に死亡の記載が残るだけ。大正の終わりに前妻さくを亡くし、きよを迎えて、昭和5年に一家で東京の南千住へ移った——そう読める。操の母欄だけが「さく」と「きよ」で揺れる理由は、ここにありそうだ。</p>
+
+<!-- ================================================================ -->
+<h2>文書F　改製原戸籍 上野村向上野203番地 — 戸主 星野正憲 <span class="en">Document F — Masanori succeeds; the house moves to Minami-Senju and back to Miyayama (Shōwa 11–)</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城縣眞壁郡上野村大字向上野弐百参番地（転籍前）</dd>
+<dt>前戸主</dt><dd>星野 多喜造</dd>
+<dt>戸主</dt><dd>星野 正憲（多喜造の長男、大正9年2月17日生）</dd>
+<dt>戸籍事項</dt><dd>昭和11年11月10日、前戸主多喜造の死亡により家督相続届出。〔　〕年、眞壁郡明野村大字宮山参百拾四番地ノ弐に転籍。昭和32年法務省令第27号により改製</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>続柄</th><th>氏名</th><th>生年月日</th><th>父母・備考</th></tr></thead>
+<tbody>
+<tr><th>戸主</th><td>正憲</td><td>大正9年2月17日</td><td>父 亡星野多喜造 母 亡さく、長男</td></tr>
+<tr><th>曽祖母</th><td>ます</td><td>弘化<span class="u">4年3月3日</span></td><td>父 飯村吉十郎、弐女</td></tr>
+<tr><th>継母</th><td>きよ</td><td>明治28年1月11日</td><td>父 谷田部仙松、長女。大正<span class="u">12年</span>1月11日 星野多喜造と婚姻届出入籍。昭和11年11月10日 夫多喜造死亡</td></tr>
+<tr><th>姉</th><td>美知</td><td>大正4年1月3日</td><td>母 さく</td></tr>
+<tr><th>弟</th><td>操</td><td>大正13年1月1日</td><td>母 <span class="u">さく</span>。昭和30年12月19日婚姻により東京都千代田区飯田町へ除籍</td></tr>
+<tr><th>弟</th><td>善紀</td><td>大正<span class="u">15年3月</span></td><td>母 <span class="u">さく</span></td></tr>
+<tr><th>妹</th><td>孝子</td><td>昭和3年<span class="u">8月4日</span></td><td>母 きよ</td></tr>
+<tr><th>妹</th><td>智子</td><td>昭和5年<span class="u">8月4日</span></td><td>母 きよ</td></tr>
+<tr><th>妹</th><td>澄子</td><td>昭和8年10月28日</td><td>母 きよ</td></tr>
+<tr><th>妹</th><td>芳子</td><td>昭和10年7月2日</td><td>母 きよ</td></tr>
+</tbody></table></div>
+
+<p class="note">多喜造の死亡が昭和11年11月10日。操は12歳、小学6年生の秋にあたる。「父が小学生のときに祖父が亡くなった」という家の記憶と、戸籍の日付が一致する。</p>
+
+<!-- ================================================================ -->
+<h2>文書G　改製原戸籍 真壁郡明野村宮山314番地ノ2 — 戸主 星野正憲 <span class="en">Document G — Miyayama, the postwar household of Masanori</span></h2>
+
+<div class="doc">
+<dl>
+<dt>本籍</dt><dd>茨城縣眞壁郡明野村大字宮山参百拾四番地ノ弐（のち七百十四番地の二に地番変更）</dd>
+<dt>前戸主</dt><dd>星野 多喜造</dd>
+<dt>戸主</dt><dd>星野 正憲</dd>
+<dt>戸籍事項</dt><dd>昭和32年法務省令第27号による改製。昭和<span class="u">40年</span>〔　〕月、改製につき消除</dd>
+<dt>交付</dt><dd>令和8年2月12日　茨城県筑西市長（原戸籍の原本と相違ないことを認証）</dd>
+</dl>
+</div>
+
+<div class="wrap"><table>
+<thead><tr><th>続柄</th><th>氏名</th><th>生年月日</th><th>父母・備考</th></tr></thead>
+<tbody>
+<tr><th>戸主</th><td>正憲</td><td>大正9年2月17日</td><td>父 亡星野多喜造 母 亡さく</td></tr>
+<tr><th>妻</th><td><span class="u">カツ</span></td><td>大正<span class="u">11年</span></td><td>父 <span class="u">木村</span>某、長女</td></tr>
+<tr><th>継母</th><td>きよ</td><td>明治28年1月11日</td><td>父 谷田部仙松、長女</td></tr>
+<tr><th>弟</th><td>操</td><td>大正13年1月1日</td><td>昭和30年12月19日婚姻により除籍</td></tr>
+<tr><th>弟</th><td>善紀</td><td>大正<span class="u">15年</span></td><td>〔　〕</td></tr>
+<tr><th>妹</th><td>孝子</td><td>昭和3年</td><td>婚姻により除籍</td></tr>
+<tr><th>妹</th><td>智子</td><td>昭和5年</td><td>婚姻により除籍</td></tr>
+<tr><th>妹</th><td>澄子</td><td>昭和8年10月28日</td><td>婚姻により除籍</td></tr>
+<tr><th>妹</th><td>芳子</td><td>昭和10年7月2日</td><td>婚姻により除籍</td></tr>
+</tbody></table></div>
+
+<p class="note">この文書は写真の向きと紙の色の影響で、事項欄の大半を読み切れていない。正憲さんの妻の名と生年、善紀さんの事項は原本で確認が要る。</p>
+
+<!-- ================================================================ -->
+<h2>本籍の移動 <span class="en">Where the register lived</span></h2>
+
+<div class="wrap"><table>
+<thead><tr><th>時期</th><th>本籍</th><th>戸主・筆頭者</th><th>出来事</th></tr></thead>
+<tbody>
+<tr><td>明治〜</td><td>真壁郡上野村大字向上野 三拾八番屋敷</td><td>久造 → 八郎</td><td>久造の隠居により八郎が家督相続</td></tr>
+<tr><td>大正</td><td>真壁郡上野村大字向上野 弐百参番地</td><td>八郎 → 多喜造</td><td>八郎没。多喜造が家督相続。前妻さく没、きよを迎える。操出生（大正13年）</td></tr>
+<tr><td>昭和5年7月</td><td>東京府北豊島郡南千住町下谷通新 八拾九番地</td><td>多喜造</td><td>一家で東京へ転籍</td></tr>
+<tr><td>昭和11年11月</td><td>（南千住）</td><td>多喜造 → 正憲</td><td>多喜造没。長男正憲が家督相続</td></tr>
+<tr><td>戦前〜戦後</td><td>真壁郡明野村大字宮山 314番地ノ2（→714番地の2）</td><td>正憲</td><td>茨城へ戻る</td></tr>
+<tr><td>昭和30年12月</td><td>東京都千代田区飯田町一丁目 7番地2（→九段北）</td><td>操</td><td>眞島ヨイと婚姻、新戸籍。晃一郎（昭和31年）・有光子（昭和33年）出生</td></tr>
+<tr><td>昭和62年6月</td><td>茨城県牛久市牛久町 2434番地3</td><td>操</td><td>牛久へ転籍。操没（平成22年）、ヨイ没（令和5年）、戸籍消除</td></tr>
+</tbody></table></div>
+
+<h2>戸籍の外側にあること <span class="en">What the register does not say</span></h2>
+
+<h3>飯田町一丁目七番地二は、母の実家だった</h3>
+<p>父母が昭和30年に籍を置いた千代田区飯田町一丁目七番地二は、母方・眞島家の実家である。文書Aでヨイの従前戸籍が「飯田町一丁目7番地2 眞島音次郎」となっているのはそのためで、操は婚姻のとき妻の実家の住所に自分の戸籍を立てた。私も結婚して家を出るまで、本籍はここにあった。</p>
+<p>実際には先日亡くなった美代子おばの家族も同じ家に住んでいて、本当の大家族だったと聞いている。戸籍は家ごとに一枚だから、同じ屋根の下にいた人たちは別々の紙に分かれて載る。紙を並べ直さないと、暮らしの実態は見えてこない。</p>
+
+<h3>祖母きよの「品川」</h3>
+<p>祖母きよは、娘たち——私の叔母たち——が結婚して出ていくまで品川にいた、という記憶が私にはある。ところが7通のどこにも品川という本籍は出てこない。向上野、南千住、宮山、飯田町、牛久。品川だけが記憶の側にしかない。</p>
+<p>手書きの事項欄に「東京市品川區大井」と読める箇所が一か所ある（文書E、<span class="u">判読不確か</span>）。本籍ではなく住所として品川に住んでいた時期があったのかもしれない。原本が戻ったら、ここを最初に確かめる。</p>
+<p>大井には、もうひとつ縁がある。義母が千葉に戻るまで長く住んだ土地であり、妻にとってもなじみの地域だ。祖母きよの品川と、義母の大井が、同じ場所を指していた。縁というのはどうつながっているのか。面白いとも、不思議とも思う。</p>
+
+<h3>正憲さんのこと</h3>
+<p>正憲さんには一度だけ会っている。大学生のころ、母方の従姉から「ボランティアで高島平の団地に歌いに行くから伴奏してほしい」と頼まれた。幼なじみの喜美子の母が経営する印刷会社に勤める男性の家族が、高島平の祭りで催すイベントだった。打ち合わせで何度か高島平に通ううちに、責任者が星野正憲という人だと聞いた。母親がきよ、息子が操一。それは親戚ではないか、という話になり、一度お会いして話を聞いた。中央大学の職員を引退するころで、長男がすでに中央大学に勤めているとのことだった。</p>
+<p>父母にもその話をしたが、その後つながりが続いた様子はない。それくらいの薄い関係だったのだと思う。</p>
+<p>ただ、会っておいてよかったと今でも思う。正憲さんは星野家の<ruby>領袖<rt>りょうしゅう</rt></ruby>だった。文書F・Gの戸主は正憲であり、昭和11年に父・多喜造を亡くして16歳で家督を相続し、弟妹と曽祖母と継母を抱えて本籍を宮山へ戻した人である。父・操は自分の戸籍（文書A〜C）では「長男」と記されているが、多喜造の戸籍（文書D〜F）では「弐男」。一応長男だが、実質は次男。伊勢原の墓は本家の墓ではなく、分家の、そのまた分家の墓だ。</p>
+<p>「長男が墓を守る」という古い日本のしきたりは、この家にそのまま当てはまらない。それを自分の目で確かめるために正憲さんに会えたのだ、という自負が私にはある。今回の墓じまいは、その確認の延長線上にある。</p>
+
+<h3>長男の顔と、次男の顔</h3>
+<p>父には、長男とも次男とも取れる人格があったように記憶している。妹たちの前ではいつもにこにこして、口数の少ない優しい兄だった。甥や姪の面倒見も良く、ユーモアたっぷりの柔らかい面があった。一方で、<ruby>野間<rt>のま</rt></ruby>道場の稽古では、マナーの悪い相手にのしかかって押さえつける血気盛んな、ある意味どう猛な面も見たことがある。</p>
+<figure style="margin:1.25rem 0;background:#fff;border:1px solid var(--line);border-radius:4px;padding:.75rem">
+  <img src="https://picture.digiterior.net/father-noma-dojo.jpg" alt="野間道場の床に正座する父・星野操一。背後に道場の鏡と額。" style="max-width:100%;height:auto;display:block;border-radius:2px">
+  <figcaption style="font-size:.85rem;color:#555;margin-top:.5rem">野間道場にて。父・星野操一（剣道六段錬士）。戸籍の名は「操」。成人してから自分で「一」を足した。</figcaption>
+</figure>
+<p>この写真は、どちらにも見える顔と<ruby>佇<rt>たたず</rt></ruby>まいをしている。戸籍が「長男」と「弐男」で揺れているのと同じように、父の中にも二つの続柄が同居していた。家を背負う兄の顔と、兄の背中を見て育った弟の顔と。床の話と通信兵の話は、<a href="https://notes.digiterior.net/html-notes-father-soichi">父のページ「野間道場の床から見ていたもの」</a>に置いてある。</p>
+
+<h2>読み終えて <span class="en">A line that crosses the palm</span></h2>
+
+<p>戸籍は、人の一生を「入った」「出た」「死んだ」の三つの動詞で書く。それでも7通を並べると、向上野の屋敷から南千住へ、また宮山へ、飯田町へ、牛久へと、家が呼吸するように動いているのが見える。久造が天保に生まれ、ヨイが令和に逝くまでの180年。</p>
+
+<p>伊勢原の合葬墓に操・きよ・ヨイを移す。分家の分家の墓を閉じて、他家の人たちと一緒の墓に入れる。32世代さかのぼれば祖先は42億人を超え、系図はどこかで必ず重なる。親戚でなくても、同じ祖先を持つ人たちと並ぶだけだと思えば、墓を閉じることと祖先を敬うことは矛盾しない。</p>
+<p>墓は閉じるが、記録は閉じない。この一枚を、親戚の誰かが自分の名前を探しながら読んでくれればいい。</p>
+
+<p>出典の原本は妹が保管し、改葬申請のため伊勢原市へ一時提出する。判読不確かな箇所（点線）と空欄〔　〕は、原本が戻り次第、あらためて埋める。</p>
+
+<div class="note">
+<p><strong>つながる記録</strong></p>
+<p><a href="https://notes.digiterior.net/html-notes-father-soichi">野間道場の床から見ていたもの — 父・星野操一の十七回忌に</a><br>
+<a href="https://notes.digiterior.net/html-notes-mother-yoi">母ヨイを見送った日の言葉</a></p>
+</div>
+
+<footer>
+  <p><span class="tag">Digiterior Studio</span>　星野晃一郎 ／ 2026年10月7日</p>
+  <p>Love your life, love your time®</p>
+</footer>
+
+</main>
+</body>
+</html>
