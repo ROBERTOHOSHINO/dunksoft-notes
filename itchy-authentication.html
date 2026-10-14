@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>チクチクする認証 ── サリエンシーと、返されるべき暇について｜html-notes</title>
+<style>
+  :root{
+    --ivory:#E8E0D0;   /* マッコウクジラの象牙：地 */
+    --indigo:#1A237E;  /* 神田祭の深い藍：主 */
+    --gold:#F9A825;    /* 柳森神社の薔薇／「網」の金：要点一箇所のみ */
+    --ink:#2B2B2B;
+    color-scheme: light;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ivory);color:var(--ink);
+    font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Inter,"Noto Sans",sans-serif;
+    line-height:1.9;font-size:17px}
+  main{max-width:720px;margin:0 auto;padding:48px 22px 64px}
+  .meta{font-size:13px;color:var(--indigo);letter-spacing:.08em;margin-bottom:28px}
+  h1{color:var(--indigo);font-size:26px;line-height:1.45;margin:0 0 6px;font-weight:700}
+  .sub{color:var(--indigo);font-size:18px;margin:0 0 36px;opacity:.85}
+  h2{color:var(--indigo);font-size:19px;margin:44px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(26,35,126,.25)}
+  h2 small{display:block;font-size:13px;font-weight:400;opacity:.75;letter-spacing:.04em}
+  p{margin:0 0 1.1em}
+  ul.keys{list-style:none;padding:0;margin:0 0 1.2em;display:flex;flex-wrap:wrap;gap:8px}
+  ul.keys li{border:1px solid var(--indigo);color:var(--indigo);border-radius:4px;padding:2px 10px;font-size:14px}
+  .spark{border-left:4px solid var(--gold);background:rgba(255,255,255,.55);padding:16px 18px;margin:28px 0;border-radius:2px}
+  .spark b{color:var(--indigo)}
+  rt{font-size:.55em;color:var(--indigo)}
+  .book{font-size:15px;background:rgba(255,255,255,.45);padding:12px 16px;border-radius:2px;margin:12px 0 20px}
+  footer{margin-top:56px;font-size:13px;color:var(--indigo);opacity:.8}
+</style>
+</head>
+<body>
+<main>
+  <div class="meta">html-notes ／ Smart Life Styles™ 素材メモ ／ 2026年10月14日</div>
+
+  <h1>Authentication that itches — on salience, and the leisure owed back to us</h1>
+  <p class="sub">チクチクする認証 ── サリエンシーと、返されるべき<ruby>暇<rt>ひま</rt></ruby>について</p>
+
+  <h2>体験<small>What happened today</small></h2>
+  <p>雨の豊洲。図書館9階の机からは、豊洲公園越しに豊洲大橋と海が見える。ここのWiFiは1時間ごとにリセットされる。</p>
+  <p>東京ガスにログインしようとした。まず、どのメールアドレスで登録したかが分からない。システムは知っているのに、教えてくれない。パスワードを打ち直す。10文字以上なのか、記号が要るのか要らないのか、それはリセット画面まで辿り着かないと分からない。知らないがゆえの試行錯誤が「失敗回数」として数えられ、上限を超えて、ロックされた。「しばらくお待ちください」──しばらくとは何分なのか、それも言わない。そしてこの一連の流れは、記録の上では私の過失になる。</p>
+  <p>AUからも連絡があった。支払いが請求書払いになっているという。法人契約なので、名刺か社員証を持ってきてほしいと。会社は今年の6月30日に解散した。もう存在しない会社の社員証を、どこから持ってくればいいのだろう。契約中の電話は手元にあり、本人確認書類もあり、払う意思を持って窓口まで行ったのに、受け取ってもらえない。請求書はまだ届いておらず、「月内に届くのでお待ちください」と言われた。払いたいのに、払えない。</p>
+  <p>実測してみると、いま私の労力のおよそ半分は、こうした認証と手続きの通過に使われている。時間だけでなく、ストレスも。</p>
+
+  <h2>問い<small>The question that surfaced</small></h2>
+  <ul class="keys">
+    <li>サリエンシー</li><li>チクチクするセーター</li><li>慣れの怖さ</li><li>必要悪？</li><li>奪う中断と返す中断</li><li>労力の半分</li>
+  </ul>
+  <div class="book">
+    <ruby>國分功一郎<rt>こくぶん こういちろう</rt></ruby>・<ruby>若林正恭<rt>わかばやし まさやす</rt></ruby>『<ruby>帳<rt>とばり</rt></ruby>の向こう』（文藝春秋）──チクチクするセーター、下着のタグ。大人は「気にならない」と言うが、それは慣れただけで、刺激そのものは消えていない。</div>
+  <p>認証も同じだ。私たちは「こういうものだから」と受忍している。必要悪くらいに思えてきた──と、今日の私も一度は諦めかけた。だが、この諦観こそが「慣れ」の入口ではないか。セーターのチクチクは、慣れても肌を刺し続けている。認証のチクチクは、慣れても人生の時間を削り続けている。</p>
+  <p>しかも構造が転倒している。システムが情報を出し惜しみするのは攻撃者に手がかりを与えないためだが、攻撃者は道具で総当たりするから痛くも痒くもない。痛いのは、記憶を頼りに手で入力する本人だけ。防御のコストを、守られるべき人が全額払っている。払う意思のある人が、払うことを拒絶されている。</p>
+  <p>一方で、同じ「中断」でも質の違うものがある。図書館の1時間リセットは、私を画面から引き剥がし、本棚へ向かわせた。そこで『星に名前をつけるなら』という本に出会い、北極星が8000年後にはデネブに交代することを知った。奪う中断と、返す中断。東京ガスのロックは時間を奪い、図書館のリセットは余白を返した。</p>
+
+  <div class="spark">
+    <b>Spark ─ 認証の失敗は、ユーザーの過失ではなく設計の過失である。</b><br>
+    記憶に合わせてシステムを設計するのではなく、システムの都合に記憶を合わせさせている──この転倒を直さない限り、デジタルは人を忙しくし続ける。チクチクの原因はセーターの側にあるのに、着る人の肌が弱いことにされている。
+  </div>
+
+  <h2>言葉<small>A word to carry forward</small></h2>
+  <p><b>Digital re-creation</b>、ふたたび。デジタルが本来返せるはずの暇を、いまは認証が食いつぶしている。通過することが目的化した手続きの向こうで、ゆっくり夕日を眺める時間が待っているはずだ。払いたい人が払え、入りたい本人が入れる。それだけのことが、まだ実現していない。</p>
+  <p>Love your life, love your time®</p>
+
+  <footer>Digiterior Studio ／ 星野晃一郎 ／ コラム化の素材メモ（Vol.番号は未付与）</footer>
+</main>
+</body>
+</html>
