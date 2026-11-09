@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A map that grows from footsteps — 歩いた人が育てる地図</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F2; --paper:#E8E0D0; --ink:#1F2233; --muted:#5A5E70;
+  --indigo:#1A237E; --gold:#F9A825; --glass:#1B6B5A; --line:#D9D0BE;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15172A; --paper:#20233A; --ink:#ECE6DA; --muted:#AEB0C0;
+    --indigo:#9FA8F0; --gold:#F9A825; --glass:#5FC2A6; --line:#33375A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15172A; --paper:#20233A; --ink:#ECE6DA; --muted:#AEB0C0;
+  --indigo:#9FA8F0; --gold:#F9A825; --glass:#5FC2A6; --line:#33375A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;
+  line-height:1.9;font-size:16.5px}
+main{max-width:760px;margin:0 auto;padding:40px 22px 64px}
+.kicker{font-size:13px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+h1{font-family:"Noto Serif JP",serif;color:var(--indigo);font-size:clamp(26px,5vw,36px);line-height:1.35;margin:.3em 0 .1em}
+.sub{font-size:clamp(17px,3.2vw,21px);color:var(--ink);margin:0 0 1.4em}
+.meta{font-size:13px;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:24px}
+.tabs{display:flex;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 0;z-index:5}
+.tabs button{font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--ink);
+  padding:6px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--indigo);border-color:var(--indigo);color:var(--bg)}
+section.lang{display:none}
+section.lang.active{display:block}
+h2{color:var(--indigo);font-size:20px;margin:2em 0 .4em;padding-left:12px;border-left:4px solid var(--indigo)}
+h2 .en{display:block;font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em}
+p{margin:.7em 0}
+rt{font-size:.55em;color:var(--muted)}
+.quote{font-family:"Noto Serif JP",serif;font-size:19px;color:var(--indigo);
+  margin:1.4em 0;padding:16px 20px;background:var(--paper);border-radius:6px;border-left:4px solid var(--gold)}
+.table-wrap{overflow-x:auto;margin:1em 0}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px;line-height:1.65}
+th{background:var(--indigo);color:var(--bg);text-align:left;font-weight:500;padding:8px 10px}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:.6em 0 1em}
+.chips span{border:1px solid var(--glass);color:var(--glass);border-radius:999px;padding:2px 12px;font-size:14px}
+ol.loop{padding-left:1.3em}
+ol.loop li{margin:.35em 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+footer .tag{color:var(--indigo);font-weight:500}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Smart Life Styles™ · html-notes</div>
+  <h1>A map that grows from footsteps</h1>
+  <p class="sub">歩いた人が育てる地図 ― シルバーパスで動く地図の企画</p>
+  <div class="meta">Digiterior Studio ／ 星野晃一郎 Roberto Hoshino ／ 2026年10月7日</div>
+
+  <nav class="tabs" role="tablist" aria-label="Language">
+    <button role="tab" aria-selected="true" data-lang="ja">日本語</button>
+    <button role="tab" aria-selected="false" data-lang="en">English</button>
+    <button role="tab" aria-selected="false" data-lang="es">Español</button>
+  </nav>
+
+  <!-- ===================== 日本語 ===================== -->
+  <section class="lang active" id="ja" lang="ja">
+    <h2>体験<span class="en">Experience</span></h2>
+    <p>10月から、東京都のシルバーパスを使い始めました。都営の地下鉄・バス・都電に加えて、都内の民営バスや東京BRTにも乗れます。無料であちこちへ行けて、地上を走るバスは意外と早い。少し歩けば都会は接続が良く、思ったより近いのです。</p>
+    <p>この日は<ruby>豊洲<rt>とよす</rt></ruby>から東京BRTで<ruby>虎ノ門<rt>とらのもん</rt></ruby>ヒルズへ。乗り換えなしで、前の席から景色を眺めながら都心に着きました。前方の席は眺めが良い代わりに座面が高く、乗り降りには注意が要ります。歩道橋を渡ると早く、横断歩道は平らで楽。帰りのバスは始発なので必ず座れる。午後は都営バスで東京駅八重洲口へ出て、ビルのラウンジの窓際で仕事をしました。昼休みが終わると電源のある席が空き、窓際は通信も安定していました。</p>
+    <p>バスの中には、杖をつく人、車椅子の方が二人、海外からの旅行者のペア。運転手さんは座席を畳み、ベルトで車椅子を固定していました。一台のバスに、この地図の使い手が全部乗っていたのです。</p>
+
+    <h2>問い<span class="en">Question</span></h2>
+    <p>ところが、シルバーパスで乗れる路線だけの地図がありません。経路検索は「最短時間」で選びますが、シニアの外出は「今日の条件」で選びます。雨なら地下通路、暑ければ日陰、腰が重い日は乗り換えの少ない始発のバス、元気な日はあえて歩道橋。同じ<ruby>柳森神社<rt>やなぎもりじんじゃ</rt></ruby>へ行くにも、平日は業10と新宿線、週末だけ走る急行06、階段を避けたい日はバスだけ、と三通りに分かれました。</p>
+    <p class="quote">都会は探せばある。なかなかシェアはされてない。</p>
+    <p>座れる場所も、充電できる場所も、乗れるバスも、すでに街の中にあります。足りないのは施設ではなく、使った人の経験を分かち合う仕組みです。では、誰がその地図を育て続けるのか。</p>
+    <div class="chips"><span>条件で変わるルート</span><span>行きたい場所から探す</span><span>立ち寄りオフィス</span><span>多世代の漢字あつめ</span></div>
+
+    <h2>仕組み<span class="en">How it keeps growing</span></h2>
+    <p>手本はGoogleマップです。渋滞した場所で「工事中ですか？」と聞かれ、「はい」を押すだけ。褒められるだけなのに、その一押しがドライバー全体の共有財産になります。</p>
+    <ol class="loop">
+      <li>その場で一問だけ聞く ―「今日も座れましたか？」</li>
+      <li>答えはワンタップか写真一枚</li>
+      <li>見返りは「あなたの確認で今日○人が助かりました」という一言</li>
+      <li>情報には最終確認日がつき、確認が途絶えた場所は自然に薄れて消える</li>
+    </ol>
+    <p>人口が減っていく社会では、公共交通もその情報も、誰かが提供してくれるのを待つだけでは続きません。道のゴミを一つ拾うような小さな行動でも、同じ未来を描く人が集まれば積み上がります。乗る人から運ぶ人へ「次の停留所から車椅子で乗ります」と伝われば、運転手さんの負担も軽くなります。</p>
+
+    <h2>実地の記録<span class="en">First field notes</span></h2>
+    <div class="table-wrap"><table>
+      <tr><th>場所・区間</th><th>歩いてわかったこと</th></tr>
+      <tr><td>豊洲 → 虎ノ門ヒルズ（BRT）</td><td>乗り換えなし。前方席は景色が良いが座面が高い</td></tr>
+      <tr><td>虎ノ門ヒルズのりば</td><td>豊洲行きは始発で座れる。夕方は約20分おき</td></tr>
+      <tr><td>西新橋のスペイン料理店</td><td>入口の段差にスロープがあり入りやすい</td></tr>
+      <tr><td>豊洲の図書館</td><td>約50席、最大5時間・3枠、コンセントあり、区のWi-Fiは1時間ごとに再接続</td></tr>
+      <tr><td>八重洲のビル 4階ラウンジ</td><td>窓際に電源席。昼休み明けに空く。窓際は通信が安定</td></tr>
+      <tr><td>同 3階・個室ブース</td><td>座席は多いが通信が弱い。個室の利用は電話番号とカード登録が必要</td></tr>
+    </table></div>
+
+    <h2>言葉<span class="en">Words</span></h2>
+    <p>ピラミッドは同じ形の石を揃えて積みます。<ruby>石垣<rt>いしがき</rt></ruby>は形も大きさも違う石を、向きを見ながら組み合わせて積みます。杖の人の「座れた」、車椅子の人の「段差がない」、旅行者の「わかりやすかった」、図書館で働く人の「電源があった」。形の違う経験が噛み合って、崩れない地図になる。</p>
+    <p class="quote">不揃いな石だからこそ、強い。</p>
+    <p>まずは自分が毎日使って便利な地図を、豊洲から小さく作ります。シニア起業家とClaudeだけで。</p>
+  </section>
+
+  <!-- ===================== English ===================== -->
+  <section class="lang" id="en" lang="en">
+    <h2>Experience</h2>
+    <p>In October I started using Tokyo's Silver Pass. It covers the Toei subway, buses and tram, and also the private bus lines inside the city and the Tokyo BRT. You can go almost anywhere for free, and the buses on the surface are faster than you would think. Walk a few minutes and the city connects well; places are closer than they look on a train map.</p>
+    <p>That day I rode the Tokyo BRT from Toyosu to Toranomon Hills, no transfers, watching the city from a front seat. The front seats have the best view but sit high, so getting on and off takes care. The footbridge is quicker; the crosswalk is flatter. The bus home starts at that stop, so a seat is guaranteed. In the afternoon a Toei bus took me to Tokyo Station's Yaesu side, where I worked by the window of a building lounge. After lunch hour the seats with power outlets opened up, and by the window the signal was steady.</p>
+    <p>On one bus: a passenger with a cane, two wheelchair users, a couple of travelers from abroad. The driver folded seats and strapped each wheelchair in place. Every future user of this map was riding the same bus.</p>
+
+    <h2>Question</h2>
+    <p>Yet there is no map that shows only what the Silver Pass covers. Route planners choose the fastest path; older people choose by today's conditions. Rain means underground passages. Heat means shade. A heavy day means a bus that starts here and needs no transfer. A good day means taking the footbridge on purpose. Just to reach Yanagimori Shrine, I found three answers: a bus plus the Shinjuku Line on weekdays, a weekend-only express bus, or buses alone when stairs are best avoided.</p>
+    <p class="quote">The city has it, if you look. It just isn't shared.</p>
+    <p>Places to sit, places to charge, buses you can ride: they already exist. What is missing is not facilities but a way to share what people learn by using them. So who will keep that map alive?</p>
+
+    <h2>How it keeps growing</h2>
+    <p>The model is Google Maps. Stuck in unusual traffic, you are asked, "Is there construction?" You tap yes. All you get is a thank-you, yet that tap becomes shared knowledge for every driver.</p>
+    <ol class="loop">
+      <li>Ask one question, on the spot: "Did you find a seat today?"</li>
+      <li>Answer with one tap or one photo</li>
+      <li>The reward is a line: "Your check helped this many people today"</li>
+      <li>Every entry shows when it was last confirmed; places nobody confirms fade out on their own</li>
+    </ol>
+    <p>As the population shrinks, public transport and its information cannot survive if we only wait for someone to provide them. Small acts, like picking up one piece of litter, add up when people picture the same future. And if a rider can tell the bus "a wheelchair is boarding at the next stop," the driver's work gets lighter too.</p>
+
+    <h2>Words</h2>
+    <p>A pyramid is built from identical blocks. A Japanese castle wall, <em>ishigaki</em>, is built from stones of every shape, each turned until it fits. The cane user's "I got a seat," the wheelchair user's "no step," the traveler's "easy to follow," the remote worker's "there was an outlet." Different experiences, fitted together, make a map that does not fall.</p>
+    <p class="quote">Uneven stones are what make the wall strong.</p>
+    <p>I will start small, from Toyosu, with a map I want to use every day. Built by one senior founder and Claude.</p>
+  </section>
+
+  <!-- ===================== Español ===================== -->
+  <section class="lang" id="es" lang="es">
+    <h2>Experiencia</h2>
+    <p>En octubre empecé a usar el Silver Pass de Tokio. Sirve en el metro, los autobuses y el tranvía de Toei, y también en los autobuses privados dentro de la ciudad y en el Tokyo BRT. Se puede ir a casi cualquier sitio gratis, y los autobuses que van por la superficie son más rápidos de lo que uno imagina. Caminando unos minutos, la ciudad está bien conectada; todo queda más cerca de lo que parece.</p>
+    <p>Ese día fui en el Tokyo BRT de Toyosu a Toranomon Hills, sin transbordos, mirando la ciudad desde un asiento delantero. Los asientos de delante tienen la mejor vista, pero son altos y hay que subir y bajar con cuidado. La pasarela peatonal es más rápida; el paso de cebra es más llano. El autobús de vuelta sale de esa misma parada, así que siempre hay asiento. Por la tarde, un autobús de Toei me llevó a la salida Yaesu de la estación de Tokio, donde trabajé junto a la ventana de un salón. Después de la hora de comer se liberaron los sitios con enchufe, y junto a la ventana la señal era estable.</p>
+    <p>En un solo autobús iban una persona con bastón, dos usuarios de silla de ruedas y una pareja de viajeros extranjeros. El conductor plegó asientos y sujetó cada silla con correas. Todos los futuros usuarios de este mapa viajaban juntos.</p>
+
+    <h2>Pregunta</h2>
+    <p>Sin embargo, no existe un mapa que muestre solo lo que cubre el Silver Pass. Los buscadores de rutas eligen el camino más corto; las personas mayores eligen según las condiciones del día. Si llueve, pasos subterráneos. Si hace calor, sombra. Si el cuerpo pesa, un autobús que sale de aquí y sin transbordos. Si uno está bien, la pasarela, a propósito. Solo para llegar al santuario Yanagimori encontré tres respuestas: autobús y línea Shinjuku entre semana, un autobús exprés que solo circula el fin de semana, o únicamente autobuses cuando conviene evitar escaleras.</p>
+    <p class="quote">La ciudad lo tiene, si uno busca. Lo que falta es compartirlo.</p>
+    <p>Lugares para sentarse, para cargar el móvil, autobuses en los que subir: ya existen. Lo que falta no son instalaciones, sino una manera de compartir lo que aprende quien los usa. ¿Quién mantendrá vivo ese mapa?</p>
+
+    <h2>Cómo sigue creciendo</h2>
+    <p>El modelo es Google Maps. En un atasco inesperado te pregunta: «¿Hay obras?». Tocas «sí». Solo recibes un agradecimiento, y aun así ese toque se convierte en un bien común para todos los conductores.</p>
+    <ol class="loop">
+      <li>Una sola pregunta, en el lugar: «¿Encontró asiento hoy?»</li>
+      <li>Se responde con un toque o una foto</li>
+      <li>La recompensa es una frase: «Su confirmación ayudó hoy a tantas personas»</li>
+      <li>Cada dato muestra cuándo se confirmó por última vez; lo que nadie confirma se desvanece solo</li>
+    </ol>
+    <p>Con una población que disminuye, el transporte público y su información no pueden sostenerse si solo esperamos a que alguien los ofrezca. Gestos pequeños, como recoger un papel de la calle, se suman cuando la gente imagina el mismo futuro. Y si un pasajero puede avisar «en la próxima parada sube una silla de ruedas», el trabajo del conductor también se aligera.</p>
+
+    <h2>Palabras</h2>
+    <p>Una pirámide se levanta con bloques iguales. El muro de un castillo japonés, el <em>ishigaki</em>, se levanta con piedras de todas las formas, giradas hasta que encajan. El «encontré asiento» de quien usa bastón, el «no hay escalón» de quien va en silla, el «fácil de seguir» del viajero, el «había enchufe» de quien trabaja fuera de casa. Experiencias distintas, encajadas, hacen un mapa que no se cae.</p>
+    <p class="quote">Las piedras desiguales son las que hacen fuerte el muro.</p>
+    <p>Empezaré en pequeño, desde Toyosu, con un mapa que yo mismo quiera usar cada día. Hecho por un fundador mayor y Claude.</p>
+  </section>
+
+  <footer>
+    Digiterior Studio ／ 星野晃一郎 Roberto Hoshino ／ 2026-10-07<br>
+    <span class="tag">Love your life, love your time®</span>
+  </footer>
+</main>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tabs button');
+  function show(lang){
+    tabs.forEach(function(b){b.setAttribute('aria-selected', b.dataset.lang===lang ? 'true':'false');});
+    document.querySelectorAll('section.lang').forEach(function(s){s.classList.toggle('active', s.id===lang);});
+    document.documentElement.lang=lang;
+    try{localStorage.setItem('notes-lang',lang);}catch(e){}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.lang);});});
+  try{var saved=localStorage.getItem('notes-lang'); if(saved && document.getElementById(saved)) show(saved);}catch(e){}
+})();
+</script>
+</body>
+</html>
