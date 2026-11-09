@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A map that moves with the Silver Pass ── シルバーパスで動く地図｜html-notes</title>
+<meta name="description" content="シルバーパスで乗れる路線だけで、その日の調子に合わせて道を選ぶ地図の試作。豊洲から。Digiterior Studio。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --panel:#F3EEE3; --ink:#1E2130; --muted:#5B5F70; --line:#DCD3C2;
+  --indigo:#1A237E; --on-indigo:#FFFFFF; --gold:#F9A825; --glass:#1B6B5A; --warn:#8A5A00;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14162A; --panel:#1F2238; --ink:#EEE8DC; --muted:#AEB1C2; --line:#353A5C;
+    --indigo:#A8B0F5; --on-indigo:#14162A; --gold:#F9A825; --glass:#62C4A8; --warn:#F2C46B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14162A; --panel:#1F2238; --ink:#EEE8DC; --muted:#AEB1C2; --line:#353A5C;
+  --indigo:#A8B0F5; --on-indigo:#14162A; --gold:#F9A825; --glass:#62C4A8; --warn:#F2C46B;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;
+  font-size:18px;line-height:1.75}
+main{max-width:640px;margin:0 auto;padding:28px 18px 56px}
+h1{font-size:26px;line-height:1.4;margin:0 0 4px;color:var(--indigo)}
+.lead{margin:0 0 24px;color:var(--muted);font-size:16px}
+h2{font-size:20px;margin:32px 0 12px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* condition picker */
+.conds{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cond{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:10px 4px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;min-height:76px}
+.cond .k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900;font-size:28px;line-height:1}
+.cond .t{font-size:14px;color:var(--muted)}
+.cond[aria-pressed="true"]{border-color:var(--indigo);background:var(--indigo);color:var(--on-indigo)}
+.cond[aria-pressed="true"] .t{color:var(--on-indigo)}
+.day{display:flex;gap:8px;margin-top:10px;font-size:15px;align-items:center;color:var(--muted)}
+.day button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 14px;min-height:40px}
+.day button[aria-pressed="true"]{border-color:var(--glass);color:var(--glass);font-weight:700}
+
+/* destinations */
+.dests{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.dest{flex:0 0 auto;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;min-height:64px}
+.dest .k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900;font-size:34px;line-height:1;color:var(--indigo)}
+.dest .n{font-size:15px;line-height:1.3;text-align:left}
+.dest[aria-pressed="true"]{border-color:var(--indigo);box-shadow:inset 0 0 0 1px var(--indigo)}
+
+/* route: the memorable part — a line of big kanji stops */
+.route{background:var(--panel);border-radius:18px;padding:20px 18px 14px;margin-top:16px}
+.route-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.route-title{font-weight:700;font-size:19px}
+.route-time{color:var(--muted);font-size:15px}
+.why{margin:6px 0 14px;font-size:16px;color:var(--glass);font-weight:500}
+ol.line{list-style:none;margin:0;padding:0;position:relative}
+ol.line li{display:grid;grid-template-columns:64px 1fr;column-gap:14px;position:relative}
+.stop .kanji{width:64px;height:64px;border-radius:50%;border:3px solid var(--indigo);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900;font-size:34px;color:var(--indigo);z-index:1}
+.stop .label{align-self:center}
+.stop .label b{font-size:18px}
+.stop .label small{display:block;color:var(--muted);font-size:13px;letter-spacing:.02em}
+.leg{min-height:58px}
+.leg .rail{width:64px;display:flex;justify-content:center}
+.leg .rail span{width:6px;border-radius:3px;background:var(--indigo)}
+.leg.walk .rail span{background:repeating-linear-gradient(var(--muted) 0 6px,transparent 6px 12px);width:4px}
+.leg .how{padding:8px 0;font-size:16px}
+.leg .how .mode{display:inline-block;font-weight:700;border-radius:6px;padding:0 8px;margin-right:6px;
+  border:1.5px solid currentColor;font-size:14px}
+.leg.bus .mode{color:var(--indigo)} .leg.subway .mode{color:var(--glass)} .leg.walk .mode{color:var(--muted)}
+.leg .how em{display:block;font-style:normal;font-size:15px;color:var(--muted);margin-top:2px}
+.free{display:inline-block;margin-top:12px;font-size:15px;font-weight:700;color:var(--glass)}
+.tips{margin:14px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.tips li{padding:10px 0 10px 18px;border-bottom:1px solid var(--line);font-size:16px;position:relative}
+.tips li::before{content:"";position:absolute;left:2px;top:20px;width:8px;height:8px;border-radius:50%;background:var(--glass)}
+.tips li.hl::before{background:var(--gold)}
+.tips li.unk{color:var(--warn)}
+.tips li.unk::before{background:var(--warn)}
+.memory{margin-top:14px}
+.memory label{font-size:15px;color:var(--muted);display:block;margin-bottom:4px}
+.memory textarea{width:100%;min-height:64px;border:1px solid var(--line);border-radius:10px;padding:10px;
+  font:inherit;font-size:16px;background:var(--bg);color:var(--ink);resize:vertical}
+
+/* places */
+.place{border-top:1px solid var(--line);padding:16px 0}
+.place:last-child{border-bottom:1px solid var(--line)}
+.place-head{display:flex;gap:12px;align-items:center}
+.place-head .k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900;font-size:26px;color:var(--glass);
+  width:44px;height:44px;border:2px solid var(--glass);border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.place-head b{font-size:18px;line-height:1.35}
+.facts{margin:8px 0 0 56px;padding:0;list-style:none;font-size:16px}
+.facts li{margin:2px 0}
+.confirm{margin:12px 0 0 56px}
+.confirm p{margin:0 0 8px;font-size:16px}
+.confirm .btns{display:flex;gap:8px;flex-wrap:wrap}
+.confirm button{border:2px solid var(--indigo);background:var(--bg);color:var(--indigo);border-radius:12px;
+  padding:8px 16px;min-height:48px;font-weight:700}
+.confirm button.no{border-color:var(--line);color:var(--muted)}
+.confirm .state{font-size:14px;color:var(--muted);margin-top:8px}
+.thanks{margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--panel);font-size:16px;border-left:4px solid var(--gold)}
+footer{margin-top:40px;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.kicker{font-size:14px;color:var(--muted);margin:0 0 10px}
+.en-title{font-size:15px;color:var(--muted);margin:0 0 2px;letter-spacing:.02em}
+.intro{background:var(--panel);border-radius:14px;padding:14px 16px;margin:0 0 8px;font-size:16px}
+.intro p{margin:.4em 0}
+footer a{color:var(--indigo)}
+footer .tag{color:var(--indigo);font-weight:500}
+
+@media (max-width:380px){ .cond .k{font-size:24px} .stop .kanji{width:56px;height:56px;font-size:30px}
+  ol.line li{grid-template-columns:56px 1fr} .leg .rail{width:56px} }
+@media (prefers-reduced-motion: no-preference){ .thanks{animation:pop .25s ease-out} @keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}} }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">html-notes ／ Smart Life Styles™ ／ 2026年11月9日 ／ 試作版</p>
+  <p class="en-title">A map that moves with the Silver Pass</p>
+  <h1>シルバーパスで動く地図</h1>
+  <p class="lead">豊洲から。乗れるのはシルバーパスで乗れる路線だけ。その日の調子に合わせて道を選びます。</p>
+  <div class="intro">
+    <p>乗換案内は「最短時間」で道を選びます。でもシニアの外出は「今日の条件」で選びます。雨なら地下通路、しんどい日は始発のバス、元気な日はあえて歩道橋。</p>
+    <p>ここに載っているのは、実際にシルバーパスで乗って、歩いて確かめたことだけです。まだ確かめていないことは「未確認」と書いてあります。歩いたら、ぜひ教えてください。</p>
+  </div>
+
+  <h2>今日の調子は？</h2>
+  <div class="conds" role="group" aria-label="今日の調子">
+    <button class="cond" data-cond="hare" aria-pressed="true"><span class="k">晴</span><span class="t">晴れ・普通</span></button>
+    <button class="cond" data-cond="ame" aria-pressed="false"><span class="k">雨</span><span class="t">雨の日</span></button>
+    <button class="cond" data-cond="shindoi" aria-pressed="false"><span class="k">楽</span><span class="t">しんどい</span></button>
+    <button class="cond" data-cond="kitaeru" aria-pressed="false"><span class="k">歩</span><span class="t">鍛える</span></button>
+  </div>
+  <div class="day" role="group" aria-label="曜日">
+    <span>今日は</span>
+    <button data-day="weekday" aria-pressed="true">平日</button>
+    <button data-day="weekend" aria-pressed="false">土休日</button>
+  </div>
+
+  <h2>どこへ行きますか？</h2>
+  <div class="dests" role="group" aria-label="行き先">
+    <button class="dest" data-dest="tora" aria-pressed="true"><span class="k">虎</span><span class="n">虎ノ門<br>ヒルズ</span></button>
+    <button class="dest" data-dest="yaesu" aria-pressed="false"><span class="k">八</span><span class="n">東京駅<br>八重洲</span></button>
+    <button class="dest" data-dest="yanagi" aria-pressed="false"><span class="k">柳</span><span class="n">柳森神社<br>（神田）</span></button>
+  </div>
+
+  <section class="route" id="route" aria-live="polite"></section>
+
+  <h2>立ち寄りオフィス</h2>
+  <p class="lead" style="margin-bottom:8px">座って一息つける、スマホで仕事ができる場所。行ったら一押しで様子を教えてください。</p>
+  <div id="places"></div>
+
+  <footer>
+    <p>試作版：経路と所要時間は実地の記録にもとづく目安です。正確な時刻は都営交通の経路検索などでお確かめください。確認ボタンと「昔の記憶」はこの端末にだけ保存されます。</p>
+    <p>関連：<a href="https://notes.digiterior.net/html-notes-nakagawa-bansho">誰も改めない番所 ── 中川船番所と清澄庭園で考えたこと</a> ／ <a href="https://notes.digiterior.net/index-top">COLOURFUL JAPAN™ ── 人はカラフルだ</a></p>
+    <p>Digiterior Studio ／ 文・制作：星野晃一郎（Roberto Hoshino）／ 東京・豊洲<br><span class="tag">Love your life, love your time®</span></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // ---- data: only what was observed on the ground ----
+  var S = { // stops
+    toyosu:{k:"豊",n:"豊洲",r:"Toyosu"},
+    toyosu2:{k:"豊",n:"豊洲二丁目",r:"Toyosu 2-chome"},
+    tora:{k:"虎",n:"虎ノ門ヒルズ",r:"Toranomon Hills"},
+    tori3:{k:"通",n:"通り三丁目",r:"Tori 3-chome"},
+    yaesu:{k:"八",n:"東京駅 八重洲",r:"Tokyo Sta. Yaesu"},
+    kiku:{k:"菊",n:"菊川駅",r:"Kikukawa"},
+    mori:{k:"森",n:"森下駅",r:"Morishita"},
+    iwa:{k:"岩",n:"岩本町",r:"Iwamotocho"},
+    mon:{k:"門",n:"門前仲町",r:"Monzen-nakacho"},
+    kiyo:{k:"清",n:"清澄白河",r:"Kiyosumi-shirakawa"},
+    yanagi:{k:"柳",n:"柳森神社",r:"Yanagimori Shrine"}
+  };
+  var R = {
+    tora_brt:{title:"東京BRTで一本",time:"乗り換えなし",
+      path:[ "toyosu", {m:"bus",l:"東京BRT",e:"座ったまま都心へ。前の席は景色が良い"}, "tora" ],
+      tips:[
+        {t:"前方の席は眺めが良いが座面が高い。乗り降りに注意",c:["hare","kitaeru"]},
+        {t:"腰が重い日は、段差の少ない席を選んで",c:["shindoi"]},
+        {t:"帰りの豊洲行きは虎ノ門ヒルズが始発。必ず座れる（夕方は約20分おき）",c:["hare","ame","shindoi","kitaeru"],hl:true},
+        {t:"降りてからは歩道橋を渡ると早い",c:["kitaeru","hare"]},
+        {t:"階段を避けるなら横断歩道。平らで楽",c:["shindoi"]},
+        {t:"雨の日の記録はまだありません。歩いたら教えてください",c:["ame"],unk:true},
+        {t:"西新橋のスペイン料理店は入口の段差にスロープあり",c:["hare","ame","shindoi","kitaeru"]}
+      ]},
+    yaesu_bus:{title:"都営バス 東16（東15も）",time:"約23分＋徒歩5分",
+      path:[ "toyosu2", {m:"bus",l:"都営バス 東16",e:"昼前は約10分おき"}, "tori3", {m:"walk",l:"徒歩5分"}, "yaesu" ],
+      tips:[
+        {t:"都営バスは後ろの席ほど一段高い。しんどい日は前寄りの席へ",c:["shindoi"],hl:true},
+        {t:"景色を見ながら仕事したい日は、段差を上がった後方の席",c:["hare","kitaeru"]},
+        {t:"車椅子の方が乗る時は、運転手さんが座席を畳んで固定します。少し遅れることも",c:["hare","ame","shindoi","kitaeru"]},
+        {t:"雨の日の記録はまだありません",c:["ame"],unk:true}
+      ]},
+    yanagi_wd:{title:"業10で菊川へ、新宿線で岩本町",time:"片道50分〜1時間の見込み",
+      path:[ "toyosu", {m:"bus",l:"都営バス 業10",e:"スカイツリー方面"}, "kiku", {m:"subway",l:"都営新宿線",e:"4駅"}, "iwa", {m:"walk",l:"徒歩数分",e:"柳原通りを川沿いへ"}, "yanagi" ],
+      tips:[
+        {t:"地下鉄は新宿線の1回だけ。大江戸線より浅い",c:["hare","ame","kitaeru"],hl:true},
+        {t:"所要時間は概算。正確な時刻は都営交通の経路検索で",c:["hare","ame","kitaeru"]},
+        {t:"雨の日に地上を歩く距離がどれくらいかは未確認",c:["ame"],unk:true}
+      ]},
+    yanagi_we:{title:"急行06で森下へ、新宿線で岩本町",time:"土休日だけの近道",
+      path:[ "toyosu", {m:"bus",l:"都営バス 急行06",e:"土休日のみ運転"}, "mori", {m:"subway",l:"都営新宿線",e:"3駅"}, "iwa", {m:"walk",l:"徒歩数分"}, "yanagi" ],
+      tips:[
+        {t:"平日は走っていません",c:["hare","ame","shindoi","kitaeru"],hl:true},
+        {t:"雨の日の記録はまだありません",c:["ame"],unk:true}
+      ]},
+    yanagi_flat:{title:"バスだけで地上を行く",time:"約1時間〜1時間15分",
+      path:[ "toyosu", {m:"bus",l:"都営バス",e:"海01・門19など"}, "mon", {m:"bus",l:"乗り継ぎ（一停留所歩いても）"}, "kiyo", {m:"bus",l:"都営バス 秋26",e:"岩本町・須田町へ"}, "iwa", {m:"walk",l:"徒歩数分"}, "yanagi" ],
+      tips:[
+        {t:"階段なし。乗り換えは多いが、ずっと地上",c:["shindoi"],hl:true},
+        {t:"須田町は柳森神社の住所（神田須田町）の停留所",c:["shindoi","hare"]},
+        {t:"乗り継ぎの待ち時間は未確認",c:["shindoi"],unk:true}
+      ]}
+  };
+  function pickRoute(dest,cond,day){
+    if(dest==="tora") return {id:"tora_brt",why:{hare:"乗り換えなしで景色を楽しめます",ame:"乗り換えがなく、濡れるのは乗り場まで",shindoi:"座ったまま都心へ。帰りも始発で座れます",kitaeru:"降りたら歩道橋で一歩多く"}[cond]};
+    if(dest==="yaesu") return {id:"yaesu_bus",why:{hare:"一本で八重洲へ。車で行くのと5分しか違いません",ame:"一本で行けて、歩くのは5分",shindoi:"前寄りの席なら段差なし",kitaeru:"通り三丁目から一つ先まで歩いても"}[cond]};
+    if(cond==="shindoi") return {id:"yanagi_flat",why:"階段を避けたい日は、バスだけで"};
+    if(day==="weekend") return {id:"yanagi_we",why:"土休日は急行06で森下へ直行できます"};
+    return {id:"yanagi_wd",why: cond==="kitaeru" ? "岩本町から一つ手前の馬喰横山で降りて歩くのも手" : (cond==="ame" ? "地下鉄区間を使うルート" : "平日はこれがすっきり")};
+  }
+
+  var P = [
+    {id:"lib",k:"豊",n:"豊洲の図書館",f:["約50席。シニア、学生、海外の方も","最大5時間、午前・午後・夜の3枠","コンセントあり","区のフリーWi-Fiは1時間ごとに再接続"]},
+    {id:"lounge",k:"八",n:"八重洲のビル 4階ラウンジ",f:["窓際に電源つきの席","昼休みは埋まり、昼休み明けに空く","窓際は通信が安定。テザリングで7Mbps前後"]},
+    {id:"third",k:"八",n:"同じビルの3階",f:["座席は約100。電源つきテーブルも","通信は弱め。フリーWi-Fiの登録が不安定","読み物や文章を書く作業向き"]}
+  ];
+
+  // ---- state ----
+  var st = {cond:"hare", day:(function(){var d=new Date().getDay();return (d===0||d===6)?"weekend":"weekday";})(), dest:"tora"};
+  function load(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def;}catch(e){return def;}}
+  function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+  var checks = load("spm-checks",{}), mem = load("spm-memory",{});
+
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+  function renderRoute(){
+    var pick = pickRoute(st.dest,st.cond,st.day), r = R[pick.id], h = "";
+    h += '<div class="route-head"><span class="route-title">'+esc(r.title)+'</span><span class="route-time">'+esc(r.time)+'</span></div>';
+    h += '<p class="why">'+esc(pick.why||"")+'</p><ol class="line">';
+    r.path.forEach(function(p){
+      if(typeof p==="string"){ var s=S[p];
+        h += '<li class="stop"><span class="kanji" aria-hidden="true">'+s.k+'</span><span class="label"><b>'+esc(s.n)+'</b><small>'+esc(s.r)+'</small></span></li>';
+      } else {
+        var cls = p.m==="walk"?"walk":(p.m==="subway"?"subway":"bus");
+        var mode = {bus:"バス",subway:"地下鉄",walk:"歩く"}[cls];
+        h += '<li class="leg '+cls+'"><span class="rail"><span></span></span><span class="how"><span class="mode">'+mode+'</span>'+esc(p.l)+(p.e?'<em>'+esc(p.e)+'</em>':'')+'</span></li>';
+      }
+    });
+    h += '</ol><span class="free">シルバーパスなら運賃 0円</span><ul class="tips">';
+    r.tips.filter(function(t){return t.c.indexOf(st.cond)>=0;}).forEach(function(t){
+      h += '<li class="'+(t.hl?"hl ":"")+(t.unk?"unk":"")+'">'+esc(t.t)+'</li>';
+    });
+    h += '</ul><div class="memory"><label for="mem">この道の昔を一言（例：ここは昔こうだった）</label><textarea id="mem" placeholder="覚えていることを自由に">'+esc(mem[st.dest]||"")+'</textarea></div>';
+    document.getElementById("route").innerHTML = h;
+    document.getElementById("mem").addEventListener("input",function(e){mem[st.dest]=e.target.value;save("spm-memory",mem);});
+  }
+
+  function fmt(ts){var d=new Date(ts);return (d.getMonth()+1)+"月"+d.getDate()+"日";}
+  function renderPlaces(msgFor){
+    var h="";
+    P.forEach(function(p){
+      var c = checks[p.id]||{yes:0,no:0,last:null};
+      h += '<div class="place"><div class="place-head"><span class="k" aria-hidden="true">'+p.k+'</span><b>'+esc(p.n)+'</b></div><ul class="facts">';
+      p.f.forEach(function(x){h+='<li>'+esc(x)+'</li>';});
+      h += '</ul><div class="confirm"><p>今日、座れましたか？</p><div class="btns">'+
+           '<button data-place="'+p.id+'" data-ans="yes">座れた</button>'+
+           '<button class="no" data-place="'+p.id+'" data-ans="no">座れなかった</button></div>'+
+           '<div class="state">'+(c.last?('最終確認 '+fmt(c.last)+'　座れた '+c.yes+'回・座れなかった '+c.no+'回'):'まだ確認がありません。最初の一押しをどうぞ')+'</div>';
+      if(msgFor===p.id) h += '<div class="thanks" role="status">ありがとうございます。あなたの確認が、次に来る人の目安になります。</div>';
+      h += '</div></div>';
+    });
+    document.getElementById("places").innerHTML = h;
+  }
+
+  function setPressed(sel,attr,val){document.querySelectorAll(sel).forEach(function(b){b.setAttribute("aria-pressed",b.dataset[attr]===val?"true":"false");});}
+
+  document.querySelectorAll(".cond").forEach(function(b){b.addEventListener("click",function(){st.cond=b.dataset.cond;setPressed(".cond","cond",st.cond);renderRoute();});});
+  document.querySelectorAll(".day button").forEach(function(b){b.addEventListener("click",function(){st.day=b.dataset.day;setPressed(".day button","day",st.day);renderRoute();});});
+  document.querySelectorAll(".dest").forEach(function(b){b.addEventListener("click",function(){st.dest=b.dataset.dest;setPressed(".dest","dest",st.dest);renderRoute();});});
+  document.getElementById("places").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-place]"); if(!b) return;
+    var id=b.dataset.place, c=checks[id]||{yes:0,no:0,last:null};
+    c[b.dataset.ans]++; c.last=Date.now(); checks[id]=c; save("spm-checks",checks); renderPlaces(id);
+  });
+
+  setPressed(".day button","day",st.day);
+  renderRoute(); renderPlaces(null);
+})();
+</script>
+</body>
+</html>
